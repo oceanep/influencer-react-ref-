@@ -1,0 +1,42 @@
+.profile-header {
+  z-index: 1;
+  position: relative;
+  color: #fff;
+}
+
+.profile-header .skew:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: #00bcd4;
+  z-index: -1;
+  -webkit-transform: skewX(-30deg);
+  -moz-transform: skewX(-30deg);
+  -ms-transform: skewX(-30deg);
+  -o-transform: skewX(-30deg);
+  transform: skewX(-30deg);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: initial;
+  background: rgb(67,70,110);
+  overflow: hidden;
+  
+}
+
+.profile-header .skew .header-inner {
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.profile-app-image{
+    overflow: hidden;
+    color: rgb(3,21,39);
+}
+
+.profile-app-title {
+    background: rgb(38,40,70);
+    color: #fff;
+}

@@ -2,13 +2,12 @@
 /* src/content.js */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Frame, { FrameContextConsumer }from 'react-frame-component';
 import "./content.css";
 import "antd/dist/antd.css";
 import ProfileHeader from "./components/profile_header.js";
 import EngagementComponent from "./components/engagement.js";
-import { Layout, Row, Col } from 'antd';
-const { Header, Content, Footer, Sider } = Layout;
+import { Layout } from 'antd';
+const { Header, Content, Footer} = Layout;
 
 
 class Main extends React.Component {    

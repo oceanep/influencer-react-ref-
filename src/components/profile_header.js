@@ -3,7 +3,7 @@
 import React from 'react';
 import "./profile_header.css";
 import "antd/dist/antd.css";
-import { Layout, Row, Col,Avatar } from 'antd';
+import {Row, Col} from 'antd';
 
 class ProfileHeader extends React.Component {
 

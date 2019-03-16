@@ -28,11 +28,12 @@ class Main extends React.Component {
     }
 }
 
+/*
+//COMMENTING OUT CHROME SPECIFIC SECTION
 const app = document.createElement('div');
 app.id = "influencer-root";
 
 var target_location = document.querySelectorAll('#react-root section main')[0];
-
 target_location.classList.add('with-sidebar');
 target_location.appendChild(app);
 ReactDOM.render(<Main />, app);
@@ -58,5 +59,5 @@ function toggle(){
        target_location.classList.remove('with-sidebar');
    }
 }
-
+*/
 export default Main;

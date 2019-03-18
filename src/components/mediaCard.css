@@ -1,0 +1,31 @@
+.mediaCardBody {
+  background-color: rgba(77, 79, 120, 1);
+  color: rgba(255, 255, 255, 1);
+  border-radius: 10px;
+}
+
+.cardTitle {
+  color: 'rgba(93, 214, 210, 0.85)';
+  font-size: '.6em';
+  vertical-align: 'text-top';
+}
+
+.mainBodyCard {
+  max-width: 500px;
+  min-height: 50vh;
+  color: rgb(255, 255, 255);
+  background-color: #2D2F4A;
+}
+
+.mediaCardBody h5 {
+  color: rgba(180, 180, 180, 1);
+}
+
+.mainBodyCard .ant-card-body {
+  padding-top: 0px;
+}
+
+.menuItem{
+  color: rgb(255,255,255);
+  background-color: rgba(77, 79, 120, .7);
+}

@@ -2,3 +2,14 @@
 engagement-main {
     background: rgb(45,47,74);
 }
+
+.mainBodyCard1 {
+  max-width: 500px;
+  min-height: 20vh;
+  color: rgb(255, 255, 255);
+  background-color: #2D2F4A;
+}
+
+.mainBodyCard1 h5 {
+  color: rgba(180, 180, 180, 1);
+}

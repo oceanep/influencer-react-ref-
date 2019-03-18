@@ -2,6 +2,7 @@
   z-index: 1;
   position: relative;
   color: #fff;
+  text-align: center;
 }
 
 .profile-header .skew:before {
@@ -22,7 +23,7 @@
   backface-visibility: initial;
   background: rgb(67,70,110);
   overflow: hidden;
-  
+
 }
 
 .profile-header .skew .header-inner {
@@ -39,4 +40,5 @@
 .profile-app-title {
     background: rgb(38,40,70);
     color: #fff;
+    text-align: center;
 }

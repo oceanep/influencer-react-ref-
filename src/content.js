@@ -10,19 +10,22 @@ import { Layout } from 'antd';
 const { Header, Content, Footer} = Layout;
 
 
-class Main extends React.Component {    
+class Main extends React.Component {
     render() {
-        return (	    
-            <div className={'influencer-main'}>	    
-	    <Layout>
-	    <Header>
-	      <ProfileHeader />
-	    </Header>
-	    <Content>
-	      <EngagementComponent />
-	    </Content>
-	    </Layout>
-	    <Footer>Scroll Down Component</Footer>
+        return (
+            <div
+              className={'influencer-main'}
+              style={{ float: 'right'}}
+              >
+        	    <Layout>
+        	    <Header style={{ backgroundColor: 'rgb(38,40,70)'}}>
+        	      <ProfileHeader />
+        	    </Header>
+        	    <Content>
+        	      <EngagementComponent />
+        	    </Content>
+        	    </Layout>
+        	    <Footer>Scroll Down Component</Footer>
             </div>
         )
     }

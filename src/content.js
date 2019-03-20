@@ -9,8 +9,27 @@ import EngagementComponent from "./components/engagement.js";
 import { Layout } from 'antd';
 const { Header, Content, Footer} = Layout;
 
+var profileRegex =  /^\/([\w.\-_]+)\/$/
 
 class Main extends React.Component {
+
+    
+    
+    componentDidMount(){
+	
+	if (profileRegex.test(document.location.pathname)) {
+	    //set props has profile to true
+	    //begin to get data from dom
+            
+	}
+	else{
+	    //set props has profile to null
+            return;
+	}
+
+    }
+
+    
     render() {
         return (
             <div

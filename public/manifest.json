@@ -14,7 +14,8 @@
 	{
 	    "matches": ["*://*.instagram.com/*"],
 	    "css": ["/static/css/app.css"],
-	    "js": ["/static/js/content.js"]
+	    "js": ["/static/js/content.js",
+		   "/static/js/script.js"]
 	}
     ],
     "web_accessible_resources":[

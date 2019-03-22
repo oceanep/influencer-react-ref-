@@ -20,7 +20,7 @@ class Main extends React.Component {
 	if (profileRegex.test(document.location.pathname)) {
 	    //set props has profile to true
 	    //begin to get data from dom
-            
+            return;
 	}
 	else{
 	    //set props has profile to null

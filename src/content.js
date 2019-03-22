@@ -50,7 +50,7 @@ class Main extends React.Component {
     }
 }
 
-/*
+
 //COMMENTING OUT CHROME SPECIFIC SECTION
 const app = document.createElement('div');
 app.id = "influencer-root";
@@ -81,5 +81,5 @@ function toggle(){
        target_location.classList.remove('with-sidebar');
    }
 }
-*/
+
 export default Main;

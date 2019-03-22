@@ -1,3 +1,5 @@
+/*global chrome*/
+/* script.js */
 setTimeout(function() {
     var entryData = window._sharedData.entry_data;
     if (entryData.ProfilePage) {

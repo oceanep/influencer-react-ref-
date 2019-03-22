@@ -14,12 +14,11 @@
 	{
 	    "matches": ["*://*.instagram.com/*"],
 	    "css": ["/static/css/app.css"],
-	    "js": ["/static/js/content.js",
-		   "/static/js/script.js"]
+	    "js": ["/static/js/content.js", "inject.js"]
 	}
     ],
     "web_accessible_resources":[
-	"/static/css/content.css"
+	"/static/css/content.css", "script.js"
     ],
     "icons": {
 	"16": "images/logo16.png",

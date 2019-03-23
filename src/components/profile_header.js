@@ -4,12 +4,12 @@ import React from 'react';
 import "./profile_header.css";
 import "antd/dist/antd.css";
 import {Row, Col, Avatar} from 'antd';
+import { observer, inject } from "mobx-react";
 
-class ProfileHeader extends React.Component {
-    
-    render(){
-    	return (
-    	    <Row >
+
+
+const ProfileHeader = observer(props => (
+    	<Row >
         		<Col className="profile-app-image" span={4}>
           		<div >
           		    <Avatar shape="square" size="large" icon="user" />
@@ -18,18 +18,16 @@ class ProfileHeader extends React.Component {
 
             <Col className="profile-header" span={16}>
               <span class="skew">
-        	<div>username</div>
+        <div>{props.profile.username}</div>
         	    </span>
         	  </Col>
 
             <Col className="profile-app-title" span={4}>
         	     <div >INFLUENCER</div>
             </Col>
-    	    </Row>
-    	)
-    }
+    	</Row>
+));
 
 
-}
 
 export default ProfileHeader;

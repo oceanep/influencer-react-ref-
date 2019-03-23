@@ -87,7 +87,7 @@ class Main extends React.Component {
               >
         	    <Layout>
         	    <Header style={{ backgroundColor: 'rgb(38,40,70)'}}>
-        	      <ProfileHeader profile_name={this.props.profile_name} />
+        	      <ProfileHeader profile={ profile } />
         	    </Header>
         	    <Content>
         	<EngagementComponent profile_name={this.props.profile_name} />

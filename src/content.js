@@ -7,30 +7,79 @@ import "antd/dist/antd.css";
 import ProfileHeader from "./components/profile_header.js";
 import EngagementComponent from "./components/engagement.js";
 import { Layout } from 'antd';
+//import { observer, inject } from "mobx-react";
 const { Header, Content, Footer} = Layout;
+
+
 
 var profileRegex =  /^\/([\w.\-_]+)\/$/
 
 class Main extends React.Component {
+    subscribeToEvents() {
+        document.addEventListener('navigate_profile', e => this.onProfileLoaded());
+        document.addEventListener('profile_page_loaded', e => this.onProfileLoaded());
+        document.addEventListener('timeline_data', e => {
+            const url = `https://${ window.location.hostname }` + e.detail.requestData.url;
+            const request = this.requestsData.addRequest(url).toJSON();
 
-    
-    
+            if (!this.requestsData.headers) {
+                this.requestsData.headers = e.detail.requestData.headers
+            }
+
+            this.vent.trigger(`timeline_data:${ request.user_id }`, e.detail);
+        });
+    }
+
+    onProfileLoaded() {
+        var username = this.profileRegex.exec(document.location.pathname);
+        username = username ? username[1] : null;
+        if (username) {	    
+	    //use profile action setter
+            return this.profiles.loadProfile(username)
+                .then(data => this.addProfile(data))
+                .then(() => this.showProfile(username));
+        }
+    }
+
+    waitForEntryData() {
+        return new Promise(function(resolve, reject){
+            document.addEventListener('entry_data', e => resolve(e.detail));
+        });
+    }
+
     componentDidMount(){
 	
 	if (profileRegex.test(document.location.pathname)) {
-	    //set props has profile to true
-	    //begin to get data from dom
-            return;
+	    this.subscribeToEvents();
+	    this.waitForEntryData()
+		.then(data => this.addProfile(data))
+		.catch(data => data)
+		.then(profile => this.showProfile(profile.id));
 	}
 	else{
-	    //set props has profile to null
             return;
 	}
+    }
 
+
+    addProfile(data) {
+	/*
+       if (!isEmpty(data) && !_.get(data, 'graphql.user.is_private')) {
+	   console.log("got profile", data);
+            //return this.profiles.addProfile(data);
+        } else {
+            return Promise.resolve({})
+            }*/
+	return;
+    }
+
+    showProfile(username) {
+	return;
     }
 
     
     render() {
+	const {profile} = this.props;
         return (
             <div
               className={'influencer-main'}
@@ -38,12 +87,12 @@ class Main extends React.Component {
               >
         	    <Layout>
         	    <Header style={{ backgroundColor: 'rgb(38,40,70)'}}>
-        	      <ProfileHeader />
+        	      <ProfileHeader profile_name={this.props.profile_name} />
         	    </Header>
         	    <Content>
-        	      <EngagementComponent />
-        	    </Content>
-        	    </Layout>
+        	<EngagementComponent profile_name={this.props.profile_name} />
+        	</Content>
+        	</Layout>
         	    <Footer>Scroll Down Component</Footer>
             </div>
         )
@@ -51,6 +100,7 @@ class Main extends React.Component {
 }
 
 
+/*
 //COMMENTING OUT CHROME SPECIFIC SECTION
 const app = document.createElement('div');
 app.id = "influencer-root";
@@ -81,5 +131,5 @@ function toggle(){
        target_location.classList.remove('with-sidebar');
    }
 }
-
+*/
 export default Main;

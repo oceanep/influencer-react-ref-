@@ -6,7 +6,7 @@ import "antd/dist/antd.css";
 import {Row, Col, Avatar} from 'antd';
 
 class ProfileHeader extends React.Component {
-
+    
     render(){
     	return (
     	    <Row >
@@ -18,7 +18,7 @@ class ProfileHeader extends React.Component {
 
             <Col className="profile-header" span={16}>
               <span class="skew">
-        	     <div >NAME AREA</div>
+        	<div>username</div>
         	    </span>
         	  </Col>
 

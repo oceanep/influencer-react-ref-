@@ -8,7 +8,13 @@ import { observer, inject } from "mobx-react";
 
 
 
-const ProfileHeader = observer(props => (
+class ProfileHeader extends React.Component{
+    constructor(props) {
+	super(props);
+    }
+
+    render(){
+	return(
     	<Row >
         		<Col className="profile-app-image" span={4}>
           		<div >
@@ -18,7 +24,7 @@ const ProfileHeader = observer(props => (
 
             <Col className="profile-header" span={16}>
               <span class="skew">
-        <div>{props.profile.username}</div>
+		<div>{this.props.profile.username}</div>
         	    </span>
         	  </Col>
 
@@ -26,8 +32,8 @@ const ProfileHeader = observer(props => (
         	     <div >INFLUENCER</div>
             </Col>
     	</Row>
-));
-
-
+	)
+    }
+}
 
 export default ProfileHeader;

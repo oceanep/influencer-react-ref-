@@ -68,7 +68,6 @@ function getRequestType(url) {
     let parsedUrl = new URL(url),
         searchParams = parsedUrl.searchParams,
         type = null;
-
     if (!/^\/p\//.test(parsedUrl.pathname) && searchParams.get('__a')) {
         type = 'profile_data';
     } else if (parsedUrl.pathname === '/qp/batch_fetch_web/') {

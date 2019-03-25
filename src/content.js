@@ -1,6 +1,6 @@
 /*global chrome*/
 /* src/content.js */
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import "./content.css";
 import "antd/dist/antd.css";
@@ -8,14 +8,23 @@ import ProfileHeader from "./components/profile_header.js";
 import EngagementComponent from "./components/engagement.js";
 import { Layout } from 'antd';
 //import { observer, inject } from "mobx-react";
+import Profile from './models/profile.js';
 const { Header, Content, Footer} = Layout;
 
-
-
+var helpers = require('./utils/helpers.js');
 var profileRegex =  /^\/([\w.\-_]+)\/$/
-
 class Main extends React.Component {
-    subscribeToEvents() {
+       
+    constructor(props) {
+	super(props);
+	this.state = {
+	    profile: {
+		username: "samson"
+	    }
+	}
+    }
+
+    subscribeToEvents() {	
         document.addEventListener('navigate_profile', e => this.onProfileLoaded());
         document.addEventListener('profile_page_loaded', e => this.onProfileLoaded());
         document.addEventListener('timeline_data', e => {
@@ -31,10 +40,13 @@ class Main extends React.Component {
     }
 
     onProfileLoaded() {
-        var username = this.profileRegex.exec(document.location.pathname);
+        var username = profileRegex.exec(document.location.pathname);
         username = username ? username[1] : null;
-        if (username) {	    
-	    //use profile action setter
+        if (username) {
+	    this.setState({
+		profile : {
+		    username: username
+		}})	    
             return this.profiles.loadProfile(username)
                 .then(data => this.addProfile(data))
                 .then(() => this.showProfile(username));
@@ -47,20 +59,24 @@ class Main extends React.Component {
         });
     }
 
-    componentDidMount(){
-	
-	if (profileRegex.test(document.location.pathname)) {
-	    this.subscribeToEvents();
-	    this.waitForEntryData()
-		.then(data => this.addProfile(data))
-		.catch(data => data)
-		.then(profile => this.showProfile(profile.id));
-	}
-	else{
-            return;
-	}
+    addRequest(url) {
+        const params = JSON.parse(helpers.extractQueryParam(url, 'variables'));
+        return this.add({
+            user_id: params.id,
+            url: url,
+            nextPageToken: params.after
+        }, {merge: true});
     }
-
+    
+    componentDidMount(){
+	//var username = profileRegex.exec(document.location.pathname);
+        //username = username ? username[1] : null;	
+	this.subscribeToEvents();
+	this.waitForEntryData()
+	    .then(data => this.addProfile(data))
+	    .catch(data => data)
+	    .then(profile => this.showProfile(profile));
+    }
 
     addProfile(data) {
 	/*
@@ -77,7 +93,6 @@ class Main extends React.Component {
 	return;
     }
 
-    
     render() {
 	const {profile} = this.props;
         return (
@@ -87,7 +102,7 @@ class Main extends React.Component {
               >
         	    <Layout>
         	    <Header style={{ backgroundColor: 'rgb(38,40,70)'}}>
-        	      <ProfileHeader profile={ profile } />
+        	<ProfileHeader profile={this.state.profile} />
         	    </Header>
         	    <Content>
         	<EngagementComponent profile_name={this.props.profile_name} />
@@ -100,8 +115,9 @@ class Main extends React.Component {
 }
 
 
-/*
+
 //COMMENTING OUT CHROME SPECIFIC SECTION
+
 const app = document.createElement('div');
 app.id = "influencer-root";
 
@@ -131,5 +147,5 @@ function toggle(){
        target_location.classList.remove('with-sidebar');
    }
 }
-*/
+
 export default Main;

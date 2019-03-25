@@ -1,10 +1,3 @@
-String.prototype.toCamelCase = function () {
-    let words = this.replace(/[\-_\s]+/g, ' ').replace(/\s+/g, ' ').split(' ');
-    return words.map((word, index) => {
-        return index === 0 ? word.toLowerCase() : ucfirst(word.toLowerCase());
-    }).join('');
-};
-
 function getProp(name){
     return function(object){
         return object[name];
@@ -17,15 +10,6 @@ function isString(param) {
 
 function isFunction(param) {
     return param instanceof Function;
-}
-
-function injectScripts(path) {
-    var s = document.createElement('script');
-    s.src = chrome.extension.getURL(path);
-    (document.head || document.documentElement).appendChild(s);
-    s.onload = function() {
-        s.remove();
-    };
 }
 
 function isEmpty (obj) {
@@ -54,9 +38,11 @@ function isEmpty (obj) {
     return true;
 }
 
+/*
 function average(array, property) {
     return _.sum(array.map(item => item[property])) / (array.length || 1);
 }
+*/
 
 function promiseWaterfall(array, callback){
     return array.reduce((tasks, item) => {

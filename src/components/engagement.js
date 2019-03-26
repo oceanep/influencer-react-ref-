@@ -4,15 +4,57 @@ import React from 'react';
 import "./engagement.css";
 import "antd/dist/antd.css";
 import MediaCard from "./mediaCard.js";
-import { Card, Row, Col, Layout, Menu } from 'antd';
+import MentionsCard from "./mentionsCard.js";
+import SideMenu from "./sideMenu.js";
+import { Card, Row, Col, Layout, Menu, Icon } from 'antd';
+
 const { Header, Footer, Sider, Content } = Layout;
+
+const menuComponents = [
+  {
+    name:'Media',
+    icon:'youtube',
+    component: <MediaCard></MediaCard>
+  },
+  {
+    name:'Mentions',
+    icon:'',
+    component: <MentionsCard></MentionsCard>
+  },
+  {
+    name:'Hashtags',
+    icon:'',
+    component:''
+  },
+  {
+    name:'Image Content',
+    icon:'',
+    component:''
+  },
+  {
+    name:'Tagged Locations',
+    icon:'',
+    component:''
+  },
+  {
+    name:'Brand Partners',
+    icon:'',
+    component:''
+  },
+  {
+    name:'Tagged Accounts',
+    icon:'',
+    component:''
+  }
+];
 
 class EngagementComponent extends React.Component {
 
   constructor(props){
     super(props);
     this.state = {
-      current: 'overall'
+      current: 'overall',
+      menuComponent: menuComponents[0]
     }
   }
 
@@ -22,11 +64,17 @@ class EngagementComponent extends React.Component {
     });
   }
 
+  sideMenuClick = (e) => {
+    console.log(`${e.key} outside menu`);
+    this.setState({ menuComponent: menuComponents[e.key] });
+  }
+
   render(){
   	return (
   	    <div class="engagement-main">
 
   	    <Card className="mainBodyCard1">
+
     	    <Menu
             onClick={this.menuClick}
             selectedKeys={[this.state.current]}
@@ -47,6 +95,7 @@ class EngagementComponent extends React.Component {
               90 DAYS
             </Menu.Item>
           </Menu>
+
           <Row>
             <span style={{fontSize:'2em'}}>3.01%</span>
             <h5>ENGAGEMENT RATE</h5>
@@ -67,7 +116,16 @@ class EngagementComponent extends React.Component {
           </Row>
   	    </Card>
 
-  	    <MediaCard></MediaCard>
+        <section>
+          <Card className="mainBodyCard">
+            <SideMenu
+              onClick={this.sideMenuClick}
+              icon={this.state.menuComponent.icon}
+              name={this.state.menuComponent.name}
+            ></SideMenu>
+            {this.state.menuComponent.component}
+          </Card>
+        </section>
   	    </div>
   	)
   }

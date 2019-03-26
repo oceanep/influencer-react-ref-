@@ -19,7 +19,7 @@ var enrichEnabled = true;
 var vent = _.extend({}, Backbone.Events);
 
 class Main extends React.Component {
-       
+
     constructor(props) {
 	super(props);
 	this.state = {
@@ -29,7 +29,7 @@ class Main extends React.Component {
 	}
     }
 
-    subscribeToEvents() {	
+    subscribeToEvents() {
         document.addEventListener('navigate_profile', e => this.onProfileLoaded());
         document.addEventListener('profile_page_loaded', e => this.onProfileLoaded());
         document.addEventListener('timeline_data', e => {
@@ -48,6 +48,13 @@ class Main extends React.Component {
         var username = /^\/([\w.\-_]+)\/$/.exec(document.location.pathname);
         username = username ? username[1] : null;
         if (username) {
+<<<<<<< 7766aa054edbc1a5ac7ebfad148689b72575545d
+=======
+	    this.setState({
+		profile : {
+		    username: username
+		}})
+>>>>>>> broke out components, added mentions
             return this.profiles.loadProfile(username)
                 .then(data => this.addProfile(data))
                 .then(() => this.showProfile(username));
@@ -68,9 +75,14 @@ class Main extends React.Component {
             nextPageToken: params.after
         }, {merge: true});
     }
-    
+
     componentDidMount(){
+<<<<<<< 7766aa054edbc1a5ac7ebfad148689b72575545d
 	this.profiles = new ProfilesCollection();
+=======
+	//var username = profileRegex.exec(document.location.pathname);
+        //username = username ? username[1] : null;
+>>>>>>> broke out components, added mentions
 	this.subscribeToEvents();
 	this.waitForEntryData()
 	    .then(data => this.addProfile(data))
@@ -321,6 +333,7 @@ var ProfileModel = Backbone.Model.extend({
             url = initialUrl;
         }
 
+<<<<<<< 7766aa054edbc1a5ac7ebfad148689b72575545d
         return fetch(url, {headers: requestsData.headers})
             .then(res => res.json())
             .then(response => {
@@ -543,5 +556,36 @@ function ucfirst(str) {
     var firstLetter = str.substr(0, 1);
     return firstLetter.toUpperCase() + str.substr(1);
 }
+=======
+// const app = document.createElement('div');
+// app.id = "influencer-root";
+//
+// var target_location = document.querySelectorAll('#react-root section main')[0];
+// target_location.classList.add('with-sidebar');
+// target_location.appendChild(app);
+// ReactDOM.render(<Main />, app);
+//
+//
+// //app.style.display = "none";
+//
+// chrome.runtime.onMessage.addListener(
+//    function(request, sender, sendResponse) {
+//        if(request.message === "clicked_browser_action") {
+//         toggle();
+//       }
+//    }
+// );
+//
+//
+// function toggle(){
+//    if(app.style.display === "none"){
+//        app.style.display = "block";
+//        target_location.classList.add('with-sidebar');
+//    }else{
+//        app.style.display = "none";
+//        target_location.classList.remove('with-sidebar');
+//    }
+// }
+>>>>>>> broke out components, added mentions
 
 export default Main;

@@ -11,24 +11,8 @@ const SubMenu = Menu.SubMenu;
 const MediaCard = (props) => {
 
   	return (
-      <section>
-        <Card className="mainBodyCard">
-          <Menu mode="vertical" style={{ color: 'rgb(255,255,255)', background: 'transparent'}}>
-            <SubMenu
-              key="sub1"
-              title={<span><Icon type="youtube" /><span>Media</span></span>}
-            >
-              <Menu.Item key='1' className="menuItem"><span><Icon type="youtube" /><span>Media</span></span></Menu.Item>
-              <Menu.Item key='2' className="menuItem">Mentions</Menu.Item>
-              <Menu.Item key='3' className="menuItem">Hashtags</Menu.Item>
-              <Menu.Item key='4' className="menuItem">Image Content</Menu.Item>
-              <Menu.Item key='5' className="menuItem">Tagged Locations</Menu.Item>
-              <Menu.Item key='6' className="menuItem">Brand Patterns</Menu.Item>
-              <Menu.Item key='7' className="menuItem">Tagged Accounts</Menu.Item>
-            </SubMenu>
-          </Menu>
           <Row type="flex" justify="space-between" gutter={16}>
-            <Col span="12">
+            <Col span={12}>
               <Card className="mediaCardBody" bordered={false}>
                 <Meta
                   avatar={<Icon type="youtube" />}
@@ -57,7 +41,7 @@ const MediaCard = (props) => {
                 </Row>
               </Card>
             </Col>
-            <Col span="12">
+            <Col span={12}>
               <Card className="mediaCardBody" bordered={false}>
                 <Meta
                   avatar={<Icon type="picture" />}
@@ -83,8 +67,6 @@ const MediaCard = (props) => {
               </Card>
             </Col>
           </Row>
-        </Card>
-      </section>
   	);
 
 }

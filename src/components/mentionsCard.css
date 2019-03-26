@@ -1,0 +1,16 @@
+.mention-bar-container {
+  width: 75%;
+  margin-right: 0;
+  display: inline-block;
+}
+
+.mention-bar {
+  background-color: #4ec2ce;
+  display: inline-block;
+  border-radius: 3px;
+  padding-left: .25em;
+}
+
+.mentions-row {
+  margin-bottom: .5em;
+}

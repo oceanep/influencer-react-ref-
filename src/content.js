@@ -11,6 +11,7 @@ import { Layout } from 'antd';
 const { Header, Content, Footer} = Layout;
 
 var helpers = require('./utils/helpers.js');
+//var __ = require('./utils/_.get.js');
 var _ = require('underscore');
 
 var profileRegex =  /^\/([\w.\-_]+)\/$/
@@ -88,7 +89,7 @@ class Main extends React.Component {
 	if (data){
 	    var profile = data['graphql']['user'];
 	    var posts = (profile["edge_owner_to_timeline_media"]["edges"] || []).map(item => item.node)
-            //var initialPosts = (helpers.custom_get(data, 'edge_owner_to_timeline_media.edges') || []).map(item => item.node);	    
+            //var initialPosts = (__._.get(data, 'edge_owner_to_timeline_media.edges') || []).map(item => item.node);	    
 	    console.log("Posts: ", posts);
 	    console.log(profile);
 	    //this.processProfile(profile);	  
@@ -152,10 +153,10 @@ var ProfileModel = Backbone.Model.extend({
             this.parseKeywords();
         });
 
-        data.followersCount = helpers.custom_get(data, 'edge_followed_by.count') || 0;
+        data.followersCount = data['edge_followed_by']['count'] || 0;
         this.set(data);
 
-        const initialPosts = (helpers.custom_get(data, 'edge_owner_to_timeline_media.edges') || []).map(item => item.node);
+        const initialPosts = (data['edge_owner_to_timeline_media']['edges'] || []).map(item => item.node);
 
         this.initialPostsProcessed = new Promise((resolve, reject) => {
             if (initialPosts.length) {
@@ -180,7 +181,7 @@ var ProfileModel = Backbone.Model.extend({
     },
 
     onNewPostsData(data) {
-        const posts = _.isArray(data) ? data : helpers.custom_get(data, 'data.user.edge_owner_to_timeline_media.edges').map(item => item.node);
+        const posts = Array.isArray(data) ? data : data['data']['user']['edge_owner_to_timeline_media']['edges'].map(item => item.node);
         this.enrichPostsData(posts).then(posts => this.processPosts(posts));
     },
 
@@ -200,6 +201,11 @@ var ProfileModel = Backbone.Model.extend({
         return Promise.resolve();
     },
 
+    avg(array, property) {
+	var val = array.map(item => item[property]).reduce(function(a, b) { return a + b; }, 0) / (array.length || 1);
+	return val;
+    },
+    
     calculateAverages() {
         const account = this.toJSON();
         const posts = this.posts.toJSON();
@@ -207,20 +213,20 @@ var ProfileModel = Backbone.Model.extend({
         const imagePosts = posts.filter(post => post.type !== 'video');
         const firstPostDate = posts[posts.length - 1].postDate;
 
-        account.avgLikes = helpers.average(posts, 'likesCount');
-        account.avgComments = helpers.average(posts, 'commentsCount');
+        account.avgLikes = this.avg(posts, 'likesCount');
+        account.avgComments = this.avg(posts, 'commentsCount');
         account.postsPerDay = posts.length / ((Date.now() - firstPostDate) / 1000 / 3600 / 24);
 
-        account.engagementRate = helpers.average(posts, 'engagements') / (account.followersCount || 1);
+        account.engagementRate = this.avg(posts, 'engagements') / (account.followersCount || 1);
 
-        account.avgLikesPerImage = helpers.average(imagePosts, 'likesCount');
-        account.avgCommentsPerImage = helpers.average(imagePosts, 'commentsCount');
-        account.engagementRateImages = helpers.average(imagePosts, 'engagements') / (account.followersCount || 1);
+        account.avgLikesPerImage = this.avg(imagePosts, 'likesCount');
+        account.avgCommentsPerImage = this.avg(imagePosts, 'commentsCount');
+        account.engagementRateImages = this.avg(imagePosts, 'engagements') / (account.followersCount || 1);
 
-        account.avgLikesPerVideo = helpers.average(videoPosts, 'likesCount');
-        account.avgCommentsPerVideo = helpers.average(videoPosts, 'commentsCount');
-        account.avgViewsPerVideo = helpers.average(videoPosts, 'viewsCount');
-        account.engagementRateVideos = helpers.average(videoPosts, 'engagements') / (account.followersCount || 1);
+        account.avgLikesPerVideo = this.avg(videoPosts, 'likesCount');
+        account.avgCommentsPerVideo = this.avg(videoPosts, 'commentsCount');
+        account.avgViewsPerVideo = this.avg(videoPosts, 'viewsCount');
+        account.engagementRateVideos = this.avg(videoPosts, 'engagements') / (account.followersCount || 1);
 
         account.imagesCount = imagePosts.length;
         account.videosCount = videoPosts.length;
@@ -271,7 +277,7 @@ var ProfileModel = Backbone.Model.extend({
             return `https://www.instagram.com/explore/tags/${ keyword.replace(/[#]/g, '') }/`;
         } else if (type === 'Tagged Locations') {
             const locationId = this.posts.toJSON().find(function(post){
-                return helpers.custom_get(post, 'rawData.location.name') === keyword;
+                return post['rawData']['location']['name'] === keyword;
             }).rawData.location.id;
             return `https://www.instagram.com/explore/locations/${ locationId }/`;
         } else {
@@ -320,8 +326,8 @@ var ProfileModel = Backbone.Model.extend({
         return fetch(url, {headers: window.app.requestsData.headers})
             .then(res => res.json())
             .then(response => {
-                const posts = helpers.custom_get(response, 'data.user.edge_owner_to_timeline_media.edges').map(item => item.node);
-                const pageInfo = helpers.custom_get(response, 'data.user.edge_owner_to_timeline_media.page_info');
+                const posts = response['data']['user']['edge_owner_to_timeline_media']['edges'].map(item => item.node);
+                const pageInfo = response['data']['user']['edge_owner_to_timeline_media']['page_info'];
 
                 return {
                     posts,
@@ -371,7 +377,7 @@ var ProfilesCollection = Backbone.Collection.extend({
     addProfile(data){
         let profile;
         if (data.graphql && data.graphql.user) {
-            profile = helpers.custom_get(data, 'graphql.user');
+            profile = data['graphql']['user'];
         } else {
             profile = data;
         }
@@ -415,17 +421,22 @@ var Post = Backbone.Model.extend({
         const post = this.toJSON();
 
         var result = {rawData: Object.assign({}, post)};
-        result.caption = helpers.custom_get(post, 'edge_media_to_caption.edges.0.node.text') || '';
-        result.taggedLocations = helpers.custom_get(post, 'location.name') || null;
-        result.brandPartners = helpers.custom_get(post, 'edge_media_to_sponsor_user.edges.0.node.sponsor.username') || null;
+        result.caption = post['edge_media_to_caption']['edges'][0]['node']['text'] || '';
+        result.taggedLocations = (post['location'] || {})['name'];
+        
+	if (post['edge_media_to_sponsor_user']['edges'][0]){	    	
+	    result.brandPartners = post['edge_media_to_sponsor_user']['edges'][0]['node']['sponsor']['username'];
+	}else{
+	    result.brandPartners = null;
+	};
         result.isPaid = !!result.sponsor;
         result.postDate = post.taken_at_timestamp * 1000;
 
         result.mentions = result.caption.match(/(@[\w\d_]+)/g) || [];
         result.hashtags = result.caption.match(/(#[\w\d_]+)/g) || [];
         result.type = this.typesMap[post.__typename] || 'image';
-        result.likesCount = helpers.custom_get(post, 'edge_media_preview_like.count') || 0;
-        result.commentsCount = helpers.custom_get(post, 'edge_media_to_comment.count') || 0;
+        result.likesCount = post['edge_media_preview_like']['count'] || 0;
+        result.commentsCount = post['edge_media_to_comment']['count'] || 0;
         result.viewsCount = post.video_view_count || 0;
         result.engagements = result.likesCount + result.commentsCount;
 
@@ -443,7 +454,7 @@ var Post = Backbone.Model.extend({
         let contents = [];
 
         if (this.get('type') === 'carousel') {
-            const children = helpers.custom_get(rawData, 'edge_sidecar_to_children.edges') || [];
+            const children = rawData['edge_sidecar_to_children.edges'] || [];
             caption = children.map(item => item.node.accessibility_caption).join(' ');
         } else {
             caption = rawData.accessibility_caption || '';
@@ -464,7 +475,7 @@ var Post = Backbone.Model.extend({
 
     parseTaggedAccounts() {
         let rawData = this.get('rawData');
-        let taggedAccounts = (helpers.custom_get(rawData, 'edge_media_to_tagged_user.edges') || [])
+        let taggedAccounts = rawData['edge_media_to_tagged_user']['edges'] || []
             .map(item => '@' + item.node.user.username);
 
         this.set('taggedAccounts', taggedAccounts || []);
@@ -507,6 +518,18 @@ function toggle(){
        app.style.display = "none";
        target_location.classList.remove('with-sidebar');
    }
+}
+
+String.prototype.toCamelCase = function () {
+    let words = this.replace(/[\-_\s]+/g, ' ').replace(/\s+/g, ' ').split(' ');
+    return words.map((word, index) => {
+        return index === 0 ? word.toLowerCase() : ucfirst(word.toLowerCase());
+    }).join('');
+};
+
+function ucfirst(str) {
+    var firstLetter = str.substr(0, 1);
+    return firstLetter.toUpperCase() + str.substr(1);
 }
 
 export default Main;

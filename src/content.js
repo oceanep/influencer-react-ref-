@@ -11,11 +11,11 @@ import { Layout } from 'antd';
 const { Header, Content, Footer} = Layout;
 
 var helpers = require('./utils/helpers.js');
-//var __ = require('./utils/_.get.js');
 var _ = require('underscore');
 
 var profileRegex =  /^\/([\w.\-_]+)\/$/
 var enrichEnabled = true;
+
 
 class Main extends React.Component {
        
@@ -33,10 +33,10 @@ class Main extends React.Component {
         document.addEventListener('profile_page_loaded', e => this.onProfileLoaded());
         document.addEventListener('timeline_data', e => {
             const url = `https://${ window.location.hostname }` + e.detail.requestData.url;
-            const request = this.requestsData.addRequest(url).toJSON();
+            const request = requestsData.addRequest(url).toJSON();
 
-            if (!this.requestsData.headers) {
-                this.requestsData.headers = e.detail.requestData.headers
+            if (!requestsData.headers) {
+                requestsData.headers = e.detail.requestData.headers
             }
 
             this.vent.trigger(`timeline_data:${ request.user_id }`, e.detail);
@@ -72,7 +72,7 @@ class Main extends React.Component {
 	//var username = profileRegex.exec(document.location.pathname);
         //username = username ? username[1] : null;	
 	this.profiles = new ProfilesCollection();
-	this.requestsData = new RequestsMetadata();
+	//this.requestsData = new RequestsMetadata();
 	this.subscribeToEvents();
 	this.waitForEntryData()
 	    .then(data => this.addProfile(data))
@@ -493,6 +493,8 @@ var RequestsMetadata = Backbone.Collection.extend({
         }, {merge: true});
     }
 });
+
+const requestsData = new RequestsMetadata();
 
 //COMMENTING OUT CHROME SPECIFIC SECTION
 

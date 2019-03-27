@@ -44,13 +44,9 @@ class Main extends React.Component {
     }
 
     onProfileLoaded() {
-        var username = profileRegex.exec(document.location.pathname);
+        var username = /^\/([\w.\-_]+)\/$/.exec(document.location.pathname);
         username = username ? username[1] : null;
         if (username) {
-	    this.setState({
-		profile : {
-		    username: username
-		}})	    
             return this.profiles.loadProfile(username)
                 .then(data => this.addProfile(data))
                 .then(() => this.showProfile(username));
@@ -74,30 +70,27 @@ class Main extends React.Component {
     
     componentDidMount(){
 	//var username = profileRegex.exec(document.location.pathname);
-        //username = username ? username[1] : null;
+        //username = username ? username[1] : null;	
 	this.profiles = new ProfilesCollection();
-	console.log("bb collection", this.profiles);
+	this.requestsData = new RequestsMetadata();
 	this.subscribeToEvents();
 	this.waitForEntryData()
 	    .then(data => this.addProfile(data))
 	    .catch(data => data)
-	    .then(profile => this.showProfile(profile));
+	    .then(profile => {
+		console.log("Pre show: ", profile.id);
+		this.showProfile(profile.id)		
+	    });
     }
 
-
     addProfile(data) {
+	//TODO: Add proper private  profile
+	//if (!helpers.isEmpty(data) && !data['graphql']['user']['is_private'] {
 	if (data){
-	    var profile = data['graphql']['user'];
-	    var posts = (profile["edge_owner_to_timeline_media"]["edges"] || []).map(item => item.node)
-            //var initialPosts = (__._.get(data, 'edge_owner_to_timeline_media.edges') || []).map(item => item.node);	    
-	    console.log("Posts: ", posts);
-	    console.log(profile);
-	    //this.processProfile(profile);	  
             return this.profiles.addProfile(data);
         } else {
             return Promise.resolve({})
         }
-	return;
     }
 
     processProfile(profile){
@@ -110,8 +103,8 @@ class Main extends React.Component {
 
     
     showProfile(username) {
-	const profile = this.profiles.get(username);
-	console.log("profile from memory", profile);
+	var prof = this.profiles.get(username);
+	console.log("profile from memory", username);
 	return;
     }
 
@@ -203,6 +196,7 @@ var ProfileModel = Backbone.Model.extend({
 
     avg(array, property) {
 	var val = array.map(item => item[property]).reduce(function(a, b) { return a + b; }, 0) / (array.length || 1);
+	//console.log("AVG: ", val);
 	return val;
     },
     
@@ -359,7 +353,7 @@ var ProfileModel = Backbone.Model.extend({
 
 var ProfilesCollection = Backbone.Collection.extend({
     model: ProfileModel,
-
+    
     loadProfile(username) {
         if (this.get(username)) {
             return Promise.resolve(this.get(username))
@@ -381,7 +375,6 @@ var ProfilesCollection = Backbone.Collection.extend({
         } else {
             profile = data;
         }
-	
         profile.rawData = Object.assign({}, profile);
         profile.user_id = profile.id;
         delete profile.id;
@@ -486,7 +479,20 @@ var Posts = Backbone.Collection.extend({
     model: Post
 });
 
+var RequestsMetadata = Backbone.Collection.extend({
+    modelId: function(attrs) {
+        return attrs.user_id;
+    },
 
+    addRequest(url) {
+        const params = JSON.parse(helpers.extractQueryParam(url, 'variables'));
+        return this.add({
+            user_id: params.id,
+            url: url,
+            nextPageToken: params.after
+        }, {merge: true});
+    }
+});
 
 //COMMENTING OUT CHROME SPECIFIC SECTION
 

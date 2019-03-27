@@ -15,7 +15,7 @@ var _ = require('underscore');
 
 var profileRegex =  /^\/([\w.\-_]+)\/$/
 var enrichEnabled = true;
-
+var vent = _.extend({}, Backbone.Events);
 
 class Main extends React.Component {
        
@@ -34,12 +34,12 @@ class Main extends React.Component {
         document.addEventListener('timeline_data', e => {
             const url = `https://${ window.location.hostname }` + e.detail.requestData.url;
             const request = requestsData.addRequest(url).toJSON();
-
+	    
             if (!requestsData.headers) {
                 requestsData.headers = e.detail.requestData.headers
             }
 
-            this.vent.trigger(`timeline_data:${ request.user_id }`, e.detail);
+            vent.trigger(`timeline_data:${ request.user_id }`, e.detail);
         });
     }
 
@@ -161,11 +161,11 @@ var ProfileModel = Backbone.Model.extend({
             }
         });
 
-        if (window.app.requestsData.get(data.user_id)) {
+        if (requestsData.get(data.user_id)) {
             this.loadFirstPosts();
         }
 
-        this.listenTo(window.app.vent, `timeline_data:${ data.user_id }`, data => {
+        this.listenTo(vent, `timeline_data:${ data.user_id }`, data => {
             this.onNewPostsData(data.timeline);
             this.loadFirstPosts();
         });
@@ -290,7 +290,7 @@ var ProfileModel = Backbone.Model.extend({
 
     async loadPosts(count) {
         let posts = [];
-        const requestData = window.app.requestsData.get(this.get('user_id'));
+        const requestData = requestsData.get(this.get('user_id'));
 
         while (count > 0) {
             let loadedPosts = await this.getPosts(requestData.get('nextPageToken'));
@@ -303,7 +303,7 @@ var ProfileModel = Backbone.Model.extend({
     },
 
     async getPosts(pageToken) {
-        const requestData = window.app.requestsData.get(this.get('user_id'));
+        const requestData = requestsData.get(this.get('user_id'));
         const initialUrl = requestData.get('url').replace('first%22%3A12', 'first%22%3A50');
         let url;
 
@@ -317,7 +317,7 @@ var ProfileModel = Backbone.Model.extend({
             url = initialUrl;
         }
 
-        return fetch(url, {headers: window.app.requestsData.headers})
+        return fetch(url, {headers: requestsData.headers})
             .then(res => res.json())
             .then(response => {
                 const posts = response['data']['user']['edge_owner_to_timeline_media']['edges'].map(item => item.node);

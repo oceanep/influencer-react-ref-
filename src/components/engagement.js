@@ -5,6 +5,7 @@ import "./engagement.css";
 import "antd/dist/antd.css";
 import MediaCard from "./mediaCard.js";
 import MentionsCard from "./mentionsCard.js";
+import ImageContent from "./imageContent.js";
 import SideMenu from "./sideMenu.js";
 import { Card, Row, Col, Layout, Menu, Icon } from 'antd';
 
@@ -29,7 +30,7 @@ const menuComponents = [
   {
     name:'Image Content',
     icon:'',
-    component:''
+    component: <ImageContent></ImageContent>
   },
   {
     name:'Tagged Locations',

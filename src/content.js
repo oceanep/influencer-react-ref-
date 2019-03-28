@@ -103,9 +103,14 @@ class Main extends React.Component {
 
     
     showProfile(username) {
-	var prof = this.profiles.get(username);
-	console.log("profile from memory", username);
-	return;
+	var profile = this.profiles.get(username);
+
+        profile.initialPostsProcessed.then(() => {
+	    console.log("profile from memory", profile);
+	    //update our view;
+            //view = new classes.View({ model: profile });
+            //main.show(view);
+        });	
     }
 
     render() {
@@ -271,7 +276,7 @@ var ProfileModel = Backbone.Model.extend({
             return `https://www.instagram.com/explore/tags/${ keyword.replace(/[#]/g, '') }/`;
         } else if (type === 'Tagged Locations') {
             const locationId = this.posts.toJSON().find(function(post){
-                return post['rawData']['location']['name'] === keyword;
+                return (post['rawData']['location'] || {})['name'] === keyword;
             }).rawData.location.id;
             return `https://www.instagram.com/explore/locations/${ locationId }/`;
         } else {

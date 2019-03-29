@@ -12,26 +12,26 @@ class ProfileHeader extends React.Component{
     constructor(props) {
 	super(props);
     }
-
+    
     render(){
 	return(
-    	<Row >
-        		<Col className="profile-app-image" span={4}>
-          		<div >
-          		    <Avatar shape="square" size="large" icon="user" />
-          		</div>
-          	</Col>
-
-            <Col className="profile-header" span={16}>
-              <span class="skew">
-		<div>{this.props.profile.username}</div>
-        	    </span>
-        	  </Col>
-
-            <Col className="profile-app-title" span={4}>
-        	     <div >INFLUENCER</div>
-            </Col>
-    	</Row>
+    	    <Row >
+              <Col className="profile-app-image" span={4}>
+          	<div >
+          	  <Avatar shape="square" size="large" icon="user" />
+          	</div>
+              </Col>
+              
+              <Col className="profile-header" span={16}>
+                <span class="skew">
+		  <div>{this.props.profile.username}</div>
+        	</span>
+              </Col>
+              
+              <Col className="profile-app-title" span={4}>
+        	<div >INFLUENCER</div>
+              </Col>
+    	    </Row>
 	)
     }
 }

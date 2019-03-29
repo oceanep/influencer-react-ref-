@@ -7,6 +7,7 @@ import "./content.css";
 import "antd/dist/antd.css";
 import ProfileHeader from "./components/profile_header.js";
 import EngagementComponent from "./components/engagement.js";
+import Login from "./components/login.js";
 import { Layout } from 'antd';
 const { Header, Content, Footer} = Layout;
 
@@ -119,16 +120,17 @@ class Main extends React.Component {
             <div
               className={'influencer-main'}
               style={{ float: 'right'}}
-              >
-        	    <Layout>
-        	    <Header style={{ backgroundColor: 'rgb(38,40,70)'}}>
-        	<ProfileHeader profile={this.state.profile} />
-        	    </Header>
-        	    <Content>
-        	<EngagementComponent profile_name={this.props.profile_name} />
+            >
+              <Layout>
+        	<Header style={{ backgroundColor: 'rgb(38,40,70)'}}>
+        	  <ProfileHeader profile={this.state.profile} />
+        	</Header>
+        	<Content>
+		  <Login />
+        	  <EngagementComponent profile_name={this.props.profile_name} />
         	</Content>
-        	</Layout>
-        	    <Footer>Scroll Down Component</Footer>
+              </Layout>
+              <Footer>Scroll Down Component</Footer>
             </div>
         )
     }
@@ -502,7 +504,7 @@ var RequestsMetadata = Backbone.Collection.extend({
 const requestsData = new RequestsMetadata();
 
 //COMMENTING OUT CHROME SPECIFIC SECTION
-
+/*
 const app = document.createElement('div');
 app.id = "influencer-root";
 
@@ -532,7 +534,7 @@ function toggle(){
        target_location.classList.remove('with-sidebar');
    }
 }
-
+*/
 String.prototype.toCamelCase = function () {
     let words = this.replace(/[\-_\s]+/g, ' ').replace(/\s+/g, ' ').split(' ');
     return words.map((word, index) => {

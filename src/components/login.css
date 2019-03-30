@@ -97,22 +97,40 @@ label {
   cursor: pointer;
 }
 
+span.brand::before{
+    content:'BRAND';
+    background: rgb(116,76,246);
+}
 
+span.agency::before{
+    content:'AGENCY';
+    background: rgb(200,58,67);
+}
+
+span.creator::before{
+    content:'CREATOR';
+    background: rgb(66,93,111);
+}
+
+span.other::before{
+    content:'OTHER';
+    background: rgb(44,47,72);
+}
 
 /* the basic, unchecked style */
 [type="radio"] + span:before,
-[type="checkbox"] + span:before{    
-    content: '';
+[type="checkbox"] + span:before{
     display: inline-block;
     width: 12.5em;
     height: 2.5em;
-    vertical-align: -0.25em;
+    vertical-align: -1.0em;
     border-radius:.25em;
     border: none;
     box-shadow: 0 0 0 0.15em #555;
     transition: 0.5s ease all;
     text-align: center;
 }
+
 [type="checkbox"] + span:before {
   margin-right: 0.75em;
 }
@@ -124,11 +142,6 @@ label {
     box-shadow: 0 0 0 0.25em #fff;
 }
 
-
-.brand {
-    content:'SAMSON';
-    background: rgb(116,76,246);		
-}
 
 /* never forget focus styling */
 [type="radio"]:focus span:after {

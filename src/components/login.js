@@ -54,71 +54,26 @@ class Login extends React.Component{
               <div>
               <Form className="login-form">
                 
-
                 <div className="wrapper">
-
                   <div className="grid-row">
                       <label className="flex-item">
-                        <input type="radio" className='brand' value="critical" name="priority"></input> <span></span>
+                        <input id="user_type" type="radio" value="critical" name="priority" value='brand' onChange={this.handleInputChange}></input><span className='brand'></span>
                       </label>
                     <label className="flex-item">
-                      <input type="radio" value="high" name="priority"></input> <span></span>
+                      <input id="user_type" type="radio" value="high" name="priority" value='agency' onChange={this.handleInputChange}></input> <span className='agency'></span>
                     </label>
                   </div>
                   <div className="grid-row">
                     <label className="flex-item">
-                      <input type="radio" value="medium" name="priority"></input> <span></span>
+                      <input id="user_type" type="radio" value="medium" name="priority" value='creator' onChange={this.handleInputChange}></input> <span className='creator'></span>
                     </label>
                     <label className="flex-item">
-                      <input type="radio" value="low" name="priority"></input> <span></span>
+                      <input id="user_type" type="radio" value="low" name="priority" value='other' onChange={this.handleInputChange}></input> <span className='other'></span>
                     </label>
                   </div>
                 </div>
             
-            
-                {false &&
-	            <Radio.Group>
-                      
-
-		          <Radio.Button id="user_type"
-                                        style={{
-                                            backgroundColor: 'rgb(116,76,246)',
-                                            border: 'none',
-                                            color: '#fff'
-                  
-                                        }}
-                                        value="brand" onChange={this.handleInputChange}>Brand</Radio.Button>
-
-		          <Radio.Button id="user_type"
-                                        style={{
-                                            backgroundColor: 'rgb(200,58,67)',
-                                            border: 'none',
-                                            color: '#fff'                  
-                                        }}
-                                        value="agency" onChange={this.handleInputChange}>Agency</Radio.Button>                        
-
-                      <br/>
-
-		          <Radio.Button id="user_type"
-                                        style={{
-                                            backgroundColor: 'rgb(66,93,111)',
-                                            border: 'none',
-                                            color: '#fff'
-                                        }}
-                                        value="influencer"onChange={this.handleInputChange}>Influencer</Radio.Button>
-
-		          <Radio.Button id="user_type"
-                                        style={{
-                                            backgroundColor: 'rgb(44,47,72)',                   
-                                            color: '#fff'
-                                        }}
-                                        value="other"onChange={this.handleInputChange}>Other</Radio.Button>
-
-                      <br/>
-                      
-	      </Radio.Group>
-                }
-	          </Form>
+	      </Form>
 
                 <br/>
 	      </div>

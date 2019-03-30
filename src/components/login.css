@@ -1,0 +1,37 @@
+.login-main {
+    background: rgb(45,47,74);
+    color: #fff;
+}
+
+input[type=text] {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #fff;
+    outline: none;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #fff;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #fff;
+}
+
+.login-form {
+    max-width: 450pt;
+    padding-right: 20pt;
+    padding-left: 20pt;
+    color: #fff;    
+
+}
+
+.login-form-button {
+    margin-left: 35%;
+    margin-right: 35%;
+    width: 30%;
+    display: inline-block;
+    Background: rgb(67, 90, 246);
+    border: none;
+}

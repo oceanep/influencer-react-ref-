@@ -70,10 +70,7 @@ class Main extends React.Component {
     }
     
     componentDidMount(){
-	//var username = profileRegex.exec(document.location.pathname);
-        //username = username ? username[1] : null;	
 	this.profiles = new ProfilesCollection();
-	//this.requestsData = new RequestsMetadata();
 	this.subscribeToEvents();
 	this.waitForEntryData()
 	    .then(data => this.addProfile(data))

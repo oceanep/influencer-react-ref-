@@ -2,11 +2,13 @@
 /* src/content.js */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import "./login.css";
 import "antd/dist/antd.css";
-import {Form, Icon, Radio} from 'antd';
+import "./login.css";
+import {Form, Icon, Radio, Row, Col, Input, Button, Checkbox} from 'antd';
+
 import { observer, inject } from "mobx-react";
 
+const FormItem = Form.Item;
 
 class Login extends React.Component{
     constructor(props){
@@ -39,54 +41,118 @@ class Login extends React.Component{
             });
         }
     }
-    
+
     handleSubmit(event) {
 	//alert('A name was submitted: ' + this.state.value);
 	event.preventDefault();
     }
 
     render(){
-                
+
 	return(
-	    <div>
-	      <div>
-		<form>
-		  <Radio.Group>
-		    <Radio.Button id="user_type" value="brand" onChange={this.handleInputChange}>Brand</Radio.Button>
-		    <Radio.Button id="user_type" value="agency" onChange={this.handleInputChange}>Agency</Radio.Button>
-                    <br/>
-		    <Radio.Button id="user_type" value="influencer"onChange={this.handleInputChange}>Influencer</Radio.Button>
-		    <Radio.Button id="user_type" value="other"onChange={this.handleInputChange}>Other</Radio.Button>
-		  </Radio.Group>
-		</form>
+	    <div class='login-main'>
+	      <div>                                                                             
+                <Form>
+
+	            <Radio.Group>
+                      
+                      <Row gutter={16}>
+                        <Col span={12}>
+		          <Radio.Button id="user_type"
+                                        style={{
+                                            backgroundColor: 'rgb(116,76,246)',
+                                            border: 'none',
+                                            color: '#fff'
+                                        }}
+                                        value="brand" onChange={this.handleInputChange}>Brand</Radio.Button>
+                        </Col>
+                        <Col span={12}>
+		          <Radio.Button id="user_type"
+                                        style={{
+                                            backgroundColor: 'rgb(200,58,67)',
+                                            border: 'none',
+                                            color: '#fff'
+                                        }}
+                                        value="agency" onChange={this.handleInputChange}>Agency</Radio.Button>                        
+                        </Col>
+                      </Row>
+                      <br/>
+                      <Row gutter={16}>
+                        <Col span={12}>
+		          <Radio.Button id="user_type"
+                                        style={{
+                                            backgroundColor: 'rgb(66,93,111)',
+                                            border: 'none',
+                                            color: '#fff'
+                                        }}
+                                        value="influencer"onChange={this.handleInputChange}>Influencer</Radio.Button>
+                        </Col>
+                        <Col span={12}>
+		          <Radio.Button id="user_type"
+                                        style={{
+                                            backgroundColor: 'rgb(44,47,72)',                   
+                                            color: '#fff'
+                                        }}
+                                        value="other"onChange={this.handleInputChange}>Other</Radio.Button>
+                        </Col>
+                      </Row>                
+                      <br/>
+                      
+		    </Radio.Group>
+	          </Form>
+
                 <br/>
 	      </div>
-
+              
               {this.state.registrationVisible &&
-               
-	       <form onSubmit={this.handleSubmit}>
-		 <label>
-		   First Name:
-		   <input id="first_name" type="text" value={this.state.first_name} onChange={this.handleInputChange} />
-		 </label>
-		 <br/>
-		 <label>
-		   Last Name:
-		   <input id="last_name"  type="text" value={this.state.last_name} onChange={this.handleInputChange} />
-		 </label>
-		 <br/>
-		 <label>
-		   Business Email:
-		   <input id="business_email" type="text" value={this.state.business_email} onChange={this.handleInputChange} />
-		 </label>
-		 <br/>
-		 <input type="submit" value="Submit" />
-	       </form>
+
+               <Form onSubmit={this.handleSubmit} className="login-form">
+                 
+                 
+                 <FormItem>
+                    
+                   <Input id="first_name"
+                           style={{ fontSize: 15, color: '#fff'}}
+                           placeholder="First Name"
+                          onChange={this.handleInputChange}
+                    />
+                  </FormItem>
+
+                  <FormItem>
+                    
+                    <Input id="last_name"
+                           style={{ fontSize: 15, color:'#fff'}} 
+                           placeholder="Last Name"
+                           onChange={this.handleInputChange}
+                    />
+                  </FormItem>
+
+                  <FormItem>
+                    
+                    <Input id="business_email"
+                           style={{ fontSize: 15, color:'#fff'}}
+                           placeholder="Business Email"
+                           onChange={this.handleInputChange}
+                    />
+                    
+                  </FormItem>
+                 
+                 <FormItem>
+                   
+                   <Button
+                     type="primary"
+                     htmlType="submit"
+                     className="login-form-button"
+                   >
+                     GET STARTED
+                   </Button>
+                 </FormItem>
+               </Form>
               }
 	    </div>
 	)
     }
-
+    
 }
 
 export default Login;

@@ -50,35 +50,55 @@ class Login extends React.Component{
     render(){
 
 	return(
-	    <div class='login-main'>
-	      <div>                                                                             
-                <Form>
+	    <div className='login-main'>
+              <div>
+              <Form className="login-form">
+                
 
+                <div className="wrapper">
+
+                  <div className="grid-row">
+                      <label className="flex-item">
+                        <input type="radio" className='brand' value="critical" name="priority"></input> <span></span>
+                      </label>
+                    <label className="flex-item">
+                      <input type="radio" value="high" name="priority"></input> <span></span>
+                    </label>
+                  </div>
+                  <div className="grid-row">
+                    <label className="flex-item">
+                      <input type="radio" value="medium" name="priority"></input> <span></span>
+                    </label>
+                    <label className="flex-item">
+                      <input type="radio" value="low" name="priority"></input> <span></span>
+                    </label>
+                  </div>
+                </div>
+            
+            
+                {false &&
 	            <Radio.Group>
                       
-                      <Row gutter={16}>
-                        <Col span={12}>
+
 		          <Radio.Button id="user_type"
                                         style={{
                                             backgroundColor: 'rgb(116,76,246)',
                                             border: 'none',
                                             color: '#fff'
+                  
                                         }}
                                         value="brand" onChange={this.handleInputChange}>Brand</Radio.Button>
-                        </Col>
-                        <Col span={12}>
+
 		          <Radio.Button id="user_type"
                                         style={{
                                             backgroundColor: 'rgb(200,58,67)',
                                             border: 'none',
-                                            color: '#fff'
+                                            color: '#fff'                  
                                         }}
                                         value="agency" onChange={this.handleInputChange}>Agency</Radio.Button>                        
-                        </Col>
-                      </Row>
+
                       <br/>
-                      <Row gutter={16}>
-                        <Col span={12}>
+
 		          <Radio.Button id="user_type"
                                         style={{
                                             backgroundColor: 'rgb(66,93,111)',
@@ -86,19 +106,18 @@ class Login extends React.Component{
                                             color: '#fff'
                                         }}
                                         value="influencer"onChange={this.handleInputChange}>Influencer</Radio.Button>
-                        </Col>
-                        <Col span={12}>
+
 		          <Radio.Button id="user_type"
                                         style={{
                                             backgroundColor: 'rgb(44,47,72)',                   
                                             color: '#fff'
                                         }}
                                         value="other"onChange={this.handleInputChange}>Other</Radio.Button>
-                        </Col>
-                      </Row>                
+
                       <br/>
                       
-		    </Radio.Group>
+	      </Radio.Group>
+                }
 	          </Form>
 
                 <br/>

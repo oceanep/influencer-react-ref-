@@ -117,13 +117,15 @@ class EngagementComponent extends React.Component {
           </Row>
   	    </Card>
 
-        <section>
+        <section style={{ position: 'relative'}}>
+          <SideMenu
+            onClick={this.sideMenuClick}
+            icon={this.state.menuComponent.icon}
+            name={this.state.menuComponent.name}
+          >
+          </SideMenu>
           <Card className="mainBodyCard">
-            <SideMenu
-              onClick={this.sideMenuClick}
-              icon={this.state.menuComponent.icon}
-              name={this.state.menuComponent.name}
-            ></SideMenu>
+            <div><span><Icon type={this.state.menuComponent.icon} /><span>{this.state.menuComponent.name}</span></span></div>
             {this.state.menuComponent.component}
           </Card>
         </section>

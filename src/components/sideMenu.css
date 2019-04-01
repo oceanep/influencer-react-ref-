@@ -1,0 +1,25 @@
+.menu-container {
+  position: absolute;
+  width: 225px;
+  left: -40px;
+  z-index: 0;
+  border-radius: 5px;
+  background-color: rgba(77, 79, 120, .7);
+  -webkit-transition: left .35s cubic-bezier(.28,.07,.25,1.02);
+  -o-transition: left .35s cubic-bezier(.28,.07,.25,1.02);
+  transition: left .35s cubic-bezier(.28,.07,.25,1.02);
+}
+
+.menu-container:hover {
+  left: -220px;
+
+}
+
+.menu-container li {
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+}
+
+.menuItem{
+  color: rgb(255,255,255);
+}

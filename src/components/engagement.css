@@ -13,3 +13,7 @@ engagement-main {
 .mainBodyCard1 h5 {
   color: rgba(180, 180, 180, 1);
 }
+
+.mainBodyCard {
+  z-index: 5;
+}

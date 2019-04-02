@@ -1,6 +1,7 @@
 
 engagement-main {
     background: rgb(45,47,74);
+    width: 35vw;
 }
 
 .mainBodyCard1 {
@@ -16,4 +17,5 @@ engagement-main {
 
 .mainBodyCard {
   z-index: 5;
+  width: 500px;
 }

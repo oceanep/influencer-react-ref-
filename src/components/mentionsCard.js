@@ -70,7 +70,7 @@ const MentionsCard = (props) => {
   }
 
   	return (
-          <Row type="flex" justify="space-between" gutter={16}>
+          <Row type="flex" className="mentions-container" justify="space-between" gutter={16}>
             {mapMentions(textMentions)}
           </Row>
   	);

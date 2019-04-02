@@ -6,6 +6,7 @@ import Backbone from 'backbone';
 import "./content.css";
 import "antd/dist/antd.css";
 import ProfileHeader from "./components/profile_header.js";
+import ScrollDown from "./components/scrolldown.js"
 import EngagementComponent from "./components/engagement.js";
 import Login from "./components/login.js";
 import { Layout } from 'antd';
@@ -24,7 +25,7 @@ class Main extends React.Component {
     	super(props);
     	this.state = {
     	    profile: {
-    		      username: ""
+    		      username: "user"
     	    },
           loginComplete: false
     	}
@@ -122,22 +123,24 @@ class Main extends React.Component {
         return (
             <div
               className={'influencer-main'}
-              style={{ float: 'right'}}
+              style={{ float: 'right', width: '500px'}}
             >
               <Layout>
-        	<Header style={{ backgroundColor: 'rgb(38,40,70)'}}>
-        	  <ProfileHeader profile={this.state.profile} />
-        	</Header>
-        	<Content>
-		  {
-        !this.state.loginComplete ?
-          <Login login={this.loginComplete.bind(this)} />
-          :
-          <EngagementComponent profile_name={this.props.profile_name} />
-      }
-        	</Content>
+              	<Header style={{ backgroundColor: 'rgb(38,40,70)'}}>
+              	  <ProfileHeader profile={this.state.profile} />
+              	</Header>
+              	<Content>
+            		  {
+                    !this.state.loginComplete ?
+                      <Login login={this.loginComplete.bind(this)} />
+                      :
+                      <EngagementComponent profile_name={this.props.profile_name} />
+                  }
+              	</Content>
               </Layout>
-              <Footer>Scroll Down Component</Footer>
+
+                <ScrollDown />
+
             </div>
         )
     }

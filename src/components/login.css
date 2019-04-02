@@ -1,6 +1,7 @@
 .login-main {
     background: rgb(45,47,74);
     color: #fff;
+    height: 80vh;
 }
 
 input[type=text] {
@@ -23,7 +24,7 @@ input[type=text] {
     max-width: 450pt;
     padding-right: 20pt;
     padding-left: 20pt;
-    color: #fff;    
+    color: #fff;
 
 }
 
@@ -65,7 +66,7 @@ input[type=text] {
   content: '';
   padding-top:26%;
 }
-.flex-item {  
+.flex-item {
   display:flex;
 /*   flex-basis:25%; */
   width:100%;
@@ -82,12 +83,12 @@ input[type=text] {
 /* HTML5 Boilerplate accessible hidden styles */
 
 [type="radio"], [type="checkbox"] {
-  border: 0; 
-  clip: rect(0 0 0 0); 
-  height: 1px; margin: -1px; 
-  overflow: hidden; 
-  padding: 0; 
-  position: absolute; 
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px; margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
   width: 1px;
 }
 
@@ -138,7 +139,7 @@ span.other::before{
 /* the checked style using the :checked pseudo class */
 [type="radio"]:checked + span:before,
 [type="checkbox"]:checked + span:before{
-    filter: brightness(80%);      
+    filter: brightness(80%);
     box-shadow: 0 0 0 0.25em #fff;
 }
 

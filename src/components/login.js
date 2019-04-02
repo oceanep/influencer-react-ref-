@@ -50,7 +50,7 @@ class Login extends React.Component{
     render(){
 
     	return(
-    	    <div className='login-main' style={{ height: '90vh'}}>
+    	    <div className='login-main'>
                   <div>
                   <Form className="login-form">
 

@@ -8,3 +8,9 @@
 .ir-data {
     color: #fff;
 }
+
+.influencer-main {
+  float: right;
+  height: 100%;
+  width: 100%;
+}

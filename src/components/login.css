@@ -1,7 +1,7 @@
 .login-main {
     background: rgb(45,47,74);
     color: #fff;
-    height: 80vh;
+    height: 100%;
 }
 
 input[type=text] {

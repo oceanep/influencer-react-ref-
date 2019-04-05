@@ -1,11 +1,11 @@
 
-engagement-main {
-    background: rgb(45,47,74);
-    width: 35vw;
+.engagement-main {
+  height: 100%;
 }
 
 .mainBodyCard1 {
-  max-width: 500px;
+  max-width: 100%;
+  height: 40%;
   min-height: 20vh;
   color: rgb(255, 255, 255);
   background-color: #2D2F4A;
@@ -16,6 +16,20 @@ engagement-main {
 }
 
 .mainBodyCard {
+  height: 100%;
+  max-width: 500px;
+  overflow-y: scroll;
+  color: rgb(255, 255, 255);
+  background-color: #2D2F4A;
+  border-top:none;
+}
+
+.mainBodyTitle {
+  color: rgb(255, 255, 255);
+  padding-left: 24px;
+}
+
+.component-wrapper {
   z-index: 5;
-  width: 500px;
+  height: 100%;
 }

@@ -10,13 +10,6 @@
   vertical-align: 'text-top';
 }
 
-.mainBodyCard {
-  max-width: 500px;
-  min-height: 50vh;
-  color: rgb(255, 255, 255);
-  background-color: #2D2F4A;
-}
-
 .mediaCardBody h5 {
   color: rgba(180, 180, 180, 1);
 }

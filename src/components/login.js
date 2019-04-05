@@ -51,29 +51,37 @@ class Login extends React.Component{
 
     	return(
     	    <div className='login-main'>
-                  <div>
-                  <Form className="login-form">
+            <div>
+              <Form className="login-form">
 
-                    <div className="wrapper">
-                      <div className="grid-row">
-                          <label className="flex-item">
-                            <input id="user_type" type="radio" value="critical" name="priority" value='brand' onChange={this.handleInputChange}></input><span className='brand'></span>
-                          </label>
-                        <label className="flex-item">
-                          <input id="user_type" type="radio" value="high" name="priority" value='agency' onChange={this.handleInputChange}></input> <span className='agency'></span>
-                        </label>
-                      </div>
-                      <div className="grid-row">
+                <div className="wrapper">
+                  <Row type="flex" justify="space-around" align="middle" gutter={12}>
+                    <Col span={8}>
+                      <label className="flex-item">
+                        <input id="user_type" type="radio" value="critical" name="priority" value='brand' onChange={this.handleInputChange}></input><span className='brand'></span>
+                      </label>
+                    </Col>
+                    <Col span={8}>
+                      <label className="flex-item">
+                        <input id="user_type" type="radio" value="high" name="priority" value='agency' onChange={this.handleInputChange}></input> <span className='agency'></span>
+                      </label>
+                    </Col>
+                  </Row>
+                  <Row type="flex" justify="space-around" align="middle" gutter={12}>
+                    <Col span={8}>
                         <label className="flex-item">
                           <input id="user_type" type="radio" value="medium" name="priority" value='creator' onChange={this.handleInputChange}></input> <span className='creator'></span>
                         </label>
+                    </Col>
+                    <Col span={8}>
                         <label className="flex-item">
                           <input id="user_type" type="radio" value="low" name="priority" value='other' onChange={this.handleInputChange}></input> <span className='other'></span>
                         </label>
-                      </div>
-                    </div>
+                    </Col>
+                  </Row>
+                </div>
 
-    	      </Form>
+    	         </Form>
 
                     <br/>
     	      </div>

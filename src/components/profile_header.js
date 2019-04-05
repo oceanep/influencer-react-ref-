@@ -16,19 +16,17 @@ class ProfileHeader extends React.Component{
     render(){
     	return(
         	    <Row >
-                  <Col className="profile-app-image" span={4}>
-              	<div >
-              	  <Avatar shape="square" size="large" icon="user" />
-              	</div>
+                  <Col className="profile-app-image" span={8}>
+                    <div className="profile-image"></div>
                   </Col>
 
-                  <Col className="profile-header" span={16}>
-                    <span class="skew">
-    		              <div>{this.props.profile.username}</div>
+                  <Col className="profile-header" span={14}>
+                    <span >
+    		              <div class="skew">{this.props.profile.username}</div>
             	      </span>
                   </Col>
 
-                  <Col className="profile-app-title" span={4}>
+                  <Col className="profile-app-title" span={2}>
             	       <div >INFLUENCER</div>
                   </Col>
         	    </Row>

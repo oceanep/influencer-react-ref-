@@ -3,17 +3,18 @@
   position: relative;
   color: #fff;
   text-align: center;
+  background-color: transparent;
 }
 
-.profile-header .skew:before {
-  content: '';
-  position: absolute;
+.profile-header{
+  /* content: ''; */
+  /* position: absolute;
   left: 5%;
-  bottom: 0;
-  width: 90%;
+  bottom: 0; */
+  /* width: 95%; */
   height: 100%;
   background: #00bcd4;
-  z-index: -1;
+  /* z-index: -1; */
   -webkit-transform: skewX(-30deg);
   -moz-transform: skewX(-30deg);
   -ms-transform: skewX(-30deg);
@@ -26,6 +27,10 @@
 
 }
 
+.profile-header .skew{
+  transform: skewX(30deg);
+}
+
 .profile-header .skew .header-inner {
   padding: 20px;
   margin-left: auto;
@@ -35,10 +40,20 @@
 .profile-app-image{
     overflow: hidden;
     color: rgb(3,21,39);
+    margin-right: -82px;
+}
+
+.profile-image{
+  width: 100px;
+  height: 64px;
+  background-image: url(../assets/profile-pic-placeholder.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 .profile-app-title {
     background: rgb(38,40,70);
     color: #fff;
-    text-align: center;
+    text-align: right;
 }

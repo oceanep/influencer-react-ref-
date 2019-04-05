@@ -121,12 +121,13 @@ class Main extends React.Component {
     render() {
 	const {profile} = this.props;
         return (
+          <div id="influencer-root">
             <div
               className={'influencer-main'}
-              style={{ float: 'right', width: '500px'}}
             >
-              <Layout>
-              	<Header style={{ backgroundColor: 'rgb(38,40,70)'}}>
+
+              <Layout style={{ height: '91%'}}>
+              	<Header style={{ backgroundColor: 'rgb(38,40,70)', paddingLeft: '0', paddingRight: '10px'}}>
               	  <ProfileHeader profile={this.state.profile} />
               	</Header>
               	<Content>
@@ -139,9 +140,10 @@ class Main extends React.Component {
               	</Content>
               </Layout>
 
-                <ScrollDown />
+              <ScrollDown />
 
             </div>
+          </div>
         )
     }
 }
@@ -514,37 +516,37 @@ var RequestsMetadata = Backbone.Collection.extend({
 const requestsData = new RequestsMetadata();
 
 //COMMENTING OUT CHROME SPECIFIC SECTION
-/*
-const app = document.createElement('div');
-app.id = "influencer-root";
 
-var target_location = document.querySelectorAll('#react-root section main')[0];
-target_location.classList.add('with-sidebar');
-target_location.appendChild(app);
-ReactDOM.render(<Main />, app);
+// const app = document.createElement('div');
+// app.id = "influencer-root";
+//
+// var target_location = document.querySelectorAll('#react-root section main')[0];
+// target_location.classList.add('with-sidebar');
+// target_location.appendChild(app);
+// ReactDOM.render(<Main />, app);
+//
+//
+// app.style.display = "none";
+//
+// chrome.runtime.onMessage.addListener(
+//    function(request, sender, sendResponse) {
+//        if(request.message === "clicked_browser_action") {
+//         toggle();
+//       }
+//    }
+// );
+//
+//
+// function toggle(){
+//    if(app.style.display === "none"){
+//        app.style.display = "block";
+//        target_location.classList.add('with-sidebar');
+//    }else{
+//        app.style.display = "none";
+//        target_location.classList.remove('with-sidebar');
+//    }
+// }
 
-
-//app.style.display = "none";
-
-chrome.runtime.onMessage.addListener(
-   function(request, sender, sendResponse) {
-       if(request.message === "clicked_browser_action") {
-        toggle();
-      }
-   }
-);
-
-
-function toggle(){
-   if(app.style.display === "none"){
-       app.style.display = "block";
-       target_location.classList.add('with-sidebar');
-   }else{
-       app.style.display = "none";
-       target_location.classList.remove('with-sidebar');
-   }
-}
-*/
 String.prototype.toCamelCase = function () {
     let words = this.replace(/[\-_\s]+/g, ' ').replace(/\s+/g, ' ').split(' ');
     return words.map((word, index) => {

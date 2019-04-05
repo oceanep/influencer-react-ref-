@@ -15,14 +15,24 @@ body {
 }
 
 #influencer-root{
+    overflow-y: scroll;
+    /* background: rgb(45, 47, 74); */
+
     position: fixed;
-    width: 500px;
     right: 0;
-    top: 52px;
+    top: 5px;
     bottom: 0;
     padding-top: 20px;
-    overflow-y: scroll;
-    background: rgb(45, 47, 74);
+    overflow-y: unset;
+    overflow-x: visible;
+    background: transparent;
+    height: 95vh;
+    min-height: 650px;
+    max-height: 1000px;
+    width: 35vw;
+    min-width: 500px;
+    max-width: 750px;
+    z-index: 9999;
 }
 
 #influencer-root iframe {

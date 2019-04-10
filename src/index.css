@@ -30,6 +30,7 @@ body {
     max-height: 1000px;
     width: 35vw;
     max-width: 385px;
+    min-width: 350px;
     z-index: 9999;
 }
 

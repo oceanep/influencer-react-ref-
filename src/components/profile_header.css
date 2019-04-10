@@ -15,6 +15,8 @@
   height: 100%;
   background: #00bcd4;
   /* z-index: -1; */
+  height: 64px;
+  text-align: center;
   -webkit-transform: skewX(-30deg);
   -moz-transform: skewX(-30deg);
   -ms-transform: skewX(-30deg);
@@ -29,6 +31,8 @@
 
 .profile-header .skew{
   transform: skewX(30deg);
+  height: 64px;
+  line-height: 64px;
 }
 
 .profile-header .skew .header-inner {
@@ -38,9 +42,9 @@
 }
 
 .profile-app-image{
-    overflow: hidden;
-    color: rgb(3,21,39);
-    margin-right: -82px;
+  overflow: hidden;
+  color: rgb(3,21,39);
+  margin-right: -52px;
 }
 
 .profile-image{
@@ -52,8 +56,17 @@
   background-size: cover;
 }
 
+.profile-image-holder {
+  width: 100px;
+  height: 64px;
+  background: rgb(67,70,110);
+}
+
 .profile-app-title {
-    background: rgb(38,40,70);
-    color: #fff;
-    text-align: right;
+  background: rgb(38,40,70);
+  color: rgba(93, 214, 210, 0.85);
+  font-size: .75em;
+  padding-left: 10px;
+  height: 64px;
+  line-height: 64px;
 }

@@ -2,12 +2,12 @@
   background-color: rgba(77, 79, 120, 1);
   color: rgba(255, 255, 255, 1);
   border-radius: 10px;
+  height: 100%;
 }
 
 .cardTitle {
-  color: 'rgba(93, 214, 210, 0.85)';
-  font-size: '.6em';
-  vertical-align: 'text-top';
+  color: rgba(93, 214, 210, 0.85);
+  font-size: 0.8em;
 }
 
 .mediaCardBody h5 {

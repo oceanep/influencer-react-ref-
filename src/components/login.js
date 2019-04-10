@@ -51,9 +51,12 @@ class Login extends React.Component{
 
     	return(
     	    <div className='login-main'>
+
             <div>
               <Form className="login-form">
-
+                <div style={{ paddingLeft: '10pt', paddingBottom: '20pt'}}>
+                  <span>ARE YOU A:</span>
+                </div>
                 <div className="wrapper">
                   <Row type="flex" justify="space-around" align="middle" gutter={12}>
                     <Col span={8}>

@@ -127,9 +127,9 @@ class Main extends React.Component {
             >
 
               <Layout style={{ height: '91%'}}>
-              	<Header style={{ backgroundColor: 'rgb(38,40,70)', paddingLeft: '0', paddingRight: '10px'}}>
-              	  <ProfileHeader profile={this.state.profile} />
-              	</Header>
+              	<div style={{ backgroundColor: 'rgb(38,40,70)', paddingLeft: '0', paddingRight: '10px', width: '100%'}}>
+              	  <ProfileHeader profile={this.state.profile} complete={this.state.loginComplete}/>
+              	</div>
               	<Content>
             		  {
                     !this.state.loginComplete ?
@@ -140,7 +140,7 @@ class Main extends React.Component {
               	</Content>
               </Layout>
 
-              <ScrollDown />
+              <ScrollDown complete={this.state.loginComplete}/>
 
             </div>
           </div>

@@ -22,8 +22,7 @@ input[type=text] {
 
 .login-form {
     max-width: 450pt;
-    padding-right: 20pt;
-    padding-left: 20pt;
+    padding: 20pt 20pt 0pt;
     color: #fff;
 
 }
@@ -31,7 +30,6 @@ input[type=text] {
 .login-form-button {
     margin-left: 35%;
     margin-right: 35%;
-    width: 30%;
     display: inline-block;
     Background: rgb(67, 90, 246);
     border: none;
@@ -122,7 +120,7 @@ span.other::before{
 [type="radio"] + span:before,
 [type="checkbox"] + span:before{
     display: inline-block;
-    width: 12.5em;
+    width: 10.5em;
     height: 2.5em;
     vertical-align: -1.0em;
     border-radius:.25em;

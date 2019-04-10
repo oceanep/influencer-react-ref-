@@ -4,6 +4,11 @@
   z-index: 10;
 }
 
+.scrolldown-container-placeholder {
+  background: rgb(45,47,74);
+  height: 50px;
+}
+
 .scrolldown-image {
   margin-left: 3em;
   margin-top: -25px;

@@ -15,15 +15,18 @@ class ScrollDown extends React.Component{
 
     render(){
     	return(
-        	    <Row className="scrolldown-container">
-                  <Col className="scroll-image-conatiner" span={6}>
-                  	<div className="scrolldown-image"></div>
-                  </Col>
+              this.props.complete ?
+          	    <Row className="scrolldown-container">
+                    <Col className="scroll-image-conatiner" span={6}>
+                    	<div className="scrolldown-image"></div>
+                    </Col>
 
-                  <Col className="scroll-text" span={18}>
-                    <span><b> SCROLL FOR MORE DATA</b></span>
-                  </Col>
-        	    </Row>
+                    <Col className="scroll-text" span={18}>
+                      <span><b> SCROLL FOR MORE DATA</b></span>
+                    </Col>
+          	    </Row>
+              :
+                <Row className="scrolldown-container-placeholder" ></Row>
     	)
     }
 }

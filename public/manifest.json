@@ -18,7 +18,14 @@
 	}
     ],
     "web_accessible_resources":[
-	"/static/css/content.css", "script.js"
+	"/static/css/content.css",
+	"script.js",
+	"images/*.png",
+	"images/influencer-logo1x.svg",
+	"images/influencer-logo2x.png",
+	"images/double-arrows@1x.svg",
+	"images/double-arrows@2x.png",
+	"images/*.jpg"
     ],
     "icons": {
 	"16": "images/logo16.png",

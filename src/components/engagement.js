@@ -18,7 +18,7 @@ const menuComponents = [
     component: <MediaCard></MediaCard>
   },
   {
-    name:'Mentions',
+    name:'@ Mentions',
     icon:'',
     component: <MentionsCard></MentionsCard>
   },

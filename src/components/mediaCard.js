@@ -15,8 +15,8 @@ const MediaCard = (props) => {
             <Col span={12}>
               <Card className="mediaCardBody" bordered={false}>
                 <Meta
-                  avatar={<Icon type="youtube" />}
-                  title={<span className="cardTitle" >2 Videos</span>}
+                  avatar={<Icon style={{ color: '#67D7D5' }} theme="outlined" type="youtube" />}
+                  title={<span className="cardTitle" >2 VIDEOS</span>}
                   style={{ margin: 0}}
                 />
                 <Row gutter={16}>
@@ -44,8 +44,8 @@ const MediaCard = (props) => {
             <Col span={12}>
               <Card className="mediaCardBody" bordered={false}>
                 <Meta
-                  avatar={<Icon type="picture" />}
-                  title={<span className="cardTitle" >19 Images</span>}
+                  avatar={<Icon style={{ color: '#67D7D5' }} theme="outlined" type="picture" />}
+                  title={<span className="cardTitle" >19 IMAGES</span>}
                   style={{ margin: 0}}
                 />
                 <Row gutter={16}>

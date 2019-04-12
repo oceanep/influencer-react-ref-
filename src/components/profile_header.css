@@ -33,6 +33,15 @@
   transform: skewX(30deg);
   height: 64px;
   line-height: 64px;
+  
+}
+
+.profile-header .login-skew{
+  transform: skewX(30deg);
+  height: 64px;
+  line-height: 64px;
+  text-align: left;
+  padding-left: 20px;
 }
 
 .profile-header .skew .header-inner {
@@ -59,6 +68,13 @@
 .profile-image-holder {
   width: 100px;
   height: 64px;
+  background: rgb(67,70,110);
+}
+
+.profile-login-image-holder {
+  width: 100px;
+  height: 64px;
+  padding-left: 25px;
   background: rgb(67,70,110);
 }
 

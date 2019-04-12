@@ -34,7 +34,7 @@ class ProfileHeader extends React.Component{
               :
                 <Row >
                   <Col className="profile-app-image" span={8}>
-                    <div className="profile-login-image-holder"><img height="98%"src={chrome.runtime.getURL("double-arrows@1x.svg")}/></div>
+                    <div className="profile-login-image-holder"><img height="98%"src={chrome.runtime.getURL("images/double-arrows@1x.svg")}/></div>
                     </Col>
                   <Col className="profile-header" span={14}>
                       <span >
@@ -43,7 +43,7 @@ class ProfileHeader extends React.Component{
                     </Col>
 
                   <Col className="profile-app-title" span={2}>
-                    <div ><img src={chrome.runtime.getURL("influencer-logo2x.png")}/></div>
+                    <div ><img src={chrome.runtime.getURL("images/influencer-logo2x.png")}/></div>
                     </Col>
                 </Row>
     	)

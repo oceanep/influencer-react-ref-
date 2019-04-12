@@ -21,10 +21,14 @@
 	"/static/css/content.css",
 	"script.js",
 	"images/*.png",
-	"images/influencer-logo1x.svg",
-	"images/influencer-logo2x.png",
-	"images/double-arrows@1x.svg",
-	"images/double-arrows@2x.png",
+	"/static/assets/influencer-logo1x.svg",
+	"/static/assets/influencer-logo2x.png",
+	"/static/assets/double-arrows@1x.svg",
+	"/static/assets/double-arrows@2x.png",
+	"/images/influencer-logo1x.svg",
+	"/images/influencer-logo2x.png",
+	"/images/double-arrows@1x.svg",
+	"/images/double-arrows@2x.png",
 	"images/*.jpg"
     ],
     "icons": {

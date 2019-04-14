@@ -28,7 +28,7 @@ class ProfileHeader extends React.Component{
                     </Col>
 
                     <Col className="profile-app-title" span={2}>
-                      <div ><img src={chrome.runtime.getURL("influencer-logo1x.svg")}/></div>
+                      <div ><img src={chrome.runtime.getURL("images/influencer-logo1x.svg")}/></div>
                     </Col>
           	    </Row>
               :

@@ -23,3 +23,7 @@
 .menuItem{
   color: rgb(255,255,255);
 }
+
+.menuTitle{
+    padding-left: 15px;
+}

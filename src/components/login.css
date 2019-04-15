@@ -97,21 +97,29 @@ label {
 }
 
 span.brand::before{
+    padding-top: 5%;
+    padding-bottom: 5%;
     content:'BRAND';
     background: rgb(116,76,246);
 }
 
 span.agency::before{
+    padding-top: 5%;
+    padding-bottom: 5%;
     content:'AGENCY';
     background: rgb(200,58,67);
 }
 
 span.creator::before{
+    padding-top: 5%;
+    padding-bottom: 5%;
     content:'CREATOR';
     background: rgb(66,93,111);
 }
 
 span.other::before{
+    padding-top: 5%;
+    padding-bottom: 5%;
     content:'OTHER';
     background: rgb(44,47,72);
 }

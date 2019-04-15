@@ -14,7 +14,7 @@ const SideMenu = (props) => {
 	return (
             
 	    <div className="menu-container">
-	      <Menu
+	      <Menu theme="dark"
 		mode="vertical"
 		style={{ color: 'rgb(255,255,255)', background: 'transparent'}}
 		onClick={e => props.onClick(e)}

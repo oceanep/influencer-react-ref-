@@ -20,8 +20,7 @@
     "web_accessible_resources":[
 	"/static/css/content.css",
 	"script.js",
-	"/images/*.*",
-	"/images/icons/*.*"
+	"/images/*.*"
     ],
     "icons": {
 	"16": "images/logo16.png",

@@ -1,6 +1,8 @@
 
 .engagement-main {
-  height: 100%;
+  height: 95%;
+  color: rgb(255, 255, 255);
+  background-color: #2D2F4A;
 }
 
 .mainBodyCard1 {
@@ -9,6 +11,7 @@
   min-height: 20vh;
   color: rgb(255, 255, 255);
   background-color: #2D2F4A;
+  border: none;
 }
 
 .mainBodyCard1 h5 {
@@ -17,16 +20,26 @@
 
 .mainBodyCard {
   height: 100%;
-  max-width: 500px;
+  max-width: 100%;
   overflow-y: scroll;
   color: rgb(255, 255, 255);
   background-color: #2D2F4A;
-  border-top:none;
+  border:none;
+  border-top: 2px solid grey;
+}
+
+.mainBodyCard.favorite {
+  border-top: none;
+}
+
+.mainBodyCard.favorites .ant-card-body {
+  height: 100%;
 }
 
 .mainBodyTitle {
   color: rgb(255, 255, 255);
-  padding-left: 24px;
+  height: 3em;
+  line-height: 3em;
 }
 
 .component-wrapper {

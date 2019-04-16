@@ -7,6 +7,11 @@ import MediaCard from "./mediaCard.js";
 import MentionsCard from "./mentionsCard.js";
 import ImageContent from "./imageContent.js";
 import SideMenu from "./sideMenu.js";
+import PaginateHolder from "./paginateHolder.js";
+import Paginate from "./paginate.js";
+import ScrollDown from "./scrolldown.js"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import { Card, Row, Col, Layout, Menu, Icon } from 'antd';
 
 const { Header, Footer, Sider, Content } = Layout;
@@ -14,38 +19,43 @@ const { Header, Footer, Sider, Content } = Layout;
 const menuComponents = [
   {
     name:'Media',
-    icon:'youtube',
+    icon:['fab', 'youtube'],
     component: <MediaCard></MediaCard>
   },
   {
-    name:'@ Mentions',
-    icon:'',
+    name:'Mentions',
+    icon:['fas', 'at'],
     component: <MentionsCard></MentionsCard>
   },
   {
     name:'Hashtags',
-    icon:'',
+    icon:['fas', 'hashtag'],
     component:''
   },
   {
     name:'Image Content',
-    icon:'',
+    icon:['fas', 'image'],
     component: <ImageContent></ImageContent>
   },
   {
     name:'Tagged Locations',
-    icon:'',
+    icon:['fas', 'map-marker-alt'],
     component:''
   },
   {
     name:'Brand Partners',
-    icon:'',
+    icon:['fas', 'handshake'],
     component:''
   },
   {
     name:'Tagged Accounts',
-    icon:'',
+    icon:['fas', 'user-circle'],
     component:''
+  },
+  {
+    name:'Favorites',
+    icon:['fas', 'heart'],
+    component: <PaginateHolder></PaginateHolder>
   }
 ];
 
@@ -68,69 +78,99 @@ class EngagementComponent extends React.Component {
   sideMenuClick = (e) => {
     console.log(`${e.key} outside menu`);
     this.setState({ menuComponent: menuComponents[e.key] });
+    this.state.menuComponent.name == 'Favorites' ? this.props.hideFooter() : this.props.showFooter();
   }
 
   render(){
   	return (
-  	    <div class="engagement-main">
+  	    <div style={{ height: '100%'}}>
+          { this.state.menuComponent.name == 'Favorites' ?
+            <React.Fragment>
+              <div class="engagement-main">
+                <section style={{ position: 'relative', height: '100%'}}>
+                  <SideMenu
+                    onClick={this.sideMenuClick}
+                    icon={this.state.menuComponent.icon}
+                    name={this.state.menuComponent.name}
+                    fullLength
+                  >
+                  </SideMenu>
+                  <section className="component-wrapper">
+                    <Card className="mainBodyCard favorites">
+                      <div className="mainBodyTitle"><span><FontAwesomeIcon icon={this.state.menuComponent.icon} fixedWidth/><span>{this.state.menuComponent.name}</span></span></div>
+                        {this.state.menuComponent.component}
+                    </Card>
+                  </section>
+                </section>
+              </div>
 
-  	    <Card className="mainBodyCard1">
+              <ScrollDown complete={false}/>
+            </React.Fragment>
+            :
+            <React.Fragment>
+              <div class="engagement-main">
+                <Card className="mainBodyCard1">
+            	    <Menu
+                    onClick={this.menuClick}
+                    selectedKeys={[this.state.current]}
+                    mode="horizontal"
+                    style={{ backgroundColor: 'transparent', color: 'rgba(180, 180, 180, 1)'}}
+                  >
+                    <Menu.Item key="overall">
+                      OVERALL
+                    </Menu.Item>
+                    <span>LAST:</span>
+                    <Menu.Item key="7days">
+                      7 DAYS
+                    </Menu.Item>
+                    <Menu.Item key="30days">
+                      30 DAYS
+                    </Menu.Item>
+                    <Menu.Item key="90days">
+                      90 DAYS
+                    </Menu.Item>
+                  </Menu>
 
-    	    <Menu
-            onClick={this.menuClick}
-            selectedKeys={[this.state.current]}
-            mode="horizontal"
-            style={{ backgroundColor: 'transparent', color: 'rgba(180, 180, 180, 1)'}}
-          >
-            <Menu.Item key="overall">
-              OVERALL
-            </Menu.Item>
-            <span>LAST:</span>
-            <Menu.Item key="7days">
-              7 DAYS
-            </Menu.Item>
-            <Menu.Item key="30days">
-              30 DAYS
-            </Menu.Item>
-            <Menu.Item key="90days">
-              90 DAYS
-            </Menu.Item>
-          </Menu>
+                  <Row>
+                    <span style={{fontSize:'2em'}}>3.01%</span>
+                    <h5>ENGAGEMENT RATE</h5>
+                  </Row>
+                  <Row>
+                    <Col span={8}>
+                      <span>0.7</span>
+                      <h5>POST PER DAY</h5>
+                    </Col>
+                    <Col span={8}>
+                      <span>61.7K</span>
+                      <h5>AVG LIKES</h5>
+                    </Col>
+                    <Col span={8}>
+                      <span>635</span>
+                      <h5>AVG COMMENTS</h5>
+                    </Col>
+                  </Row>
+          	    </Card>
 
-          <Row>
-            <span style={{fontSize:'2em'}}>3.01%</span>
-            <h5>ENGAGEMENT RATE</h5>
-          </Row>
-          <Row>
-            <Col span={8}>
-              <span>0.7</span>
-              <h5>POST PER DAY</h5>
-            </Col>
-            <Col span={8}>
-              <span>61.7K</span>
-              <h5>AVG LIKES</h5>
-            </Col>
-            <Col span={8}>
-              <span>635</span>
-              <h5>AVG COMMENTS</h5>
-            </Col>
-          </Row>
-  	    </Card>
+                <section style={{ position: 'relative', height: '60%'}}>
+                  <SideMenu
+                    onClick={this.sideMenuClick}
+                    icon={this.state.menuComponent.icon}
+                    name={this.state.menuComponent.name}
+                  >
+                  </SideMenu>
+                  <section className="component-wrapper">
+                    <Card className="mainBodyCard">
+                      <div className="mainBodyTitle"><span><FontAwesomeIcon icon={this.state.menuComponent.icon} fixedWidth/><span>{this.state.menuComponent.name}</span></span></div>
+                        {this.state.menuComponent.component}
+                    </Card>
+                  </section>
+                </section>
+              </div>
 
-        <section style={{ position: 'relative', height: '60%'}}>
-          <SideMenu
-            onClick={this.sideMenuClick}
-            icon={this.state.menuComponent.icon}
-            name={this.state.menuComponent.name}
-          >
-          </SideMenu>
-          <section className="component-wrapper">
-            <Card className="mainBodyCard">
-              <div className="mainBodyTitle"><span><Icon type={this.state.menuComponent.icon} /><span>{this.state.menuComponent.name}</span></span></div>
-                {this.state.menuComponent.component}
-            </Card>
-          </section>
-        </section>
+              <ScrollDown complete={true}/>
+            </React.Fragment>
+          }
+
   	    </div>
   	)
   }

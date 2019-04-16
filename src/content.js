@@ -27,7 +27,8 @@ class Main extends React.Component {
     	    profile: {
     		      username: "user"
     	    },
-          loginComplete: false
+          loginComplete: false,
+          showScrollFooter: false
     	}
     }
 
@@ -118,6 +119,16 @@ class Main extends React.Component {
       console.log('login');
     }
 
+    showScrollFooter() {
+      this.setState({ showScrollFooter: true });
+      console.log('true');
+    }
+
+    hideScrollFooter() {
+      this.setState({ showScrollFooter: false });
+      console.log('false');
+    }
+
     render() {
 	const {profile} = this.props;
         return (
@@ -135,12 +146,10 @@ class Main extends React.Component {
                     !this.state.loginComplete ?
                       <Login login={this.loginComplete.bind(this)} />
                       :
-                      <EngagementComponent profile_name={this.props.profile_name} />
+                      <EngagementComponent profile_name={this.props.profile_name} showFooter={this.showScrollFooter.bind(this)} hideFooter={this.hideScrollFooter.bind(this)}/>
                   }
               	</Content>
               </Layout>
-
-              <ScrollDown complete={this.state.loginComplete}/>
 
             </div>
           </div>

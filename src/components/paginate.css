@@ -1,0 +1,19 @@
+.page-item {
+  text-decoration: none;
+  display: inline-block;
+  margin: 0 .5em;
+}
+
+.page-item.active a{
+  text-decoration: none;
+  color: white !important;
+
+}
+
+.page-link {
+  color: grey !important;
+}
+
+.pagination {
+  padding-left: 0;
+}

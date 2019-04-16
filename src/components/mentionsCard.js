@@ -45,13 +45,13 @@ const MentionsCard = (props) => {
         key={mention.name}
       >
         <Col
-          span={12}
+          span={10}
           className="mentions-row"
         >
           <u>{mention.name}</u>
         </Col>
         <Col
-          span={12}
+          span={14}
           className="mentions-row"
         >
           <div className="mention-bar-container">

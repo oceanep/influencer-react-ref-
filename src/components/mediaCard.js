@@ -14,11 +14,10 @@ const MediaCard = (props) => {
           <Row type="flex" justify="space-between" gutter={16}>
             <Col span={12}>
               <Card className="mediaCardBody" bordered={false}>
-                <Meta
-                  avatar={<Icon style={{ color: '#67D7D5' }} theme="outlined" type="youtube" />}
-                  title={<span className="cardTitle" >2 VIDEOS</span>}
-                  style={{ margin: 0}}
-                />
+                <Row>
+                  <Icon style={{ color: '#67D7D5', marginRight: '1em' }} theme="outlined" type="youtube" />
+                  <span className="cardTitle" >2 VIDEOS</span>
+                </Row>
                 <Row gutter={16}>
                   <Col span={12}>
                     <span>3.49%</span>
@@ -43,11 +42,10 @@ const MediaCard = (props) => {
             </Col>
             <Col span={12}>
               <Card className="mediaCardBody" bordered={false}>
-                <Meta
-                  avatar={<Icon style={{ color: '#67D7D5' }} theme="outlined" type="picture" />}
-                  title={<span className="cardTitle" >19 IMAGES</span>}
-                  style={{ margin: 0}}
-                />
+                <Row>
+                  <Icon style={{ color: '#67D7D5', marginRight: '1em' }} theme="outlined" type="picture" />
+                  <span className="cardTitle" >19 IMAGES</span>
+                </Row>
                 <Row gutter={16}>
                   <Col span={12}>
                     <span>3.05%</span>

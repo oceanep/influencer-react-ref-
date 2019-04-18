@@ -62,26 +62,27 @@ class Login extends React.Component{
                   </div>
                   <div className="wrapper">
                     <Row type="flex" justify="space-around" align="middle" gutter={12}>
-                      <Col span={8}>
+                      <Col span={12}>
                         <label className="flex-item">
-                          <input id="user_type" type="radio" value="critical" name="priority" value='brand' onChange={this.handleInputChange}></input><span className='brand'></span>
+                          <input id="user_type" type="radio" value='brand' onChange={this.handleInputChange}></input><span className='brand'></span>
                         </label>
                       </Col>
-                      <Col span={8}>
+                      <Col span={12}>
                         <label className="flex-item">
-                          <input id="user_type" type="radio" value="high" name="priority" value='agency' onChange={this.handleInputChange}></input> <span className='agency'></span>
+                          <input id="user_type" type="radio" value='agency' onChange={this.handleInputChange}></input> <span className='agency'></span>
                         </label>
                       </Col>
                     </Row>
+                    <br/>
                     <Row type="flex" justify="space-around" align="middle" gutter={12}>
-                      <Col span={8}>
+                      <Col span={12}>
                           <label className="flex-item">
-                            <input id="user_type" type="radio" value="medium" name="priority" value='creator' onChange={this.handleInputChange}></input> <span className='creator'></span>
+                            <input id="user_type" type="radio" value='creator' onChange={this.handleInputChange}></input> <span className='creator'></span>
                           </label>
                       </Col>
-                      <Col span={8}>
+                      <Col span={12}>
                           <label className="flex-item">
-                            <input id="user_type" type="radio" value="low" name="priority" value='other' onChange={this.handleInputChange}></input> <span className='other'></span>
+                            <input id="user_type" type="radio" value='other' onChange={this.handleInputChange}></input> <span className='other'></span>
                           </label>
                       </Col>
                     </Row>

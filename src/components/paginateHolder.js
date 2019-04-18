@@ -4,20 +4,31 @@ import React from 'react';
 import Paginate from './paginate.js';
 import "./paginateHolder.css";
 import "antd/dist/antd.css";
-import {Row, Col, Avatar} from 'antd';
+import {Row, Col, Avatar, Popconfirm, message, Button} from 'antd';
 
 const schema = {
-  allItems: ['state1', 'state2', 'state3', 'state4', 'state5', 'state6', 'state7', 'state8', 'state9', 'state10', 'state11',
-     'state12', 'state13', 'state14', 'state15', 'state16', 'state17', 'state18', 'state19', 'state20', 'state21', 'state22', 'state23',
-      'state24', 'state25', 'state26', 'state27', 'state28', 'state29', 'state30', 'state31', 'state32', 'state33', 'state34', 'state35',
-       'state36', 'state37', 'state38', 'state39', 'state40', 'state41', 'state42', 'state43', 'state44', 'state45', 'state46', 'state47',
-       'state48', 'state49', 'state50', 'state51', 'state52', 'state53', 'state54'
+  allItems: ['user1', 'user2', 'user3', 'user4', 'user5', 'user6', 'user7', 'user8', 'user9', 'user10', 'user11',
+     'user12', 'user13', 'user14', 'user15', 'user16', 'user17', 'user18', 'user19', 'user20', 'user21', 'user22', 'user23',
+      'user24', 'user25', 'user26', 'user27', 'user28', 'user29', 'user30', 'user31', 'user32', 'user33', 'user34', 'user35',
+       'user36', 'user37', 'user38', 'user39', 'user40', 'user41', 'user42', 'user43', 'user44', 'user45', 'user46', 'user47',
+       'user48', 'user49', 'user50', 'user51', 'user52', 'user53', 'user54'
   ],
-  currentItems: ['state1', 'state2', 'state3', 'state4', 'state5', 'state6', 'state7', 'state8', 'state9'],
+  currentItems: ['user1', 'user2', 'user3', 'user4', 'user5', 'user6', 'user7', 'user8', 'user9'],
   currentPage: 1,
   totalPages: 5,
   pageLimit: 9
 }
+
+function confirm(e) {
+  console.log(e);
+  message.success('Click on Yes');
+}
+
+function cancel(e) {
+  console.log(e);
+  message.error('Click on No');
+}
+
 
 class PaginateHolder extends React.Component{
   constructor(props){
@@ -59,9 +70,13 @@ class PaginateHolder extends React.Component{
         <div className="favorites-items">
           { currentItems.map(item =>
              <Row className="favorite-item-row">
-               <Col span={6}><Avatar shape="square" size={48} icon="picture"/></Col>
-               <Col span={14}><div className="favorite-item-name">{item}</div></Col>
-               <Col span={2}><div className="cancel-button">X</div></Col>
+               <Col span={6}><a href="https://google.com"><Avatar shape="square" size={48} icon="user"/></a></Col>
+               <Col span={14}><div className="favorite-item-name"><a href="https://google.com">{item}</a></div></Col>
+               <Col span={2}>
+                 <Popconfirm title={`Remove ${item} from favorites?`} onConfirm={confirm} onCancel={cancel} okText="Yes" cancelText="No">
+                   <a className="cancel-button" href="#">X</a>
+                 </Popconfirm>
+               </Col>
              </Row>
 
            ) }

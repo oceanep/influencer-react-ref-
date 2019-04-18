@@ -22,7 +22,7 @@ input[type=text] {
 
 .login-form {
     max-width: 450pt;
-    padding: 20pt 20pt 0pt;
+    padding: 40pt 20pt 0pt;
     color: #fff;
 
 }
@@ -68,7 +68,6 @@ input[type=text] {
   display:flex;
 /*   flex-basis:25%; */
   width:100%;
-
   justify-content: center;
   align-items:center;
 /*   text-align:left; */

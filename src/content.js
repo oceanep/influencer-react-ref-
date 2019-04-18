@@ -137,8 +137,8 @@ class Main extends React.Component {
               className={'influencer-main'}
             >
 
-              <Layout style={{ height: '91%'}}>
-              	<div style={{ backgroundColor: 'rgb(38,40,70)', paddingLeft: '0', paddingRight: '10px', width: '100%'}}>
+              <Layout style={{ height: '100%'}}>
+              	<div style={{ backgroundColor: 'rgb(38,40,70)', height:'75px', paddingLeft: '0', paddingRight: '10px', width: '100%'}}>
               	  <ProfileHeader profile={this.state.profile} complete={this.state.loginComplete}/>
               	</div>
               	<Content>

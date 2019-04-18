@@ -9,7 +9,7 @@
 .profile-header{
   height: 100%;
   background: #00bcd4;
-  height: 64px;
+  height: 75px;
   text-align: center;
   -webkit-transform: skewX(-30deg);
   -moz-transform: skewX(-30deg);
@@ -25,14 +25,14 @@
 
 .profile-header .skew{
   transform: skewX(30deg);
-  height: 64px;
+  height: 75px;
   line-height: 64px;
 
 }
 
 .profile-header .login-skew{
   transform: skewX(30deg);
-  height: 64px;
+  height: 75px;
   line-height: 64px;
   text-align: left;
   padding-left: 65px;
@@ -52,7 +52,7 @@
 
 .profile-image{
   width: 100px;
-  height: 64px;
+  height: 75px;
   background-image: url(../assets/profile-pic-placeholder.jpg);
   background-repeat: no-repeat;
   background-position: center;
@@ -61,13 +61,13 @@
 
 .profile-image-holder {
   width: 100px;
-  height: 64px;
+  height: 75px;
   background: rgb(67,70,110);
 }
 
 .profile-login-image-holder {
   width: 100px;
-  height: 64px;
+  height: 75px;
   padding-left: 25px;
   z-index: 5;
   background: rgb(67,70,110);
@@ -78,6 +78,6 @@
   color: rgba(93, 214, 210, 0.85);
   font-size: .75em;
   padding-left: 10px;
-  height: 64px;
+  height: 75px;
   line-height: 64px;
 }

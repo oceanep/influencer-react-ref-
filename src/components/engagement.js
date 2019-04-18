@@ -160,7 +160,7 @@ class EngagementComponent extends React.Component {
                   </SideMenu>
                   <section className="component-wrapper">
                     <Card className="mainBodyCard">
-                      <div className="mainBodyTitle"><span><FontAwesomeIcon icon={this.state.menuComponent.icon} fixedWidth/><span>{this.state.menuComponent.name}</span></span></div>
+                      <div className="mainBodyTitle"><span><FontAwesomeIcon icon={this.state.menuComponent.icon} fixedWidth/><span style={{paddingLeft:"0.5em"}}>{this.state.menuComponent.name}</span></span></div>
                         {this.state.menuComponent.component}
                     </Card>
                   </section>

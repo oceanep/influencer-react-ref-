@@ -121,6 +121,7 @@ span.other::before{
     padding-top: 5%;
     padding-bottom: 5%;
     content:'OTHER';
+    box-shadow: 0 0 0 0.15em #555;
     background: rgb(44,47,72);
 }
 
@@ -133,7 +134,6 @@ span.other::before{
     vertical-align: -1.0em;
     border-radius:.25em;
     border: none;
-    box-shadow: 0 0 0 0.15em #555;
     transition: 0.5s ease all;
     text-align: center;
 }

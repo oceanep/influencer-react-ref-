@@ -64,12 +64,12 @@ class Login extends React.Component{
                     <Row type="flex" justify="space-around" align="middle" gutter={12}>
                       <Col span={12}>
                         <label className="flex-item">
-                          <input id="user_type" type="radio" value='brand' onChange={this.handleInputChange}></input><span className='brand'></span>
+                          <input id="user_type" type="radio" value='brand' name="priority" onChange={this.handleInputChange}></input><span className='brand'></span>
                         </label>
                       </Col>
                       <Col span={12}>
                         <label className="flex-item">
-                          <input id="user_type" type="radio" value='agency' onChange={this.handleInputChange}></input> <span className='agency'></span>
+                          <input id="user_type" type="radio" value='agency' name="priority" onChange={this.handleInputChange}></input> <span className='agency'></span>
                         </label>
                       </Col>
                     </Row>
@@ -77,12 +77,12 @@ class Login extends React.Component{
                     <Row type="flex" justify="space-around" align="middle" gutter={12}>
                       <Col span={12}>
                           <label className="flex-item">
-                            <input id="user_type" type="radio" value='creator' onChange={this.handleInputChange}></input> <span className='creator'></span>
+                            <input id="user_type" type="radio" value='creator' name="priority" onChange={this.handleInputChange}></input> <span className='creator'></span>
                           </label>
                       </Col>
                       <Col span={12}>
                           <label className="flex-item">
-                            <input id="user_type" type="radio" value='other' onChange={this.handleInputChange}></input> <span className='other'></span>
+                            <input id="user_type" type="radio" value='other' name="priority" onChange={this.handleInputChange}></input> <span className='other'></span>
                           </label>
                       </Col>
                     </Row>

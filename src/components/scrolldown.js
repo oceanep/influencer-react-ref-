@@ -22,7 +22,7 @@ class ScrollDown extends React.Component{
                     </Col>
 
                     <Col className="scroll-text" span={18}>
-                      <span><b> SCROLL FOR MORE DATA</b></span>
+                      <span><b>Engagement rate and other data points are based off of images shown in browser. If you’d like to base analysis off of more images, please scroll down on Instagram.</b></span>
                     </Col>
           	    </Row>
               :

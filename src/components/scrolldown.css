@@ -1,6 +1,5 @@
 .scrolldown-container {
-  background: rgb(241,127,127);
-  background: linear-gradient(90deg, rgba(241,127,127,1) 0%, rgba(255,154,99,1) 35%, rgba(255,44,170,1) 100%);
+  background: rgb(67,70,110);
   z-index: 10;
 }
 
@@ -10,9 +9,9 @@
 }
 
 .scrolldown-image {
-  margin-left: 3em;
+  margin-left: 2.25em;
   margin-top: -25px;
-  height: 75px;
+  height: 95px;
   width: 50px;
   background-image: url(../assets/double-arrows.png);
   background-size: cover;
@@ -26,5 +25,7 @@
 .scroll-text {
   padding-top: 1em;
   color: white;
-  padding-left: 3em;
+  padding-left: 1.25em;
+  padding-bottom: 0.70em;
+  font-size:0.75em;
 }

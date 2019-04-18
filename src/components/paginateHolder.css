@@ -32,6 +32,14 @@
   border-radius: 50%;
 }
 
+.favorite-item-name a:link {
+  color: white;
+}
+
+.favorite-item-name a:visited {
+  color: white;
+}
+
 .favorite-item-row:hover .cancel-button {
   display: block;
 }

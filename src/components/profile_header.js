@@ -28,15 +28,15 @@ class ProfileHeader extends React.Component{
                     </Col>
 
                     <Col className="profile-app-title" span={2}>
-                      {/*<div ><img width="70px" style={{paddingTop: '60%'}} src={chrome.runtime.getURL("images/influencer-logo1x.svg")}/></div>*/}
-                      <div ><img width="70px" style={{paddingTop: '60%'}} src={"images/influencer-logo1x.svg"}/></div>
+                      <div ><img width="70px" style={{paddingTop: '60%'}} src={chrome.runtime.getURL("images/influencer-logo1x.svg")}/></div>
+                      {/*<div ><img width="70px" style={{paddingTop: '60%'}} src={"images/influencer-logo1x.svg"}/></div> */}
                     </Col>
           	    </Row>
               :
             <Row style={{height:'75px'}}>
                   <Col className="profile-app-image" span={8}>
-                    {/*<div className="profile-login-image-holder"><img height="98%"src={chrome.runtime.getURL("images/double-arrows@1x.svg")}/></div>*/}
-                    <div className="profile-login-image-holder"><img height="98%"src={"images/double-arrows@1x.svg"}/></div>
+                    <div className="profile-login-image-holder"><img height="98%"src={chrome.runtime.getURL("images/double-arrows@1x.svg")}/></div>
+                    {/*<div className="profile-login-image-holder"><img height="98%"src={"images/double-arrows@1x.svg"}/></div>*/}
                     </Col>
                   <Col className="profile-header" span={14}>
                       <span >
@@ -45,8 +45,8 @@ class ProfileHeader extends React.Component{
                     </Col>
 
                   <Col className="profile-app-title" span={2}>
-                    {/*<div ><img width="70px" style={{paddingTop: '60%', paddingLeft: '0'}} src={chrome.runtime.getURL("images/influencer-logo1x.svg")}/></div>*/}
-                    <div ><img width="70px" style={{paddingTop: '30%'}} src={"images/influencer-logo1x.svg"}/></div>
+                    <div ><img width="70px" style={{paddingTop: '60%', paddingLeft: '0'}} src={chrome.runtime.getURL("images/influencer-logo1x.svg")}/></div>
+                    {/*<div ><img width="70px" style={{paddingTop: '30%'}} src={"images/influencer-logo1x.svg"}/></div>*/}
                   </Col>
                 </Row>
     	)

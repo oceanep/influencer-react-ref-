@@ -21,12 +21,12 @@ const schema = {
 
 function confirm(e) {
   console.log(e);
-  message.success('Click on Yes');
+  //message.success('Click on Yes');
 }
 
 function cancel(e) {
   console.log(e);
-  message.error('Click on No');
+  //message.error('Click on No');
 }
 
 
@@ -73,7 +73,7 @@ class PaginateHolder extends React.Component{
                <Col span={6}><a href="https://google.com"><Avatar shape="square" size={48} icon="user"/></a></Col>
                <Col span={14}><div className="favorite-item-name"><a href="https://google.com">{item}</a></div></Col>
                <Col span={2}>
-                 <Popconfirm title={`Remove ${item} from favorites?`} onConfirm={confirm} onCancel={cancel} okText="Yes" cancelText="No">
+                 <Popconfirm title={`Remove '${item}' from favorites?`} onConfirm={confirm} onCancel={cancel} okText="Yes" cancelText="No">
                    <a className="cancel-button" href="#">X</a>
                  </Popconfirm>
                </Col>

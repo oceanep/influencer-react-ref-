@@ -8,6 +8,7 @@ import "./login.css";
 import {Form, Icon, Radio, Row, Col, Input, Button, Checkbox} from 'antd';
 
 import { observer, inject } from "mobx-react";
+import db from '../utils/storage';
 
 const FormItem = Form.Item;
 
@@ -19,7 +20,8 @@ class Login extends React.Component{
     	    last_name: '',
     	    business_email: '',
     	    user_type: null,
-                registrationVisible: false
+            registrationVisible: false,
+            user: null
     	}
     	this.handleInputChange = this.handleInputChange.bind(this);
     	this.handleSubmit = this.handleSubmit.bind(this);
@@ -43,8 +45,20 @@ class Login extends React.Component{
         }
     }
 
+    
     handleSubmit(event) {
-  	//alert('A name was submitted: ' + this.state.value);
+        const user = {
+            first_name:this.state.first_name,
+            last_name:this.state.last_name,
+            business_email:this.state.business_email,
+            user_type:this.state.user_type
+        };
+        db.table('users')
+            .add(user)
+            .then((id) => {
+                const newList = [...this.state.todos, Object.assign({}, todo, { id })];
+                this.setState({ user: id });
+            });
   	event.preventDefault();
     }
 

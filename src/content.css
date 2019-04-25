@@ -18,3 +18,7 @@
 h5 {
   font-size: .9em;
 }
+
+.add-to-favorites-button {
+    background-color: rgb(120,200,199);
+}

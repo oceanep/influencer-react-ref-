@@ -21,7 +21,6 @@ class Login extends React.Component{
     	    business_email: '',
     	    user_type: null,
             registrationVisible: false,
-            user: null
     	}
     	this.handleInputChange = this.handleInputChange.bind(this);
     	this.handleSubmit = this.handleSubmit.bind(this);
@@ -56,9 +55,8 @@ class Login extends React.Component{
         db.table('users')
             .add(user)
             .then((id) => {
-                const newList = [...this.state.todos, Object.assign({}, todo, { id })];
-                this.setState({ user: id });
-            });
+                this.props.login(id);
+            })
   	event.preventDefault();
     }
 
@@ -109,8 +107,7 @@ class Login extends React.Component{
 
                     {this.state.registrationVisible &&
 
-                     <Form onSubmit={this.handleSubmit} className="login-form">
-
+                     <Form className="login-form" onSubmit={this.handleSubmit.bind(this)}>
 
                        <FormItem>
 
@@ -146,7 +143,6 @@ class Login extends React.Component{
                            type="primary"
                            htmlType="submit"
                            className="login-form-button"
-                           onClick={this.props.login}
                          >
                            GET STARTED
                          </Button>

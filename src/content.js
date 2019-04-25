@@ -10,6 +10,9 @@ import ScrollDown from "./components/scrolldown.js"
 import EngagementComponent from "./components/engagement.js";
 import Login from "./components/login.js";
 import { Layout } from 'antd';
+import db from './utils/storage';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {Button} from 'antd';
 const { Header, Content, Footer} = Layout;
 
 var helpers = require('./utils/helpers.js');
@@ -19,19 +22,34 @@ var profileRegex =  /^\/([\w.\-_]+)\/$/
 var enrichEnabled = true;
 var vent = _.extend({}, Backbone.Events);
 
+window.db = db;
+
 class Main extends React.Component {
 
+    UNSAFE_componentWillMount(){
+        var user_id = localStorage.getItem('IRUserId');
+        
+        if(user_id !== null){
+            this.setState({
+                loginComplete: true,
+                user_id: user_id
+            }) 
+        }
+    }
+    
     constructor(props) {
     	super(props);
+        
     	this.state = {
     	    profile: {
-    		      username: "user"
+    		username: "user"
     	    },
-          loginComplete: false,
-          showScrollFooter: false
+            loginComplete: false,
+            showScrollFooter: false,
+            user_id: null
     	}
     }
-
+    
     subscribeToEvents() {
         document.addEventListener('navigate_profile', e => this.onProfileLoaded());
         document.addEventListener('profile_page_loaded', e => this.onProfileLoaded());
@@ -72,9 +90,15 @@ class Main extends React.Component {
         }, {merge: true});
     }
 
+    
+    
+    
     componentDidMount(){
     	this.profiles = new ProfilesCollection();
     	this.subscribeToEvents();
+        window.db.users.get(parseInt(this.state.user_id)).then (function (user) {
+            console.log("Logged In User: " + user.business_email);
+        });
     	this.waitForEntryData()
     	    .then(data => this.addProfile(data))
     	    .catch(data => data)
@@ -82,6 +106,7 @@ class Main extends React.Component {
     		console.log("Pre show: ", profile.id);
     		this.showProfile(profile.id)
 	    });
+        renderFavoritesButton();
     }
 
     addProfile(data) {
@@ -102,7 +127,6 @@ class Main extends React.Component {
 	    }})
     }
 
-
     showProfile(username) {
     	var profile = this.profiles.get(username);
 
@@ -114,9 +138,9 @@ class Main extends React.Component {
       });
     }
 
-    loginComplete() {
-      this.setState({ loginComplete: true });
-      console.log('login');
+    loginComplete(user_id=null) {
+        window.localStorage.setItem('IRUserId', user_id);        
+        this.setState({ loginComplete: true });
     }
 
     showScrollFooter() {
@@ -135,21 +159,20 @@ class Main extends React.Component {
           <div id="influencer-root">
             <div
               className={'influencer-main'}
-            >
-
+            >              
               <Layout style={{ height: '91%'}}>
               	<div style={{ backgroundColor: 'rgb(38,40,70)', height:'75px', paddingLeft: '0', paddingRight: '10px', width: '100%'}}>
               	  <ProfileHeader profile={this.state.profile} complete={this.state.loginComplete}/>
               	</div>
               	<Content>
-            		  {
-                    !this.state.loginComplete ?
-                      <Login login={this.loginComplete.bind(this)} />
+            	  {
+                  !this.state.loginComplete ?
+                          <Login login={this.loginComplete.bind(this)} />
                       :
                       <EngagementComponent profile_name={this.props.profile_name} showFooter={this.showScrollFooter.bind(this)} hideFooter={this.hideScrollFooter.bind(this)}/>
                   }
-              	</Content>
-              </Layout>
+              	  </Content>
+                </Layout>
 
             </div>
           </div>
@@ -157,6 +180,51 @@ class Main extends React.Component {
     }
 }
 
+
+function renderFavoritesButton(){
+    var follow_unfollow_target = document.getElementsByClassName("BY3EC")[0];
+    var favorite_button = document.createElement("div");
+    follow_unfollow_target.insertAdjacentElement("afterend", favorite_button);
+    ReactDOM.render(<FavoriteButton />, favorite_button);
+}
+
+class FavoriteButton extends React.Component {
+
+    componentDidMount() {
+        //Hack to force re-render so FontAwesome is loaded correctly
+        setTimeout(() => this.forceUpdate(), 10)
+    }
+    
+    componentWillReceiveProps() {
+        //Hack to force re-render so FontAwesome is loaded correctlyq
+        setTimeout(() => this.forceUpdate(), 10)
+    }
+
+
+    addToFavoritesClick(){
+        console.log("clicked");
+    }
+    
+    render() {
+
+        return (
+            <div style={{paddingLeft:"5%"}}>
+              <Button
+                style={{backgroundColor: "rgb(120,200,199)",
+                        fontWeight: "bold",
+                        border: "none",
+                        outline:"none",
+                        height: "22pt"
+                       }}
+                type="primary"
+                className="add-to-favorites-button"
+                onClick={this.addToFavoritesClick.bind(this)}>
+                Add to Favorites
+              </Button>
+            </div>
+        )
+    }
+}
 
 var ProfileModel = Backbone.Model.extend({
     idAttribute: 'username',
@@ -533,7 +601,6 @@ var target_location = document.querySelectorAll('#react-root section main')[0];
 target_location.classList.add('with-sidebar');
 target_location.appendChild(app);
 ReactDOM.render(<Main />, app);
-
 
 //app.style.display = "none";
 

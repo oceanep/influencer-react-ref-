@@ -61,19 +61,38 @@ const menuComponents = [
 
 class EngagementComponent extends React.Component {
 
-  constructor(props){
-    super(props);
-    this.state = {
-      current: 'overall',
-      menuComponent: menuComponents[0]
-    }
-  }
 
-  menuClick = (e) => {
-    this.setState({
-      current: e.key
-    });
-  }
+    componentDidMount() {
+        //Hack to force re-render so FontAwesome is loaded correctly
+        setTimeout(() => this.forceUpdate(), 10)
+    }
+    
+    componentWillReceiveProps() {
+        //Hack to force re-render so FontAwesome is loaded correctlyq
+        setTimeout(() => this.forceUpdate(), 10)
+    }
+    
+    constructor(props){     
+        super(props);
+        this.state = {
+            current: 'overall',
+            menuComponent: menuComponents[0],
+            user_id: null
+        }
+    }
+
+  /*  componentDidMount(){
+        var user_id = localStorage.getItem('IRUserId');
+        if (user_id != null){
+            this.forceUpdate();
+        }
+    } */
+    
+    menuClick = (e) => {
+        this.setState({
+            current: e.key
+        });
+    }
 
   sideMenuClick = (e) => {
     console.log(`${e.key} outside menu`);
@@ -81,12 +100,12 @@ class EngagementComponent extends React.Component {
     this.state.menuComponent.name == 'Favorites' ? this.props.hideFooter() : this.props.showFooter();
   }
 
-  render(){
+    render(){
   	return (
   	    <div style={{ height: '100%'}}>
           { this.state.menuComponent.name == 'Favorites' ?
             <React.Fragment>
-              <div class="engagement-main">
+              <div className="engagement-main">
                 <section style={{ position: 'relative', height: '100%'}}>
                   <SideMenu
                     onClick={this.sideMenuClick}
@@ -108,7 +127,7 @@ class EngagementComponent extends React.Component {
             </React.Fragment>
             :
             <React.Fragment>
-              <div class="engagement-main">
+              <div className="engagement-main">
                 <Card className="mainBodyCard1">
             	    <Menu
                     onClick={this.menuClick}

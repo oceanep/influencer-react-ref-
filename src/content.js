@@ -42,11 +42,13 @@ class Main extends React.Component {
         
     	this.state = {
     	    profile: {
-    		username: "user"
+    		username: "gypsea_lust",
+                profile_pic_url: null
     	    },
             loginComplete: false,
             showScrollFooter: false,
-            user_id: null
+            user_id: null,
+            current_profile: null
     	}
     }
     
@@ -162,7 +164,7 @@ class Main extends React.Component {
             >              
               <Layout style={{ height: '91%'}}>
               	<div style={{ backgroundColor: 'rgb(38,40,70)', height:'75px', paddingLeft: '0', paddingRight: '10px', width: '100%'}}>
-              	  <ProfileHeader profile={this.state.profile} complete={this.state.loginComplete}/>
+              	  <ProfileHeader profile={this.state.profile} profile_pic_url={this.state.profile_pic_url} complete={this.state.loginComplete}/>
               	</div>
               	<Content>
             	  {
@@ -475,6 +477,9 @@ var ProfilesCollection = Backbone.Collection.extend({
         profile.user_id = profile.id;
         delete profile.id;
 	console.log("This is the profile!", profile);
+        this.setState({
+            profile_pic_url: profile.profile_pic_url
+        })        
         return this.add(profile, { merge: true });
     }
 });

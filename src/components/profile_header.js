@@ -17,8 +17,8 @@ class ProfileHeader extends React.Component{
     	return(
               this.props.complete ?
           	<Row style={{height:'75px'}}>
-                    <Col className="profile-app-image" span={8}>
-                      <div className="profile-image"></div>
+                  <Col className="profile-app-image" span={8}>
+                    <div className="profile-image"></div>
                     </Col>
 
                     <Col className="profile-header" span={14}>

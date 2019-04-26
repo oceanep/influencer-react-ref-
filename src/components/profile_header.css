@@ -27,7 +27,9 @@
   transform: skewX(30deg);
   height: 75px;
   line-height: 64px;
-
+  font-size:large;
+  text-align: left;
+  padding-left:10%;
 }
 
 .profile-header .login-skew{
@@ -53,7 +55,7 @@
 .profile-image{
   width: 100px;
   height: 75px;
-  background-image: url(../assets/profile-pic-placeholder.jpg);
+  background-image: url(../assets/prof_temp.jpg);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

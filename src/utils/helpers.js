@@ -1,6 +1,13 @@
 var _ = require('underscore');
 
 
+function createObjectURL(blob){
+  var objURL = URL.createObjectURL(blob);
+  this.objectURLs = this.objectURLs || [];
+  this.objectURLs.push(objURL);
+  return objURL;
+};
+
 function getProp(name){
     return function(object){
         return object[name];

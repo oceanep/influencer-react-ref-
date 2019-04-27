@@ -4,7 +4,8 @@
     "version": "1.0",
     "manifest_version": 2,
     "permissions": [
-	"activeTab"
+	"activeTab",
+	"<all_urls>"
     ],
     "background": {
 	"scripts": ["app/background.js"]

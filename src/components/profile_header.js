@@ -14,11 +14,12 @@ class ProfileHeader extends React.Component{
     }
 
     render(){
+        console.log("Props: ", this.props);
     	return(
               this.props.complete ?
           	<Row style={{height:'75px'}}>
                   <Col className="profile-app-image" span={8}>
-                    <div className="profile-image"></div>
+                    <div className="profile-image" style={{backgroundImage: `url(${this.props.profile.profile_pic_url})`}}></div>
                     </Col>
 
                     <Col className="profile-header" span={14}>

@@ -21,7 +21,7 @@ var _ = require('underscore');
 var profileRegex =  /^\/([\w.\-_]+)\/$/
 var enrichEnabled = true;
 var vent = _.extend({}, Backbone.Events);
-
+let profiles;
 window.db = db;
 
 class Main extends React.Component {
@@ -39,10 +39,9 @@ class Main extends React.Component {
     
     constructor(props) {
     	super(props);
-        
     	this.state = {
     	    profile: {
-    		username: "gypsea_lust",
+    		username: null,
                 profile_pic_url: null
     	    },
             loginComplete: false,
@@ -71,7 +70,7 @@ class Main extends React.Component {
         var username = /^\/([\w.\-_]+)\/$/.exec(document.location.pathname);
         username = username ? username[1] : null;
         if (username) {
-            return this.profiles.loadProfile(username)
+            return profiles.loadProfile(username)
                 .then(data => this.addProfile(data))
                 .then(() => this.showProfile(username));
         }
@@ -92,11 +91,8 @@ class Main extends React.Component {
         }, {merge: true});
     }
 
-    
-    
-    
     componentDidMount(){
-    	this.profiles = new ProfilesCollection();
+    	profiles = new ProfilesCollection();
     	this.subscribeToEvents();
         window.db.users.get(parseInt(this.state.user_id)).then (function (user) {
             console.log("Logged In User: " + user.business_email);
@@ -105,7 +101,7 @@ class Main extends React.Component {
     	    .then(data => this.addProfile(data))
     	    .catch(data => data)
     	    .then(profile => {
-    		console.log("Pre show: ", profile.id);
+    		console.log("Component  Did mount: ", profile);
     		this.showProfile(profile.id)
 	    });
         //renderFavoritesButton();
@@ -115,7 +111,7 @@ class Main extends React.Component {
 	//TODO: Add proper private  profile
 	//if (!helpers.isEmpty(data) && !data['graphql']['user']['is_private'] {
 	if (data){
-            return this.profiles.addProfile(data);
+            return profiles.addProfile(data);
         } else {
             return Promise.resolve({})
         }
@@ -129,9 +125,9 @@ class Main extends React.Component {
 	    }})
     }
 
-    showProfile(username) {
-    	var profile = this.profiles.get(username);
-
+    showProfile(profile_id) {
+    	var profile = profiles.get(profile_id);
+        console.log("Showing Profile: ", profile);
         profile.initialPostsProcessed.then(() => {
           console.log("profile from memory", profile);
           //update our view;
@@ -164,7 +160,7 @@ class Main extends React.Component {
             >              
               <Layout style={{ height: '91%'}}>
               	<div style={{ backgroundColor: 'rgb(38,40,70)', height:'75px', paddingLeft: '0', paddingRight: '10px', width: '100%'}}>
-              	  <ProfileHeader profile={this.state.profile} profile_pic_url={this.state.profile_pic_url} complete={this.state.loginComplete}/>
+              	  <ProfileHeader profile={this.state.profile} complete={this.state.loginComplete}/>
               	</div>
               	<Content>
             	  {
@@ -251,6 +247,7 @@ var ProfileModel = Backbone.Model.extend({
 
         this.initialPostsProcessed = new Promise((resolve, reject) => {
             if (initialPosts.length) {
+                console.log("we have posts");
                 this.enrichPostsData(initialPosts)
                     .then(posts => this.processPosts(posts))
                     .then(resolve);
@@ -476,10 +473,6 @@ var ProfilesCollection = Backbone.Collection.extend({
         profile.rawData = Object.assign({}, profile);
         profile.user_id = profile.id;
         delete profile.id;
-	console.log("This is the profile!", profile);
-        this.setState({
-            profile_pic_url: profile.profile_pic_url
-        })        
         return this.add(profile, { merge: true });
     }
 });
@@ -504,7 +497,6 @@ var Post = Backbone.Model.extend({
     },
 
     initialize() {
-	console.log("initializing profile");
         this.parse();
         this.calculateEngagementRate();
         this.parseAccessibilityCaption();
@@ -599,34 +591,34 @@ const requestsData = new RequestsMetadata();
 
 //COMMENTING OUT CHROME SPECIFIC SECTION
 
-// const app = document.createElement('div');
-// app.id = "influencer-root";
+const app = document.createElement('div');
+app.id = "influencer-root";
 
-// var target_location = document.querySelectorAll('#react-root section main')[0];
-// target_location.classList.add('with-sidebar');
-// target_location.appendChild(app);
-// ReactDOM.render(<Main />, app);
+var target_location = document.querySelectorAll('#react-root section main')[0];
+target_location.classList.add('with-sidebar');
+target_location.appendChild(app);
+ReactDOM.render(<Main />, app);
 
-// //app.style.display = "none";
+//app.style.display = "none";
 
-// chrome.runtime.onMessage.addListener(
-//    function(request, sender, sendResponse) {
-//        if(request.message === "clicked_browser_action") {
-//         toggle();
-//       }
-//    }
-// );
+chrome.runtime.onMessage.addListener(
+   function(request, sender, sendResponse) {
+       if(request.message === "clicked_browser_action") {
+        toggle();
+      }
+   }
+);
 
 
-// function toggle(){
-//    if(app.style.display === "none"){
-//        app.style.display = "block";
-//        target_location.classList.add('with-sidebar');
-//    }else{
-//        app.style.display = "none";
-//        target_location.classList.remove('with-sidebar');
-//    }
-// }
+function toggle(){
+   if(app.style.display === "none"){
+       app.style.display = "block";
+       target_location.classList.add('with-sidebar');
+   }else{
+       app.style.display = "none";
+       target_location.classList.remove('with-sidebar');
+   }
+}
 
 String.prototype.toCamelCase = function () {
     let words = this.replace(/[\-_\s]+/g, ' ').replace(/\s+/g, ' ').split(' ');

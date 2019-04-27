@@ -108,7 +108,7 @@ class Main extends React.Component {
     		console.log("Pre show: ", profile.id);
     		this.showProfile(profile.id)
 	    });
-        renderFavoritesButton();
+        //renderFavoritesButton();
     }
 
     addProfile(data) {
@@ -599,34 +599,34 @@ const requestsData = new RequestsMetadata();
 
 //COMMENTING OUT CHROME SPECIFIC SECTION
 
-const app = document.createElement('div');
-app.id = "influencer-root";
+// const app = document.createElement('div');
+// app.id = "influencer-root";
 
-var target_location = document.querySelectorAll('#react-root section main')[0];
-target_location.classList.add('with-sidebar');
-target_location.appendChild(app);
-ReactDOM.render(<Main />, app);
+// var target_location = document.querySelectorAll('#react-root section main')[0];
+// target_location.classList.add('with-sidebar');
+// target_location.appendChild(app);
+// ReactDOM.render(<Main />, app);
 
-//app.style.display = "none";
+// //app.style.display = "none";
 
-chrome.runtime.onMessage.addListener(
-   function(request, sender, sendResponse) {
-       if(request.message === "clicked_browser_action") {
-        toggle();
-      }
-   }
-);
+// chrome.runtime.onMessage.addListener(
+//    function(request, sender, sendResponse) {
+//        if(request.message === "clicked_browser_action") {
+//         toggle();
+//       }
+//    }
+// );
 
 
-function toggle(){
-   if(app.style.display === "none"){
-       app.style.display = "block";
-       target_location.classList.add('with-sidebar');
-   }else{
-       app.style.display = "none";
-       target_location.classList.remove('with-sidebar');
-   }
-}
+// function toggle(){
+//    if(app.style.display === "none"){
+//        app.style.display = "block";
+//        target_location.classList.add('with-sidebar');
+//    }else{
+//        app.style.display = "none";
+//        target_location.classList.remove('with-sidebar');
+//    }
+// }
 
 String.prototype.toCamelCase = function () {
     let words = this.replace(/[\-_\s]+/g, ' ').replace(/\s+/g, ' ').split(' ');

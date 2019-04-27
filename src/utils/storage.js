@@ -1,4 +1,4 @@
-1import Dexie from 'dexie';
+eimport Dexie from 'dexie';
 
 const db = new Dexie("InfluencerDB");
 

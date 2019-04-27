@@ -1,6 +1,16 @@
 var _ = require('underscore');
 
 
+
+function clearObjectURL(){
+  if (this.objectURLs) {
+    this.objectURLs.forEach(function(objURL) {
+      URL.revokeObjectURL(objURL);
+    });
+    this.objectURLs = null;
+  }
+};
+
 function createObjectURL(blob){
   var objURL = URL.createObjectURL(blob);
   this.objectURLs = this.objectURLs || [];

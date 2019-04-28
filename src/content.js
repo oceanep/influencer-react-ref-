@@ -43,6 +43,11 @@ class Main extends React.Component {
     	this.state = {
     	    profile: {
     		attributes: {
+                    postsPerDay: 0.00,
+                    avgCommentsPerImage: 0.00,
+                    avgLikes: 0.00,
+                    engagementRate: 0.00,
+                    profile_pic_url: "./assets/profile-pic-placeholder.jpg"
                 }
     	    },
             loginComplete: false,
@@ -82,9 +87,9 @@ class Main extends React.Component {
             document.addEventListener('entry_data', e => resolve(e.detail));
         });
     }
-
+    
     addRequest(url) {
-        const params = JSON.parse(helpers.extractQueryParam(url, 'variables'));
+        const params = JSON.parse(extractQueryParam(url, 'variables'));
         return this.add({
             user_id: params.id,
             url: url,
@@ -167,7 +172,7 @@ class Main extends React.Component {
                   !this.state.loginComplete ?
                           <Login login={this.loginComplete.bind(this)} />
                       :
-                      <EngagementComponent profile_name={this.props.profile_name} showFooter={this.showScrollFooter.bind(this)} hideFooter={this.hideScrollFooter.bind(this)}/>
+                      <EngagementComponent profile={this.state.profile} showFooter={this.showScrollFooter.bind(this)} hideFooter={this.hideScrollFooter.bind(this)}/>
                   }
               	  </Content>
                 </Layout>
@@ -403,7 +408,7 @@ var ProfileModel = Backbone.Model.extend({
 
         if (pageToken) {
             url = new URL(initialUrl);
-            let variables = JSON.parse(helpers.extractQueryParam(initialUrl, 'variables'));
+            let variables = JSON.parse(extractQueryParam(initialUrl, 'variables'));
             variables.after = pageToken;
             url.searchParams.set('variables', JSON.stringify(variables));
             url = url.toString();
@@ -579,7 +584,7 @@ var RequestsMetadata = Backbone.Collection.extend({
     },
 
     addRequest(url) {
-        const params = JSON.parse(helpers.extractQueryParam(url, 'variables'));
+        const params = JSON.parse(extractQueryParam(url, 'variables'));
         return this.add({
             user_id: params.id,
             url: url,
@@ -632,5 +637,11 @@ function ucfirst(str) {
     var firstLetter = str.substr(0, 1);
     return firstLetter.toUpperCase() + str.substr(1);
 }
+
+function extractQueryParam(url, param) {
+    url = new URL(url);
+    return url.searchParams.get(param);
+}
+
 
 export default Main;

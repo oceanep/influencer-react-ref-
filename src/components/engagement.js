@@ -80,13 +80,6 @@ class EngagementComponent extends React.Component {
             user_id: null
         }
     }
-
-  /*  componentDidMount(){
-        var user_id = localStorage.getItem('IRUserId');
-        if (user_id != null){
-            this.forceUpdate();
-        }
-    } */
     
     menuClick = (e) => {
         this.setState({
@@ -151,20 +144,20 @@ class EngagementComponent extends React.Component {
                   </Menu>
 
                   <Row>
-                    <span style={{fontSize:'2em'}}>3.01%</span>
+                    <span style={{fontSize:'2em'}}>{Math.floor(this.props.profile.attributes.engagementRate * 10000)/100}%</span>
                     <h5>ENGAGEMENT RATE</h5>
                   </Row>
                   <Row>
                     <Col span={8}>
-                      <span>0.7</span>
+                      <span>{this.props.profile.attributes.postsPerDay.toFixed(2)}</span>
                       <h5>POST PER DAY</h5>
                     </Col>
                     <Col span={8}>
-                      <span>61.7K</span>
+                      <span>{Math.round(this.props.profile.attributes.avgLikes)}</span>
                       <h5>AVG LIKES</h5>
                     </Col>
                     <Col span={8}>
-                      <span>635</span>
+                      <span>{Math.round(this.props.profile.attributes.avgCommentsPerImage)}</span>
                       <h5>AVG COMMENTS</h5>
                     </Col>
                   </Row>

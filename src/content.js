@@ -129,11 +129,17 @@ class Main extends React.Component {
     	var profile = profiles.get(profile_id);
         console.log("Showing Profile: ", profile);
         profile.initialPostsProcessed.then(() => {
-          console.log("profile from memory", profile);
-          //update our view;
-                //view = new classes.View({ model: profile });
-                //main.show(view);
-      });
+            console.log("profile from memory", profile);
+            this.setState({
+                profile:{
+                    username: profile.attributes.username,
+                    profile_pic_url: profile.attributes.profile_pic_url_hd
+                }                
+            });
+            //update our view;
+            //view = new classes.View({ model: profile });
+            //main.show(view);
+        });
     }
 
     loginComplete(user_id=null) {
@@ -291,7 +297,6 @@ var ProfileModel = Backbone.Model.extend({
 
     avg(array, property) {
 	var val = array.map(item => item[property]).reduce(function(a, b) { return a + b; }, 0) / (array.length || 1);
-	//console.log("AVG: ", val);
 	return val;
     },
 
@@ -507,12 +512,14 @@ var Post = Backbone.Model.extend({
         const post = this.toJSON();
 
         var result = {rawData: Object.assign({}, post)};
-        result.caption = post['edge_media_to_caption']['edges'][0]['node']['text'] || '';
+        console.log("Post", result);
         result.taggedLocations = (post['location'] || {})['name'];
 
 	if (post['edge_media_to_sponsor_user']['edges'][0]){
+            result.caption = post['edge_media_to_caption']['edges'][0]['node']['text'] || '';
 	    result.brandPartners = post['edge_media_to_sponsor_user']['edges'][0]['node']['sponsor']['username'];
 	}else{
+            result.caption = '';
 	    result.brandPartners = null;
 	};
         result.isPaid = !!result.sponsor;

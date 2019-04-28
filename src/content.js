@@ -47,7 +47,9 @@ class Main extends React.Component {
                     avgCommentsPerImage: 0.00,
                     avgLikes: 0.00,
                     engagementRate: 0.00,
-                    profile_pic_url: "./assets/profile-pic-placeholder.jpg"
+                    profile_pic_url: "./assets/profile-pic-placeholder.jpg",
+                    imagesCount: 0,
+                    videosCount: 0
                 }
     	    },
             loginComplete: false,

@@ -16,51 +16,11 @@ import { Card, Row, Col, Layout, Menu, Icon } from 'antd';
 
 const { Header, Footer, Sider, Content } = Layout;
 
-const menuComponents = [
-  {
-    name:'Media',
-    icon:['fab', 'youtube'],
-    component: <MediaCard></MediaCard>
-  },
-  {
-    name:'Mentions',
-    icon:['fas', 'at'],
-    component: <MentionsCard></MentionsCard>
-  },
-  {
-    name:'Hashtags',
-    icon:['fas', 'hashtag'],
-    component:''
-  },
-  {
-    name:'Image Content',
-    icon:['fas', 'image'],
-    component: <ImageContent></ImageContent>
-  },
-  {
-    name:'Tagged Locations',
-    icon:['fas', 'map-marker-alt'],
-    component:''
-  },
-  {
-    name:'Brand Partners',
-    icon:['fas', 'handshake'],
-    component:''
-  },
-  {
-    name:'Tagged Accounts',
-    icon:['fas', 'user-circle'],
-    component:''
-  },
-  {
-    name:'Favorites',
-    icon:['fas', 'heart'],
-    component: <PaginateHolder></PaginateHolder>
-  }
-];
-
 class EngagementComponent extends React.Component {
 
+    
+
+    
 
     componentDidMount() {
         //Hack to force re-render so FontAwesome is loaded correctly
@@ -74,9 +34,54 @@ class EngagementComponent extends React.Component {
     
     constructor(props){     
         super(props);
+
+        this.menuComponents = [
+            {
+                name:'Media',
+                icon:['fab', 'youtube'],
+                component: <MediaCard profile={this.props.profile}></MediaCard>
+            },
+            {
+                name:'Mentions',
+                icon:['fas', 'at'],
+                component: <MentionsCard></MentionsCard>
+            },
+            {
+                name:'Hashtags',
+                icon:['fas', 'hashtag'],
+                component:''
+            },
+            {
+                name:'Image Content',
+                icon:['fas', 'image'],
+                component: <ImageContent></ImageContent>
+            },
+            {
+                name:'Tagged Locations',
+                icon:['fas', 'map-marker-alt'],
+                component:''
+            },
+            {
+                name:'Brand Partners',
+                icon:['fas', 'handshake'],
+                component:''
+            },
+            {
+                name:'Tagged Accounts',
+                icon:['fas', 'user-circle'],
+                component:''
+            },
+            {
+                name:'Favorites',
+                icon:['fas', 'heart'],
+                component: <PaginateHolder></PaginateHolder>
+            }
+        ];
+        
+        
         this.state = {
             current: 'overall',
-            menuComponent: menuComponents[0],
+            menuComponent: this.menuComponents[0],
             user_id: null
         }
     }
@@ -89,7 +94,7 @@ class EngagementComponent extends React.Component {
 
   sideMenuClick = (e) => {
     console.log(`${e.key} outside menu`);
-    this.setState({ menuComponent: menuComponents[e.key] });
+    this.setState({ menuComponent: this.menuComponents[e.key] });
     this.state.menuComponent.name == 'Favorites' ? this.props.hideFooter() : this.props.showFooter();
   }
 

@@ -27,6 +27,7 @@ window.db = db;
 class Main extends React.Component {
 
     UNSAFE_componentWillMount(){
+        setTimeout(() => this.forceUpdate(), 10)
         var user_id = localStorage.getItem('IRUserId');
         
         if(user_id !== null){
@@ -41,8 +42,8 @@ class Main extends React.Component {
     	super(props);
     	this.state = {
     	    profile: {
-    		username: null,
-                profile_pic_url: null
+    		attributes: {
+                }
     	    },
             loginComplete: false,
             showScrollFooter: false,
@@ -117,25 +118,18 @@ class Main extends React.Component {
         }
     }
 
-    processProfile(profile){
-	var username = profile['username'];
-	this.setState({
-	    profile : {
-		username: username
-	    }})
-    }
-
     showProfile(profile_id) {
     	var profile = profiles.get(profile_id);
-        console.log("Showing Profile: ", profile);
+        //console.log("Showing Profile: ", profile);
         profile.initialPostsProcessed.then(() => {
-            console.log("profile from memory", profile);
+            console.log("profile from memory", profile.attributes);
             this.setState({
                 profile:{
-                    username: profile.attributes.username,
-                    profile_pic_url: profile.attributes.profile_pic_url_hd
+                    attributes: profile.attributes
                 }                
             });
+            //window.location.reload()
+            //ReactDOM.render(<Main />, app);
             //update our view;
             //view = new classes.View({ model: profile });
             //main.show(view);

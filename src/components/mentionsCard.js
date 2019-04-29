@@ -10,32 +10,35 @@ const SubMenu = Menu.SubMenu;
 
 class MentionsCard extends React.Component {
 
-    constructor(props){
+    constructor(props){        
         super(props);
-
-        this.textMentions = [
-            {
-                name: '@doyoutravelpresets',
-                amount: '4',
-                percent: '8.15'
-            },
-            {
-                name: '@lulus',
-                amount: '3',
-                percent: '4.12'
-            },
-            {
-                name: '@visittheusa',
-                amount: '2',
-                percent: '2.78'
-            }
-        ];
+        console.log("Mentions: ", this.props.mentions);
+        this.textMentions = this.props.mentions;
+        // this.textMentions = [
+        //     {
+        //         name: '@doyoutravelpresets',
+        //         amount: '4',
+        //         percent: '8.15'
+        //     },
+        //     {
+        //         name: '@lulus',
+        //         amount: '3',
+        //         percent: '4.12'
+        //     },
+        //     {
+        //         name: '@visittheusa',
+        //         amount: '2',
+        //         percent: '2.78'
+        //     }
+        // ];
     }
 
     
     mapMentions(mentions) {
         
         for (let mention of mentions) {
+            //change frequency to percent
+            mention['percent'] = Math.floor(mention['Frequency'] * 10000)/100
             let barLength = Math.round(parseFloat(mention.percent));
             let barStyle = {
                 width: barLength <= 10 ? `${barLength}0%` : '100%'
@@ -52,7 +55,7 @@ class MentionsCard extends React.Component {
                                              span={10}
                                              className="mentions-row"
                                            >
-                                             <u>{mention.name}</u>
+                                             <u><a href={mention['Link']}>{mention['Keyword']}</a></u>
                                            </Col>
                                            <Col
                                              span={14}
@@ -63,13 +66,12 @@ class MentionsCard extends React.Component {
                                                  className="mention-bar"
                                                  style={mention.barStyle}
                                                >
-                                                 {mention.amount}
+                                                 {mention['Num']}
                                                </span>
                                              </div><span>{mention.percent}%</span>
                                            </Col>
                                          </React.Fragment>
-                                        );
-        
+                                        );        
         return mentionHTML;
     }
 

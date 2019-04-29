@@ -30,7 +30,7 @@ class EngagementComponent extends React.Component {
             {
                 name:'Mentions',
                 icon:['fas', 'at'],
-                component: <MentionsCard></MentionsCard>
+                component: <MentionsCard mentions={this.props.profile.attributes['Mentions']}></MentionsCard>
             },
             {
                 name:'Hashtags',

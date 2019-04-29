@@ -54,7 +54,7 @@ class Main extends React.Component {
                     engagementRateImages: 0.00,
                     avgLikesPerImage: 0.00,
                     avgCommentsPerVideo: 0.00,
-                    avgViewsPerVideo: 0.00                        
+                    avgViewsPerVideo: 0.00
                 }
     	    },
             loginComplete: false,
@@ -518,9 +518,9 @@ var Post = Backbone.Model.extend({
 
     parse() {
         const post = this.toJSON();
-        console.log("Raw Post", post);
+        //console.log("Raw Post", post);
         var result = {rawData: Object.assign({}, post)};
-        console.log("Post", result);
+        //console.log("Post", result);
         result.taggedLocations = (post['location'] || {})['name'];
 
 	if (post['edge_media_to_caption']['edges'][0]){

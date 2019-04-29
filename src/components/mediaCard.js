@@ -13,7 +13,13 @@ class MediaCard extends React.Component{
     constructor(props) {
     	super(props);
     }
-    
+
+
+    componentWillReceiveProps() {
+        //Hack to force re-render so FontAwesome is loaded correctlyq
+        setTimeout(() => this.forceUpdate(), 100)
+    }
+
     render(){
         return (
             <Row type="flex" justify="space-between" gutter={16}>
@@ -25,21 +31,21 @@ class MediaCard extends React.Component{
                   </Row>
                   <Row gutter={16}>
                     <Col span={12}>
-                      <span>3.49%</span>
+                      <span>{Math.floor(this.props.profile.attributes.engagementRateVideos * 10000)/100}%</span>
                       <h5>ENG. RATE</h5>
                     </Col>
                     <Col span={6}>
-                      <span>44.7K</span>
+                      <span>{Math.round(this.props.profile.attributes.avgViewsPerVideo)}</span>
                       <h5>AVG VIEWS</h5>
                     </Col>
                   </Row>
                   <Row gutter={16}>
                     <Col span={12}>
-                      <span>72.1K</span>
+                      <span>{Math.round(this.props.profile.attributes.avgLikesPerVideo)}</span>
                       <h5>AVG LIKES</h5>
                     </Col>
                     <Col span={12}>
-                      <span>1K</span>
+                      <span>{Math.round(this.props.profile.attributes.avgCommentsPerVideo)}</span>
                       <h5>AVG COM.</h5>
                     </Col>
                   </Row>
@@ -53,17 +59,17 @@ class MediaCard extends React.Component{
                   </Row>
                   <Row gutter={16}>
                     <Col span={12}>
-                      <span>3.05%</span>
+                      <span>{Math.floor(this.props.profile.attributes.engagementRateImages * 10000)/100}%</span>
                       <h5>ENG. RATE</h5>
                     </Col>
                     <Col span={6}>
-                      <span>63.2K</span>
+                      <span>{Math.round(this.props.profile.attributes.avgLikesPerImage)}</span>
                       <h5>AVG LIKES</h5>
                     </Col>
                   </Row>
                   <Row gutter={16}>
                     <Col span={24}>
-                      <span>621</span>
+                      <span>{Math.round(this.props.profile.attributes.avgCommentsPerImage)}</span>
                       <h5>AVG COMMENTS</h5>
                     </Col>
                   </Row>

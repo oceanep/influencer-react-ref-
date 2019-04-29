@@ -49,13 +49,19 @@ class Main extends React.Component {
                     engagementRate: 0.00,
                     profile_pic_url: "./assets/profile-pic-placeholder.jpg",
                     imagesCount: 0,
-                    videosCount: 0
+                    videosCount: 0,
+                    engagementRateVideos: 0.00,
+                    engagementRateImages: 0.00,
+                    avgLikesPerImage: 0.00,
+                    avgCommentsPerVideo: 0.00,
+                    avgViewsPerVideo: 0.00                        
                 }
     	    },
             loginComplete: false,
             showScrollFooter: false,
             user_id: null,
-            current_profile: null
+            current_profile: null,
+            data_loaded: false
     	}
     }
     
@@ -132,14 +138,11 @@ class Main extends React.Component {
             console.log("profile from memory", profile.attributes);
             this.setState({
                 profile:{
-                    attributes: profile.attributes
-                }                
+                    attributes: profile.attributes,
+                },
+                data_loaded: true
             });
-            //window.location.reload()
-            //ReactDOM.render(<Main />, app);
             //update our view;
-            //view = new classes.View({ model: profile });
-            //main.show(view);
         });
     }
 
@@ -160,27 +163,31 @@ class Main extends React.Component {
 
     render() {
 	const {profile} = this.props;
-        return (
-          <div id="influencer-root">
-            <div
-              className={'influencer-main'}
-            >              
-              <Layout style={{ height: '91%'}}>
-              	<div style={{ backgroundColor: 'rgb(38,40,70)', height:'75px', paddingLeft: '0', paddingRight: '10px', width: '100%'}}>
-              	  <ProfileHeader profile={this.state.profile} complete={this.state.loginComplete}/>
-              	</div>
-              	<Content>
-            	  {
-                  !this.state.loginComplete ?
-                          <Login login={this.loginComplete.bind(this)} />
-                      :
-                      <EngagementComponent profile={this.state.profile} showFooter={this.showScrollFooter.bind(this)} hideFooter={this.hideScrollFooter.bind(this)}/>
-                  }
-              	  </Content>
-                </Layout>
+        let engagement_component;
+        if(!this.state.data_loaded){
+            engagement_component = ""
+        } else{
+            engagement_component = <EngagementComponent profile={this.state.profile} showFooter={this.showScrollFooter.bind(this)} hideFooter={this.hideScrollFooter.bind(this)}/>
+        }
 
+        return (
+            <div id="influencer-root">
+              <div className={'influencer-main'}>
+                <Layout style={{ height: '91%'}}>
+              	  <div style={{ backgroundColor: 'rgb(38,40,70)', height:'75px', paddingLeft: '0', paddingRight: '10px', width: '100%'}}>
+              	    <ProfileHeader profile={this.state.profile} complete={this.state.loginComplete}/>
+              	  </div>
+              	  <Content>
+            	    {
+                        !this.state.loginComplete ?
+                            <Login login={this.loginComplete.bind(this)} />
+                        :                      
+                        engagement_component                   
+                    }
+              	  </Content>
+                </Layout>                
+              </div>
             </div>
-          </div>
         )
     }
 }

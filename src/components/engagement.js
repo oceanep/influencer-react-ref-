@@ -18,20 +18,6 @@ const { Header, Footer, Sider, Content } = Layout;
 
 class EngagementComponent extends React.Component {
 
-    
-
-    
-
-    componentDidMount() {
-        //Hack to force re-render so FontAwesome is loaded correctly
-        setTimeout(() => this.forceUpdate(), 10)
-    }
-    
-    componentWillReceiveProps() {
-        //Hack to force re-render so FontAwesome is loaded correctlyq
-        setTimeout(() => this.forceUpdate(), 10)
-    }
-    
     constructor(props){     
         super(props);
 

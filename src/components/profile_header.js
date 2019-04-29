@@ -14,7 +14,6 @@ class ProfileHeader extends React.Component{
     }
 
     render(){
-        console.log("Props: ", this.props);
     	return(
               this.props.complete ?
           	<Row style={{height:'75px'}}>

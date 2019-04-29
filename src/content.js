@@ -518,16 +518,20 @@ var Post = Backbone.Model.extend({
 
     parse() {
         const post = this.toJSON();
-
+        console.log("Raw Post", post);
         var result = {rawData: Object.assign({}, post)};
         console.log("Post", result);
         result.taggedLocations = (post['location'] || {})['name'];
 
-	if (post['edge_media_to_sponsor_user']['edges'][0]){
+	if (post['edge_media_to_caption']['edges'][0]){
             result.caption = post['edge_media_to_caption']['edges'][0]['node']['text'] || '';
+        } else{
+            result.caption = '';
+        }
+ 
+	if (post['edge_media_to_sponsor_user']['edges'][0]){
 	    result.brandPartners = post['edge_media_to_sponsor_user']['edges'][0]['node']['sponsor']['username'];
 	}else{
-            result.caption = '';
 	    result.brandPartners = null;
 	};
         result.isPaid = !!result.sponsor;

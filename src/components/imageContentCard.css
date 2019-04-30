@@ -1,0 +1,28 @@
+.contents-container {
+    width: 100%;
+}
+
+.content-bar-container {
+  width: 75%;
+  margin-right: 0;
+  display: inline-block;
+}
+
+.content-bar {
+  background-color: #4ec2ce;
+  display: inline-block;
+  border-radius: 3px;
+  padding-left: .25em;
+}
+
+.contents-row {
+  margin-bottom: .5em;
+}
+
+.contents-item-name a:link {
+  color: white;
+}
+
+.contents-item-name a:visited {
+  color: white;
+}

@@ -115,7 +115,7 @@ class Main extends React.Component {
     	    .then(data => this.addProfile(data))
     	    .catch(data => data)
     	    .then(profile => {
-    		console.log("Component  Did mount: ", profile);
+    		console.log("Component Did mount: ", profile);
     		this.showProfile(profile.id)
 	    });
         //renderFavoritesButton();
@@ -141,7 +141,9 @@ class Main extends React.Component {
                     attributes: profile.attributes,
                 },
                 data_loaded: true
+                
             });
+            console.log("Our state: ", this.state.profile);
             //update our view;
         });
     }

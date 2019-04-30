@@ -5,6 +5,8 @@ import "./engagement.css";
 import "antd/dist/antd.css";
 import MediaCard from "./mediaCard.js";
 import MentionsCard from "./mentionsCard.js";
+import ImageContentCard from "./imageContentCard.js";
+import HashtagsCard from "./hashtagsCard.js";
 import ImageContent from "./imageContent.js";
 import SideMenu from "./sideMenu.js";
 import PaginateHolder from "./paginateHolder.js";
@@ -35,12 +37,12 @@ class EngagementComponent extends React.Component {
             {
                 name:'Hashtags',
                 icon:['fas', 'hashtag'],
-                component:''
+                component:<HashtagsCard hashtags={this.props.profile.attributes['Hashtags']}></HashtagsCard>
             },
             {
                 name:'Image Content',
                 icon:['fas', 'image'],
-                component: <ImageContent></ImageContent>
+                component:<ImageContentCard imagecontent={this.props.profile.attributes['Image Content']}></ImageContentCard>      
             },
             {
                 name:'Tagged Locations',

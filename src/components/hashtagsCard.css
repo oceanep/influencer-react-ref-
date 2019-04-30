@@ -1,0 +1,28 @@
+.hashtags-container {
+    width: 100%;
+}
+
+.hashtag-bar-container {
+  width: 75%;
+  margin-right: 0;
+  display: inline-block;
+}
+
+.hashtag-bar {
+  background-color: #4ec2ce;
+  display: inline-block;
+  border-radius: 3px;
+  padding-left: .25em;
+}
+
+.hashtags-row {
+  margin-bottom: .5em;
+}
+
+.hashtags-item-name a:link {
+  color: white;
+}
+
+.hashtags-item-name a:visited {
+  color: white;
+}

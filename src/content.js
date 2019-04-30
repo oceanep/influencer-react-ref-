@@ -251,6 +251,7 @@ var ProfileModel = Backbone.Model.extend({
         var data = this.toJSON();
         this.posts = new Posts();
         this.firstPostsLoaded = false;
+        //TODO --> this is where we update our state
         this.listenTo(this.posts, 'update', () => {
             this.calculateAverages();
             this.parseKeywords();
@@ -258,7 +259,7 @@ var ProfileModel = Backbone.Model.extend({
 
         data.followersCount = data['edge_followed_by']['count'] || 0;
         this.set(data);
-
+        //Short code is identifier:Bwxe4TMAeci
         const initialPosts = (data['edge_owner_to_timeline_media']['edges'] || []).map(item => item.node);
 
         this.initialPostsProcessed = new Promise((resolve, reject) => {
@@ -337,25 +338,42 @@ var ProfileModel = Backbone.Model.extend({
 
         this.set(account);
     },
-
+    
+    postsWithTag(key, tag){        
+        var posts = this.posts;        
+    },
+    
     parseKeywords() {
+        
         var account = this.toJSON(),
             posts = this.posts.toJSON(),
             fields = this.breakdownFields,
             result = {};
 
+        //we can add our posts shortcodes here
+        console.log("Our posts:", posts);
         posts.forEach(post => {
             fields.forEach(item => {
+
                 const key = item.toCamelCase();
-                if (post[key]) {
+                if (post[key]) {      
                     result[item] = (result[item] || []).concat(post[key]);
+                    result[item]['posts'] = (result[item]['posts'] || []).concat(post['shortcode'])
                 }
             });
         });
 
         fields.forEach(key => {
             const values = result[key];
-
+            console.log("[key]: ", key);
+            //console.log("Result[key]: ", result[key]);
+            var associated_posts = [];
+            this.posts.forEach(post => {
+                console.log("Looping: ", post);
+                if(post.attributes[key.toCamelCase()].length > 0){
+                    console.log("got post with key: ", key);
+                }
+            })
             result[key] = _.chain(values)
                 .countBy(keyword => keyword)
                 .mapObject((num, keyword) => {
@@ -520,7 +538,7 @@ var Post = Backbone.Model.extend({
 
     parse() {
         const post = this.toJSON();
-        //console.log("Raw Post", post);
+        console.log("Raw Post", post);
         var result = {rawData: Object.assign({}, post)};
         //console.log("Post", result);
         result.taggedLocations = (post['location'] || {})['name'];

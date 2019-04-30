@@ -55,7 +55,7 @@ class MentionsCard extends React.Component {
                                              span={10}
                                              className="mentions-row"
                                            >
-                                             <u><a href={mention['Link']}>{mention['Keyword']}</a></u>
+                                             <u className="mentions-item-name"><a href={mention['Link']}>{mention['Keyword']}</a></u>
                                            </Col>
                                            <Col
                                              span={14}

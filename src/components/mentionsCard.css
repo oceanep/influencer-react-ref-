@@ -18,3 +18,11 @@
 .mentions-row {
   margin-bottom: .5em;
 }
+
+.mentions-item-name a:link {
+  color: white;
+}
+
+.mentions-item-name a:visited {
+  color: white;
+}

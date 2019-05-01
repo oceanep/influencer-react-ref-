@@ -10,6 +10,7 @@ import ImageContentCard from "./imageContentCard.js";
 import HashtagsCard from "./hashtagsCard.js";
 import ImageContent from "./imageContent.js";
 import PartnersCard from "./partnersCard.js";
+import TaggedAccountsCard from "./taggedAccountsCard.js";
 import SideMenu from "./sideMenu.js";
 import PaginateHolder from "./paginateHolder.js";
 import Paginate from "./paginate.js";
@@ -59,7 +60,7 @@ class EngagementComponent extends React.Component {
             {
                 name:'Tagged Accounts',
                 icon:['fas', 'user-circle'],
-                component:''
+                component:<TaggedAccountsCard taggedaccounts={this.props.profile.attributes['Tagged Accounts']}></TaggedAccountsCard>
             },
             {
                 name:'Favorites',

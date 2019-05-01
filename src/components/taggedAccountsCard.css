@@ -1,0 +1,28 @@
+.taggedaccounts-container {
+    width: 100%;
+}
+
+.taggedaccount-bar-container {
+  width: 75%;
+  margin-right: 0;
+  display: inline-block;
+}
+
+.taggedaccount-bar {
+  background-color: #4ec2ce;
+  display: inline-block;
+  border-radius: 3px;
+  padding-left: .25em;
+}
+
+.taggedaccounts-row {
+  margin-bottom: .5em;
+}
+
+.taggedaccounts-item-name a:link {
+  color: white;
+}
+
+.taggedaccounts-item-name a:visited {
+  color: white;
+}

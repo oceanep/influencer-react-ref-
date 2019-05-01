@@ -9,6 +9,7 @@ import LocationsCard from "./locationsCard.js";
 import ImageContentCard from "./imageContentCard.js";
 import HashtagsCard from "./hashtagsCard.js";
 import ImageContent from "./imageContent.js";
+import PartnersCard from "./partnersCard.js";
 import SideMenu from "./sideMenu.js";
 import PaginateHolder from "./paginateHolder.js";
 import Paginate from "./paginate.js";
@@ -53,7 +54,7 @@ class EngagementComponent extends React.Component {
             {
                 name:'Brand Partners',
                 icon:['fas', 'handshake'],
-                component:''
+                component:<PartnersCard partners={this.props.profile.attributes['Brand Partners']}></PartnersCard>
             },
             {
                 name:'Tagged Accounts',

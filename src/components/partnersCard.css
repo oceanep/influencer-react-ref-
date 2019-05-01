@@ -1,0 +1,28 @@
+.partners-container {
+    width: 100%;
+}
+
+.partner-bar-container {
+  width: 75%;
+  margin-right: 0;
+  display: inline-block;
+}
+
+.partner-bar {
+  background-color: #4ec2ce;
+  display: inline-block;
+  border-radius: 3px;
+  padding-left: .25em;
+}
+
+.partners-row {
+  margin-bottom: .5em;
+}
+
+.partners-item-name a:link {
+  color: white;
+}
+
+.partners-item-name a:visited {
+  color: white;
+}

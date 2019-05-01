@@ -26,3 +26,11 @@
 .mentions-item-name a:visited {
   color: white;
 }
+
+.title-bar {
+    font-size: 16.5pt;
+    color: #505050;
+    font-family: "Work Sans";
+    letter-spacing: 0.13px;
+    line-height: 25px;
+}

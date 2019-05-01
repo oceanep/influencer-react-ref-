@@ -8,6 +8,9 @@ import { Card, Row, Col, Layout, Menu, Icon } from 'antd';
 const { Meta } = Card;
 const SubMenu = Menu.SubMenu;
 
+
+
+
 class MentionsCard extends React.Component {
 
     constructor(props){        
@@ -16,12 +19,22 @@ class MentionsCard extends React.Component {
         this.textMentions = this.props.profile.attributes['Mentions'];
     }
 
-
+    
     handleClick(event){
+
+        var old_div = document.getElementById("title-div");
+        if (old_div != null){
+            old_div.remove();
+        }
+        
         let a_tags;
         var _mentions = this.textMentions;
         var target_mention = null;
         var keyword = event.target.innerText;
+        var target_div = document.getElementsByClassName("fx7hk")[0]
+        var title_div =  document.createElement("div");
+        title_div.id = "title-div";
+
         _mentions.forEach(mention =>{
             if (mention['Keyword'] == keyword){
                 target_mention = mention;
@@ -31,8 +44,13 @@ class MentionsCard extends React.Component {
         if(target_mention != null){
             a_tags = document.getElementsByClassName("v1Nh3");
             var urls = target_mention['Posts'].map(sc => "https://www.instagram.com/p/" + sc + "/");
-
+            target_div.insertAdjacentElement("afterend", title_div);
+            var posts_length = target_mention['Posts'].length
+            if (posts_length > 0){            
+                title_div.innerHTML="<span class='title-bar'>" + posts_length + " posts mentioning " + keyword + ":" + "</span>";
+            }
             for (let tag of a_tags) {
+            
                 if (!urls.includes(tag.firstElementChild.href)){
                     tag.style.display = "none";
                 }else{

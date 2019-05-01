@@ -19,10 +19,14 @@
   margin-bottom: .5em;
 }
 
+.contents-item-name {
+    cursor: pointer;
+}
+
 .contents-item-name a:link {
-  color: white;
+    color: white;
 }
 
 .contents-item-name a:visited {
-  color: white;
+    color: white;
 }

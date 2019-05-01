@@ -15,7 +15,33 @@ class HashtagsCard extends React.Component {
         console.log("Hashtags: ", this.props.hashtags);
         this.textHashtags = this.props.hashtags;
     }
-   
+
+    handleClick(event){
+        let a_tags;
+        var _hashtags = this.props.hashtags;
+        var target_hashtag = null;
+        var keyword = event.target.innerText;
+        _hashtags.forEach(hashtag =>{
+            if (hashtag['Keyword'] == keyword){
+                target_hashtag = hashtag;
+            }
+        })
+
+        if(target_hashtag != null){
+            a_tags = document.getElementsByClassName("v1Nh3");
+            var urls = target_hashtag['Posts'].map(sc => "https://www.instagram.com/p/" + sc + "/");
+
+            for (let tag of a_tags) {
+                if (!urls.includes(tag.firstElementChild.href)){
+                    tag.style.display = "none";
+                }else{
+                    tag.style.display = "";
+                }
+            }            
+        }        
+  	event.preventDefault();
+    }
+    
     //TODO-- hashtags, mentions, image content etc can reuses the same component -- no need for this
     mapHashtags(hashtags) {
         
@@ -38,7 +64,7 @@ class HashtagsCard extends React.Component {
                                              span={10}
                                              className="hashtags-row"
                                            >
-                                             <u className="hashtags-item-name"><a href={hashtag['Link']}>{hashtag['Keyword']}</a></u>
+                                             <u className="hashtags-item-name" onClick={this.handleClick.bind(this)}><a href={hashtag['Link']}>{hashtag['Keyword']}</a></u>
                                            </Col>
                                            <Col
                                              span={14}

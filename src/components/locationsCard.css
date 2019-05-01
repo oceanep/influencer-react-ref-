@@ -1,0 +1,28 @@
+.locations-container {
+    width: 100%;
+}
+
+.location-bar-container {
+  width: 75%;
+  margin-right: 0;
+  display: inline-block;
+}
+
+.location-bar {
+  background-color: #4ec2ce;
+  display: inline-block;
+  border-radius: 3px;
+  padding-left: .25em;
+}
+
+.locations-row {
+  margin-bottom: .5em;
+}
+
+.locations-item-name a:link {
+  color: white;
+}
+
+.locations-item-name a:visited {
+  color: white;
+}

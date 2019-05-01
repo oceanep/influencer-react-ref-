@@ -20,7 +20,7 @@ const { Header, Footer, Sider, Content } = Layout;
 
 class EngagementComponent extends React.Component {
 
-    constructor(props){     
+    constructor(props){
         super(props);
 
         this.menuComponents = [
@@ -42,7 +42,7 @@ class EngagementComponent extends React.Component {
             {
                 name:'Image Content',
                 icon:['fas', 'image'],
-                component:<ImageContentCard imagecontent={this.props.profile.attributes['Image Content']}></ImageContentCard>      
+                component:<ImageContentCard imagecontent={this.props.profile.attributes['Image Content']}></ImageContentCard>
             },
             {
                 name:'Tagged Locations',
@@ -62,7 +62,7 @@ class EngagementComponent extends React.Component {
             {
                 name:'Favorites',
                 icon:['fas', 'heart'],
-                component: <PaginateHolder></PaginateHolder>
+                component: <PaginateHolder favoritesCallback={this.props.favoritesCallback} favorites={this.props.favorites}></PaginateHolder>
             }
         ];
 
@@ -72,7 +72,7 @@ class EngagementComponent extends React.Component {
             user_id: null
         }
     }
-    
+
     menuClick = (e) => {
         this.setState({
             current: e.key

@@ -32,7 +32,7 @@ class EngagementComponent extends React.Component {
             {
                 name:'Mentions',
                 icon:['fas', 'at'],
-                component: <MentionsCard mentions={this.props.profile.attributes['Mentions']}></MentionsCard>
+                component: <MentionsCard profile={this.props.profile}></MentionsCard>
             },
             {
                 name:'Hashtags',
@@ -65,8 +65,7 @@ class EngagementComponent extends React.Component {
                 component: <PaginateHolder></PaginateHolder>
             }
         ];
-        
-        
+
         this.state = {
             current: 'overall',
             menuComponent: this.menuComponents[0],

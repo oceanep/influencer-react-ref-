@@ -12,27 +12,9 @@ class MentionsCard extends React.Component {
 
     constructor(props){        
         super(props);
-        console.log("Mentions: ", this.props.mentions);
-        this.textMentions = this.props.mentions;
-        // this.textMentions = [
-        //     {
-        //         name: '@doyoutravelpresets',
-        //         amount: '4',
-        //         percent: '8.15'
-        //     },
-        //     {
-        //         name: '@lulus',
-        //         amount: '3',
-        //         percent: '4.12'
-        //     },
-        //     {
-        //         name: '@visittheusa',
-        //         amount: '2',
-        //         percent: '2.78'
-        //     }
-        // ];
+        //console.log("Mentions: ", this.props.mentions);
+        this.textMentions = this.props.profile.attributes['Mentions'];
     }
-
     
     mapMentions(mentions) {
         

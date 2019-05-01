@@ -15,7 +15,7 @@ class HashtagsCard extends React.Component {
         console.log("Hashtags: ", this.props.hashtags);
         this.textHashtags = this.props.hashtags;
     }
-
+   
     //TODO-- hashtags, mentions, image content etc can reuses the same component -- no need for this
     mapHashtags(hashtags) {
         

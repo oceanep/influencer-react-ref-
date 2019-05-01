@@ -118,7 +118,7 @@ class Main extends React.Component {
     		console.log("Component Did mount: ", profile);
     		this.showProfile(profile.id)
 	    });
-        //renderFavoritesButton();
+        renderFavoritesButton();
     }
 
     addProfile(data) {
@@ -344,44 +344,34 @@ var ProfileModel = Backbone.Model.extend({
     },
     
     parseKeywords() {
-        
+
         var account = this.toJSON(),
             posts = this.posts.toJSON(),
             fields = this.breakdownFields,
             result = {};
 
-        //we can add our posts shortcodes here
-        console.log("Our posts:", posts);
+        //we can add our posts shortcodes here       
         posts.forEach(post => {
             fields.forEach(item => {
-
                 const key = item.toCamelCase();
-                if (post[key]) {      
+                if (post[key]) {
                     result[item] = (result[item] || []).concat(post[key]);
-                    result[item]['posts'] = (result[item]['posts'] || []).concat(post['shortcode'])
+                    result[item][post[key]] = (result[item][post[key]] || []).concat(post);
                 }
             });
         });
 
         fields.forEach(key => {
             const values = result[key];
-            console.log("[key]: ", key);
-            //console.log("Result[key]: ", result[key]);
-            var associated_posts = [];
-            this.posts.forEach(post => {
-                console.log("Looping: ", post);
-                if(post.attributes[key.toCamelCase()].length > 0){
-                    console.log("got post with key: ", key);
-                }
-            })
-            result[key] = _.chain(values)
+             result[key] = _.chain(values)
                 .countBy(keyword => keyword)
                 .mapObject((num, keyword) => {
                     return {
                         Num: num,
                         Keyword: keyword,
                         Frequency: num / posts.length,
-                        Link: this.getLink(key, keyword)
+                        Link: this.getLink(key, keyword),
+                        Posts: getAssociatedPosts(key, keyword, posts)
                     };
                 })
                 .values()
@@ -391,7 +381,7 @@ var ProfileModel = Backbone.Model.extend({
         _.extend(account, result);
         this.set(account);
     },
-
+    
     getLink(type, keyword) {
         if (['Mentions', 'Brand Partners', 'Tagged Accounts'].includes(type)) {
             return `https://www.instagram.com/${ keyword.replace(/[@]/g, '') }/`
@@ -479,6 +469,19 @@ var ProfileModel = Backbone.Model.extend({
     }
 });
 
+function getAssociatedPosts(type, keyword, posts){
+    var associatedPosts = [];
+    posts.forEach(post => {
+        if (post[type.toCamelCase()])
+            if (post[type.toCamelCase()].includes(keyword)){
+                associatedPosts = associatedPosts.concat(post['shortcode']);
+            }
+    })
+    return associatedPosts;
+}
+   
+
+
 var ProfilesCollection = Backbone.Collection.extend({
     model: ProfileModel,
 
@@ -538,7 +541,7 @@ var Post = Backbone.Model.extend({
 
     parse() {
         const post = this.toJSON();
-        console.log("Raw Post", post);
+        //console.log("Raw Post", post);
         var result = {rawData: Object.assign({}, post)};
         //console.log("Post", result);
         result.taggedLocations = (post['location'] || {})['name'];

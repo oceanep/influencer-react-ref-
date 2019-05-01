@@ -15,6 +15,33 @@ class MentionsCard extends React.Component {
         //console.log("Mentions: ", this.props.mentions);
         this.textMentions = this.props.profile.attributes['Mentions'];
     }
+
+
+    handleClick(event){
+        let a_tags;
+        var _mentions = this.textMentions;
+        var target_mention = null;
+        var keyword = event.target.innerText;
+        _mentions.forEach(mention =>{
+            if (mention['Keyword'] == keyword){
+                target_mention = mention;
+            }
+        })
+
+        if(target_mention != null){
+            a_tags = document.getElementsByClassName("v1Nh3");
+            var urls = target_mention['Posts'].map(sc => "https://www.instagram.com/p/" + sc + "/");
+
+            for (let tag of a_tags) {
+                if (!urls.includes(tag.firstElementChild.href)){
+                    tag.style.display = "none";
+                }else{
+                    tag.style.display = "";
+                }
+            }            
+        }        
+  	event.preventDefault();
+    }
     
     mapMentions(mentions) {
         
@@ -37,7 +64,7 @@ class MentionsCard extends React.Component {
                                              span={10}
                                              className="mentions-row"
                                            >
-                                             <u className="mentions-item-name"><a href={mention['Link']}>{mention['Keyword']}</a></u>
+                                             <u className="mentions-item-name" onClick={this.handleClick.bind(this)}><a href={mention['Link']}>{mention['Keyword']}</a></u>
                                            </Col>
                                            <Col
                                              span={14}

@@ -642,6 +642,8 @@ target_location.appendChild(app);
 ReactDOM.render(<Main />, app);
 
 //app.style.display = "none";
+//Target class="v1Nh3";
+//a.firstElementChild.href == "https://www.instagram.com/p/Bwxe4TMAeci/"
 
 chrome.runtime.onMessage.addListener(
    function(request, sender, sendResponse) {

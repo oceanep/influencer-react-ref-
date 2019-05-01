@@ -112,8 +112,8 @@ class Login extends React.Component{
                        <FormItem>
 
                          <Input id="first_name"
-                                 style={{ fontSize: 15, color: '#fff'}}
-                                 placeholder="First Name"
+                                style={{ fontSize: 15, color: '#fff'}}
+                                placeholder="First Name"
                                 onChange={this.handleInputChange}
                           />
                         </FormItem>

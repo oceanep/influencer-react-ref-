@@ -5,6 +5,7 @@ import "./engagement.css";
 import "antd/dist/antd.css";
 import MediaCard from "./mediaCard.js";
 import MentionsCard from "./mentionsCard.js";
+import LocationsCard from "./locationsCard.js";
 import ImageContentCard from "./imageContentCard.js";
 import HashtagsCard from "./hashtagsCard.js";
 import ImageContent from "./imageContent.js";
@@ -47,7 +48,7 @@ class EngagementComponent extends React.Component {
             {
                 name:'Tagged Locations',
                 icon:['fas', 'map-marker-alt'],
-                component:''
+                component:<LocationsCard locations={this.props.profile.attributes['Tagged Locations']}></LocationsCard>
             },
             {
                 name:'Brand Partners',

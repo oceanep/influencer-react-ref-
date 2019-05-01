@@ -23,10 +23,10 @@
     cursor: pointer;
 }
 
-.contents-item-name a:link {
+.contents-item-name a:link {    
     color: white;
 }
 
 .contents-item-name a:visited {
-    color: white;
+  color: white;
 }

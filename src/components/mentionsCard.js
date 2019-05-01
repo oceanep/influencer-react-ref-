@@ -27,7 +27,12 @@ class MentionsCard extends React.Component {
             old_div.remove();
         }
         
-        let a_tags;
+        var a_tags = document.getElementsByClassName("v1Nh3");
+
+        for (let tag of a_tags) {
+            tag.style.display = "";
+        }
+        
         var _mentions = this.textMentions;
         var target_mention = null;
         var keyword = event.target.innerText;
@@ -42,12 +47,11 @@ class MentionsCard extends React.Component {
         })
 
         if(target_mention != null){
-            a_tags = document.getElementsByClassName("v1Nh3");
             var urls = target_mention['Posts'].map(sc => "https://www.instagram.com/p/" + sc + "/");
             target_div.insertAdjacentElement("afterend", title_div);
             var posts_length = target_mention['Posts'].length
             if (posts_length > 0){            
-                title_div.innerHTML="<span class='title-bar'>" + posts_length + " posts mentioning " + keyword + ":" + "</span>";
+                title_div.innerHTML="<div class='title-container'><span class='title-bar'>" + posts_length + " posts mentioning " + keyword + ":" + "</span>";
             }
             for (let tag of a_tags) {
             

@@ -16,10 +16,26 @@ class ImageContentCard extends React.Component {
     }
 
     handleClick(event){
-        let a_tags;
+
+        var old_div = document.getElementById("title-div");
+        if (old_div != null){
+            old_div.remove();
+        }
+        
+        var a_tags = document.getElementsByClassName("v1Nh3");
+
+        for (let tag of a_tags) {
+            tag.style.display = "";
+        }
+        
         var _contents = this.props.imagecontent;
         var target_content = null;
         var keyword = event.target.innerText;
+
+        var target_div = document.getElementsByClassName("fx7hk")[0]
+        var title_div =  document.createElement("div");
+        title_div.id = "title-div";
+        
         _contents.forEach(content =>{
             if (content['Keyword'] == keyword){
                 target_content = content;
@@ -29,7 +45,12 @@ class ImageContentCard extends React.Component {
         if(target_content != null){
             a_tags = document.getElementsByClassName("v1Nh3");
             var urls = target_content['Posts'].map(sc => "https://www.instagram.com/p/" + sc + "/");
-
+            
+            target_div.insertAdjacentElement("afterend", title_div);
+            var posts_length = target_content['Posts'].length
+            if (posts_length > 0){            
+                title_div.innerHTML="<div class='title-container'><span class='title-bar'>" + posts_length + " posts with image content " + keyword + ":" + "</span>";
+            }
             for (let tag of a_tags) {
                 if (!urls.includes(tag.firstElementChild.href)){
                     tag.style.display = "none";

@@ -118,7 +118,7 @@ class Main extends React.Component {
     		console.log("Component Did mount: ", profile);
     		this.showProfile(profile.id)
 	    });
-        renderFavoritesButton();
+        //renderFavoritesButton();
     }
 
     addProfile(data) {

@@ -29,42 +29,43 @@ class Main extends React.Component {
     UNSAFE_componentWillMount(){
         setTimeout(() => this.forceUpdate(), 10)
         var user_id = localStorage.getItem('IRUserId');
-        
+
         if(user_id !== null){
             this.setState({
                 loginComplete: true,
                 user_id: user_id
-            }) 
+            })
         }
     }
-    
+
     constructor(props) {
     	super(props);
     	this.state = {
     	    profile: {
-    		attributes: {
-                    postsPerDay: 0.00,
-                    avgCommentsPerImage: 0.00,
-                    avgLikes: 0.00,
-                    engagementRate: 0.00,
-                    profile_pic_url: "./assets/profile-pic-placeholder.jpg",
-                    imagesCount: 0,
-                    videosCount: 0,
-                    engagementRateVideos: 0.00,
-                    engagementRateImages: 0.00,
-                    avgLikesPerImage: 0.00,
-                    avgCommentsPerVideo: 0.00,
-                    avgViewsPerVideo: 0.00
-                }
-    	    },
+      		attributes: {
+                      postsPerDay: 0.00,
+                      avgCommentsPerImage: 0.00,
+                      avgLikes: 0.00,
+                      engagementRate: 0.00,
+                      profile_pic_url: "./assets/profile-pic-placeholder.jpg",
+                      imagesCount: 0,
+                      videosCount: 0,
+                      engagementRateVideos: 0.00,
+                      engagementRateImages: 0.00,
+                      avgLikesPerImage: 0.00,
+                      avgCommentsPerVideo: 0.00,
+                      avgViewsPerVideo: 0.00
+                  }
+      	    },
             loginComplete: false,
             showScrollFooter: false,
             user_id: null,
             current_profile: null,
-            data_loaded: false
+            data_loaded: false,
+            favorites: []
     	}
     }
-    
+
     subscribeToEvents() {
         document.addEventListener('navigate_profile', e => this.onProfileLoaded());
         document.addEventListener('profile_page_loaded', e => this.onProfileLoaded());
@@ -95,7 +96,7 @@ class Main extends React.Component {
             document.addEventListener('entry_data', e => resolve(e.detail));
         });
     }
-    
+
     addRequest(url) {
         const params = JSON.parse(extractQueryParam(url, 'variables'));
         return this.add({
@@ -118,7 +119,8 @@ class Main extends React.Component {
     		console.log("Component Did mount: ", profile);
     		this.showProfile(profile.id)
 	    });
-        //renderFavoritesButton();
+
+        renderFavoritesButton(this.updateFavorites.bind(this));
     }
 
     addProfile(data) {
@@ -141,15 +143,21 @@ class Main extends React.Component {
                     attributes: profile.attributes,
                 },
                 data_loaded: true
-                
+
             });
             console.log("Our state: ", this.state.profile);
             //update our view;
         });
     }
 
+    updateFavorites(url, name) {
+      //if favorite.name already exist, remove that favorite object from Array
+      console.log('updateFavorites');
+      this.setState({favorites: [...this.state.favorites, ...[{ profileUrl: url, profileName: name}]] });
+    }
+
     loginComplete(user_id=null) {
-        window.localStorage.setItem('IRUserId', user_id);        
+        window.localStorage.setItem('IRUserId', user_id);
         this.setState({ loginComplete: true });
     }
 
@@ -169,7 +177,7 @@ class Main extends React.Component {
         if(!this.state.data_loaded){
             engagement_component = ""
         } else{
-            engagement_component = <EngagementComponent profile={this.state.profile} showFooter={this.showScrollFooter.bind(this)} hideFooter={this.hideScrollFooter.bind(this)}/>
+            engagement_component = <EngagementComponent profile={this.state.profile} favoritesCallback={this.updateFavorites} favorites={this.state.favorites} showFooter={this.showScrollFooter.bind(this)} hideFooter={this.hideScrollFooter.bind(this)}/>
         }
 
         return (
@@ -183,11 +191,11 @@ class Main extends React.Component {
             	    {
                         !this.state.loginComplete ?
                             <Login login={this.loginComplete.bind(this)} />
-                        :                      
-                        engagement_component                   
+                        :
+                        engagement_component
                     }
               	  </Content>
-                </Layout>                
+                </Layout>
               </div>
             </div>
         )
@@ -195,20 +203,23 @@ class Main extends React.Component {
 }
 
 
-function renderFavoritesButton(){
+function renderFavoritesButton( favoriteCallback){
     var follow_unfollow_target = document.getElementsByClassName("BY3EC")[0];
     var favorite_button = document.createElement("div");
     follow_unfollow_target.insertAdjacentElement("afterend", favorite_button);
-    ReactDOM.render(<FavoriteButton />, favorite_button);
+    ReactDOM.render(<FavoriteButton callback={favoriteCallback} />, favorite_button);
 }
 
 class FavoriteButton extends React.Component {
+  constructor(props){
+    super(props);
+  }
 
     componentDidMount() {
         //Hack to force re-render so FontAwesome is loaded correctly
         setTimeout(() => this.forceUpdate(), 10)
     }
-    
+
     componentWillReceiveProps() {
         //Hack to force re-render so FontAwesome is loaded correctlyq
         setTimeout(() => this.forceUpdate(), 10)
@@ -217,8 +228,10 @@ class FavoriteButton extends React.Component {
 
     addToFavoritesClick(){
         console.log("clicked");
+        //grab data here and pass to url and name
+        this.props.callback('url', 'name');
     }
-    
+
     render() {
 
         return (
@@ -338,11 +351,11 @@ var ProfileModel = Backbone.Model.extend({
 
         this.set(account);
     },
-    
-    postsWithTag(key, tag){        
-        var posts = this.posts;        
+
+    postsWithTag(key, tag){
+        var posts = this.posts;
     },
-    
+
     parseKeywords() {
 
         var account = this.toJSON(),
@@ -350,7 +363,7 @@ var ProfileModel = Backbone.Model.extend({
             fields = this.breakdownFields,
             result = {};
 
-        //we can add our posts shortcodes here       
+        //we can add our posts shortcodes here
         posts.forEach(post => {
             fields.forEach(item => {
                 const key = item.toCamelCase();
@@ -381,7 +394,7 @@ var ProfileModel = Backbone.Model.extend({
         _.extend(account, result);
         this.set(account);
     },
-    
+
     getLink(type, keyword) {
         if (['Mentions', 'Brand Partners', 'Tagged Accounts'].includes(type)) {
             return `https://www.instagram.com/${ keyword.replace(/[@]/g, '') }/`
@@ -479,7 +492,7 @@ function getAssociatedPosts(type, keyword, posts){
     })
     return associatedPosts;
 }
-   
+
 
 
 var ProfilesCollection = Backbone.Collection.extend({
@@ -551,7 +564,7 @@ var Post = Backbone.Model.extend({
         } else{
             result.caption = '';
         }
- 
+
 	if (post['edge_media_to_sponsor_user']['edges'][0]){
 	    result.brandPartners = post['edge_media_to_sponsor_user']['edges'][0]['node']['sponsor']['username'];
 	}else{

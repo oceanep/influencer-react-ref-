@@ -27,15 +27,14 @@ window.db = db;
 class Main extends React.Component {
 
     UNSAFE_componentWillMount(){
-        setTimeout(() => this.forceUpdate(), 10)
-        var user_id = localStorage.getItem('IRUserId');
-
-        if(user_id !== null){
+        setTimeout(() => this.forceUpdate(), 10);
+        var user_id = localStorage.getItem('IRUser');
+        if (user_id != null){
             this.setState({
                 loginComplete: true,
                 user_id: user_id
-            })
-        }
+            });
+        }               
     }
 
     constructor(props) {
@@ -110,9 +109,6 @@ class Main extends React.Component {
     componentDidMount(){
     	profiles = new ProfilesCollection();
     	this.subscribeToEvents();
-        window.db.users.get(parseInt(this.state.user_id)).then (function (user) {
-            
-        });
 
     	this.waitForEntryData()
     	    .then(data => this.addProfile(data))
@@ -181,8 +177,11 @@ class Main extends React.Component {
     }
 
     loginComplete(user_id=null) {
-        window.localStorage.setItem('IRUserId', user_id);
-        this.setState({ loginComplete: true });
+        window.localStorage.setItem('IRUser', user_id);
+        this.setState({
+            loginComplete: true,
+            user_id: user_id
+        });
     }
 
     showScrollFooter() {

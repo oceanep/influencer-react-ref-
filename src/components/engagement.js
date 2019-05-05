@@ -22,10 +22,20 @@ import { Card, Row, Col, Layout, Menu, Icon } from 'antd';
 const { Header, Footer, Sider, Content } = Layout;
 
 class EngagementComponent extends React.Component {
+    
+    componentWillReceiveProps(nextProps) {
+	this.setState({ profile: nextProps.profile,
+                        favorites: nextProps.favorites});  
+    }
 
     constructor(props){
         super(props);
 
+        this.state = {
+            profile: props.profile,
+            favorites: props.favorites
+        };
+        
         this.menuComponents = [
             {
                 name:'Media',

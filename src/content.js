@@ -82,6 +82,9 @@ class Main extends React.Component {
     }
 
     onProfileLoaded() {
+        //this is dirty and sloppy and you should be ashamed -- but it works
+        window.location.reload();
+        
         var username = /^\/([\w.\-_]+)\/$/.exec(document.location.pathname);
         username = username ? username[1] : null;
         if (username) {
@@ -241,11 +244,14 @@ class Main extends React.Component {
 }
 
 function renderFavoritesButton(favoriteCallback){
-    var follow_unfollow_target = document.getElementsByClassName("BY3EC")[0];
-    var favorite_button = document.createElement("div");
-    favorite_button.id = "favorites-button"
-    follow_unfollow_target.insertAdjacentElement("afterend", favorite_button);
-    ReactDOM.render(<FavoriteButton callback={favoriteCallback} />, favorite_button);
+    var favorite_button = document.getElementById("favorites-button");
+    if (favorite_button == null){ 
+        var follow_unfollow_target = document.getElementsByClassName("BY3EC")[0];
+        favorite_button = document.createElement("div");
+        favorite_button.id = "favorites-button"
+        follow_unfollow_target.insertAdjacentElement("afterend", favorite_button);
+        ReactDOM.render(<FavoriteButton callback={favoriteCallback} />, favorite_button);
+    }
 }
 
 function removeFavoritesButton(favoriteCallback){    

@@ -115,7 +115,12 @@ class Main extends React.Component {
     	    .catch(data => data)
     	    .then(profile => {
                 window.db.favorites.get(profile.attributes.username).then(favorite => {
-                    //set state here for favorites rendering
+                    this.setState({
+                        profile : {
+                            in_favorites: true,
+                            attributes: this.state.profile.attributes
+                        }                        
+                    }, () => console.log("IS WE: ", this.state.profile.in_favorites));
                     console.log("Found favrotie: ", favorite);
                 }).catch (function (e) {
 	            console.log("Error: ", e);
@@ -194,19 +199,22 @@ class Main extends React.Component {
       console.log('false');
     }
 
-    render() {   
-    
+    render() {       
 	const {profile} = this.props;
         let engagement_component;
         if(!this.state.data_loaded){
             engagement_component = ""
-        } else{
-            if(!this.state.profile.in_favorites){
-                console.log("Profile in render: ", this.state.profile);
-                renderFavoritesButton(this.updateFavorites.bind(this));
-            }else{
-                removeFavoritesButton();
-            }
+        } else{            
+            window.db.favorites.get(this.state.profile.attributes.username).then(favorite => {
+                if (favorite){
+                    removeFavoritesButton();                
+                }else{
+                    renderFavoritesButton(this.updateFavorites.bind(this));
+                }
+            }).catch (function (e) {
+	        console.log("Error: ", e);
+            });
+
             engagement_component = <EngagementComponent profile={this.state.profile} favoritesCallback={this.updateFavorites} favorites={this.state.favorites} showFooter={this.showScrollFooter.bind(this)} hideFooter={this.hideScrollFooter.bind(this)}/>
         }
 
@@ -242,7 +250,9 @@ function renderFavoritesButton(favoriteCallback){
 
 function removeFavoritesButton(favoriteCallback){    
     var favorite_button = document.getElementById("favorites-button");
-    favorite_button.remove();
+    if (favorite_button != null){
+        favorite_button.remove();
+    }
 }
 
 

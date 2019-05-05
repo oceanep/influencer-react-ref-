@@ -43,19 +43,20 @@ class Main extends React.Component {
     	this.state = {
     	    profile: {
       		attributes: {
-                      postsPerDay: 0.00,
-                      avgCommentsPerImage: 0.00,
-                      avgLikes: 0.00,
-                      engagementRate: 0.00,
-                      profile_pic_url: "./assets/profile-pic-placeholder.jpg",
-                      imagesCount: 0,
-                      videosCount: 0,
-                      engagementRateVideos: 0.00,
-                      engagementRateImages: 0.00,
-                      avgLikesPerImage: 0.00,
-                      avgCommentsPerVideo: 0.00,
-                      avgViewsPerVideo: 0.00
-                  }
+                    postsPerDay: 0.00,
+                    avgCommentsPerImage: 0.00,
+                    avgLikes: 0.00,
+                    engagementRate: 0.00,
+                    profile_pic_url: "./assets/profile-pic-placeholder.jpg",
+                    imagesCount: 0,
+                    videosCount: 0,
+                    engagementRateVideos: 0.00,
+                    engagementRateImages: 0.00,
+                    avgLikesPerImage: 0.00,
+                    avgCommentsPerVideo: 0.00,
+                    avgViewsPerVideo: 0.00
+                },
+                in_favorites: false
       	    },
             loginComplete: false,
             showScrollFooter: false,
@@ -105,22 +106,27 @@ class Main extends React.Component {
             nextPageToken: params.after
         }, {merge: true});
     }
-
+    
     componentDidMount(){
     	profiles = new ProfilesCollection();
     	this.subscribeToEvents();
         window.db.users.get(parseInt(this.state.user_id)).then (function (user) {
-            console.log("Logged In User: " + user.business_email);
+            
         });
+
     	this.waitForEntryData()
     	    .then(data => this.addProfile(data))
     	    .catch(data => data)
     	    .then(profile => {
+                window.db.favorites.get(profile.attributes.username).then(favorite => {
+                    //set state here for favorites rendering
+                    console.log("Found favrotie: ", favorite);
+                }).catch (function (e) {
+	            console.log("Error: ", e);
+                });
     		console.log("Component Did mount: ", profile);
     		this.showProfile(profile.id)
-	    });
-
-        renderFavoritesButton(this.updateFavorites.bind(this));
+	    });    
     }
 
     addProfile(data) {
@@ -151,9 +157,27 @@ class Main extends React.Component {
     }
 
     updateFavorites(url, name) {
-      //if favorite.name already exist, remove that favorite object from Array
-      console.log('updateFavorites');
-      this.setState({favorites: [...this.state.favorites, ...[{ profileUrl: url, profileName: name}]] });
+        //if favorite.name already exist, remove that favorite object from Array
+        console.log('updateFavorites');
+ 
+        const favorite = {
+            profileUrl:this.state.profile.attributes.profile_pic_url,
+            username:this.state.profile.attributes.username
+        };
+        db.table('favorites')
+            .put(favorite)
+            .then(() => {
+                this.setState({
+                    profile: {
+                        in_favorites: true,
+                        attributes: this.state.profile.attributes
+                    },
+                    favorites: [...this.state.favorites, ...[{ profileUrl: this.state.profile.attributes.profile_pic_url,
+                                                               username: this.state.profile.attributes.username}]
+                               ]
+                });
+                
+            });
     }
 
     loginComplete(user_id=null) {
@@ -171,12 +195,19 @@ class Main extends React.Component {
       console.log('false');
     }
 
-    render() {
+    render() {   
+    
 	const {profile} = this.props;
         let engagement_component;
         if(!this.state.data_loaded){
             engagement_component = ""
         } else{
+            if(!this.state.profile.in_favorites){
+                console.log("Profile in render: ", this.state.profile);
+                renderFavoritesButton(this.updateFavorites.bind(this));
+            }else{
+                removeFavoritesButton();
+            }
             engagement_component = <EngagementComponent profile={this.state.profile} favoritesCallback={this.updateFavorites} favorites={this.state.favorites} showFooter={this.showScrollFooter.bind(this)} hideFooter={this.hideScrollFooter.bind(this)}/>
         }
 
@@ -202,18 +233,24 @@ class Main extends React.Component {
     }
 }
 
-
-function renderFavoritesButton( favoriteCallback){
+function renderFavoritesButton(favoriteCallback){
     var follow_unfollow_target = document.getElementsByClassName("BY3EC")[0];
     var favorite_button = document.createElement("div");
+    favorite_button.id = "favorites-button"
     follow_unfollow_target.insertAdjacentElement("afterend", favorite_button);
     ReactDOM.render(<FavoriteButton callback={favoriteCallback} />, favorite_button);
 }
 
+function removeFavoritesButton(favoriteCallback){    
+    var favorite_button = document.getElementById("favorites-button");
+    favorite_button.remove();
+}
+
+
 class FavoriteButton extends React.Component {
-  constructor(props){
-    super(props);
-  }
+    constructor(props){
+        super(props);
+    }
 
     componentDidMount() {
         //Hack to force re-render so FontAwesome is loaded correctly
@@ -233,7 +270,6 @@ class FavoriteButton extends React.Component {
     }
 
     render() {
-
         return (
             <div style={{paddingLeft:"5%"}}>
               <Button

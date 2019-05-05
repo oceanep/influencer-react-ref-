@@ -53,7 +53,7 @@ class Login extends React.Component{
             user_type:this.state.user_type
         };
         db.table('users')
-            .add(user)
+            .put(user)
             .then((id) => {
                 this.props.login(id);
             })

@@ -29,21 +29,24 @@ function cancel(e) {
 class PaginateHolder extends React.Component{
   constructor(props){
     super(props);
-    this.state = {
-      allItems: [],
-      currentItems: [],
-      currentPage: null,
-      totalPages: null
+      this.state = {
+          favorites: props.favorites,
+          allItems: [],
+          currentItems: [],
+          currentPage: null,
+          totalPages: null
     }
     //replace schema with props.favoritesList or whatever you name it
-    this.setState({ ...this.props.favorites });
+    //this.setState({ ...this.props.favorites });
     console.log(this.props.favorites);
   }
 
-  componentWillMount() {
+    componentWillReceiveProps(nextProps) {
+	this.setState({ profile: nextProps.profile,
+                        favorites: nextProps.favorites});  
+    }
 
-  }
-
+    
   onPageChanged = data => {
     const { allItems, } = this.state;
     const { currentPage, totalPages, pageLimit } = { ...data };
@@ -64,7 +67,7 @@ class PaginateHolder extends React.Component{
 
     const headerClass = ['text-dark py-2 pr-4 m-0', currentPage ? 'border-gray border-right' : ''].join(' ').trim();
 
-    if(this.state.allItems.length > 0) {
+    if(this.state.favorites.length > 0) {
 
       return (
 

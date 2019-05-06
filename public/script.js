@@ -82,6 +82,6 @@ function getRequestType(url) {
             type = 'navigate_profile';
         }
     }
-
+    console.log("Type :", type);
     return type;
 }

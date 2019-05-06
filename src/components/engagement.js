@@ -30,12 +30,13 @@ class EngagementComponent extends React.Component {
 
     constructor(props){
         super(props);
-
         this.state = {
             profile: props.profile,
             favorites: props.favorites
         };
-        
+    }
+
+    componentWillMount(){
         this.menuComponents = [
             {
                 name:'Media',
@@ -99,6 +100,7 @@ class EngagementComponent extends React.Component {
   }
 
     render(){
+        console.log("Favorites in engagement: ", this.state.favorites);
   	return (
   	    <div style={{ height: '100%'}}>
           { this.state.menuComponent.name == 'Favorites' ?

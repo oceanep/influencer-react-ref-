@@ -35,7 +35,7 @@ class EngagementComponent extends React.Component {
             favorites: props.favorites
         };
     }
-
+    
     componentWillMount(){
         this.menuComponents = [
             {
@@ -76,7 +76,7 @@ class EngagementComponent extends React.Component {
             {
                 name:'Favorites',
                 icon:['fas', 'heart'],
-                component: <PaginateHolder favoritesCallback={this.props.favoritesCallback} favorites={this.props.favorites}></PaginateHolder>
+                component: <PaginateHolder favoritesCallback={this.props.favoritesCallback} favorites={this.state.favorites}></PaginateHolder>
             }
         ];
 
@@ -93,17 +93,17 @@ class EngagementComponent extends React.Component {
         });
     }
 
-  sideMenuClick = (e) => {
-    console.log(`${e.key} outside menu`);
-    this.setState({ menuComponent: this.menuComponents[e.key] });
-    this.state.menuComponent.name == 'Favorites' ? this.props.hideFooter() : this.props.showFooter();
-  }
+    sideMenuClick = (e) => {
+        console.log(`${e.key} outside menu`);
+        this.setState({ menuComponent: this.menuComponents[e.key] });
+        this.state.menuComponent.name == 'Favorites' ? this.props.hideFooter() : this.props.showFooter();
+    }
 
     render(){
         console.log("Favorites in engagement: ", this.state.favorites);
   	return (
   	    <div style={{ height: '100%'}}>
-          { this.state.menuComponent.name == 'Favorites' ?
+              { this.state.menuComponent.name == 'Favorites' ?
             <React.Fragment>
               <div className="engagement-main">
                 <section style={{ position: 'relative', height: '100%'}}>

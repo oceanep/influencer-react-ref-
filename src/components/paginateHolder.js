@@ -6,6 +6,10 @@ import "./paginateHolder.css";
 import "antd/dist/antd.css";
 import FavoriteButton from './favoriteButton.js';
 import {Row, Col, Avatar, Popconfirm, message, Button} from 'antd';
+import db from '../utils/storage';
+
+window.db = db;
+
 
 const schema = {
   allItems: [],
@@ -35,18 +39,14 @@ class PaginateHolder extends React.Component{
           currentItems: [],
           currentPage: null,
           totalPages: null
-    }
-    //replace schema with props.favoritesList or whatever you name it
-    //this.setState({ ...this.props.favorites });
-    console.log(this.props.favorites);
+      }
+      window.db.favorites.toArray().then(favorites => {
+          this.setState({
+              favorites: favorites
+          })
+      });
   }
-
-    componentWillReceiveProps(nextProps) {
-	this.setState({ profile: nextProps.profile,
-                        favorites: nextProps.favorites});  
-    }
-
-    
+   
   onPageChanged = data => {
     const { allItems, } = this.state;
     const { currentPage, totalPages, pageLimit } = { ...data };
@@ -58,13 +58,13 @@ class PaginateHolder extends React.Component{
   }
 
   render() {
+      console.log("Fav in paginate: ", this.state.favorites);
+      
+      const { allItems, currentItems, currentPage, totalPages } = this.state;
+      const totalItems = allItems.length;
 
-
-    const { allItems, currentItems, currentPage, totalPages } = this.state;
-    const totalItems = allItems.length;
-
-    if (totalItems === 0) return null;
-
+      if (totalItems === 0) return null;
+      
     const headerClass = ['text-dark py-2 pr-4 m-0', currentPage ? 'border-gray border-right' : ''].join(' ').trim();
 
     if(this.state.favorites.length > 0) {

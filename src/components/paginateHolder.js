@@ -42,7 +42,8 @@ class PaginateHolder extends React.Component{
       }
       window.db.favorites.toArray().then(favorites => {
           this.setState({
-              favorites: favorites
+              favorites: favorites,
+              allItems: favorites
           })
       });
   }
@@ -75,8 +76,8 @@ class PaginateHolder extends React.Component{
           <div className="favorites-items">
             { currentItems.map(item =>
                <Row className="favorite-item-row">
-                 <Col span={6}><a href="https://google.com"><Avatar shape="square" size={48} icon="user"/></a></Col>
-                 <Col span={14}><div className="favorite-item-name"><a href="https://google.com">{item.name}</a></div></Col>
+                 <Col span={6}><a href={"https://instagram.com/" + item.username}><Avatar shape="square" size={48} src={item.profileUrl}/></a></Col>
+                 <Col span={14}><div className="favorite-item-name"><a href={"https://instagram.com/" + item.username}>{item.username}</a></div></Col>
                  <Col span={2}>
                    <Popconfirm title={`Remove '${item}' from favorites?`} onConfirm={confirm} onCancel={cancel} okText="Yes" cancelText="No">
                      <a className="cancel-button" href="#">X</a>

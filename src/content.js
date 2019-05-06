@@ -37,8 +37,14 @@ class Main extends React.Component {
         }               
     }
 
+    refreshState(){
+        console.log("Refreshing state");
+        setTimeout(() => this.forceUpdate(), 10);
+    }
+
     constructor(props) {
     	super(props);
+        window.mainComponent = this;
     	this.state = {
     	    profile: {
       		attributes: {
@@ -72,7 +78,7 @@ class Main extends React.Component {
         document.addEventListener('timeline_data', e => {
             const url = `https://${ window.location.hostname }` + e.detail.requestData.url;
             const request = requestsData.addRequest(url).toJSON();
-
+            
             if (!requestsData.headers) {
                 requestsData.headers = e.detail.requestData.headers
             }
@@ -344,9 +350,8 @@ var ProfileModel = Backbone.Model.extend({
         this.listenTo(vent, `timeline_data:${ data.user_id }`, data => {
             this.onNewPostsData(data.timeline);
             this.loadFirstPosts();
+            window.mainComponent.refreshState();
         });
-
-        // loadAccountInfo(this.id);
     },
 
     onNewPostsData(data) {

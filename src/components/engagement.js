@@ -37,6 +37,9 @@ class EngagementComponent extends React.Component {
     }
     
     componentWillMount(){
+        this.props.window.refreshState();
+
+
         this.menuComponents = [
             {
                 name:'Media',
@@ -100,7 +103,7 @@ class EngagementComponent extends React.Component {
     }
 
     render(){
-        console.log("Favorites in engagement: ", this.state.favorites);
+        console.log("Got yo window: ", this.props.window);
   	return (
   	    <div style={{ height: '100%'}}>
               { this.state.menuComponent.name == 'Favorites' ?

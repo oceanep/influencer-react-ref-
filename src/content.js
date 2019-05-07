@@ -224,7 +224,7 @@ class Main extends React.Component {
 	        console.log("Error: ", e);
             });
 
-            engagement_component = <EngagementComponent profile={this.state.profile} favoritesCallback={this.updateFavorites} favorites={this.state.favorites} showFooter={this.showScrollFooter.bind(this)} hideFooter={this.hideScrollFooter.bind(this)}/>
+            engagement_component = <EngagementComponent window={window.mainComponent} profile={this.state.profile} favoritesCallback={this.updateFavorites} favorites={this.state.favorites} showFooter={this.showScrollFooter.bind(this)} hideFooter={this.hideScrollFooter.bind(this)}/>
         }
 
         return (

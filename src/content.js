@@ -672,9 +672,8 @@ var Post = Backbone.Model.extend({
 
     parseTaggedAccounts() {
         let rawData = this.get('rawData');
-        let taggedAccounts = rawData['edge_media_to_tagged_user']['edges'] || []
+        let taggedAccounts = (rawData['edge_media_to_tagged_user']['edges'] || [])
             .map(item => '@' + item.node.user.username);
-
         this.set('taggedAccounts', taggedAccounts || []);
     }
 });

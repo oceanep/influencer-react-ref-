@@ -49,7 +49,7 @@ class LocationsCard extends React.Component {
         if(target_location != null){
             var posts_length = target_location['Posts'].length;
             if (posts_length > 0){
-                title_div.innerHTML="<div class='title-container'><span class='title-bar'>" + posts_length + " posts mentioning " + keyword + ":" + "</span>";
+                title_div.innerHTML="<div class='title-container'><span class='title-bar'>" + posts_length + " posts with location " + keyword + ":" + "</span>";
             }
             this.createDisplay([...target_location['Posts']]);
             target_div.insertAdjacentElement("afterend", title_div);

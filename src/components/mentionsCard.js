@@ -73,7 +73,6 @@ class MentionsCard extends React.Component {
             parent_div.insertAdjacentElement("afterend",image_row);
             //create row code
             subarray.forEach(item => {
-                console.log("Item being built: ", item);
                 var image = document.createElement("div");
                 image.setAttribute("class", "v1Nh3 kIKUG  _bz0w")
                 image.innerHTML = `<a href="/p/${item['shortcode']}/"><div class="eLAPa"><div class="KL4Bh"><img class="FFVAD" srcset=${item['display_url']} decoding="auto" sizes="293px" style="object-fit: cover;"></div><div class="_9AhH0"></div></div><div class="u7YqG"><span class="mediatypesSpriteCarousel__filled__32 u-__7" aria-label="カルーセル"></span></div></a>`

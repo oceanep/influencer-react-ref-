@@ -10,17 +10,34 @@ const SubMenu = Menu.SubMenu;
 
 class PartnersCard extends React.Component {
 
-    constructor(props){        
+    constructor(props){
         super(props);
         this.textTaggedAccounts = this.props.taggedaccounts;
     }
 
 
     handleClick(event){
-        let a_tags;
+
+        //change the scroll height
+        window.scrollTo(0,0);
+        var old_div = document.getElementById("title-div");
+        if (old_div != null){
+            old_div.remove();
+        }
+
+        //var a_tags = document.getElementsByClassName("v1Nh3");
+        var generated_divs = document.getElementsByClassName("ir-row");
+        if (generated_divs.length > 0){
+            for(let div of generated_divs){
+                div.remove();
+            }
+        }
+
         var _taggedaccounts = this.textTaggedAccounts;
         var target_taggedaccount = null;
         var keyword = event.target.innerText;
+        var target_div = document.getElementsByClassName("fx7hk")[0]
+        var title_div =  document.createElement("div");
         _taggedaccounts.forEach(taggedaccount =>{
             if (taggedaccount['Keyword'] == keyword){
                 target_taggedaccount = taggedaccount;
@@ -28,22 +45,43 @@ class PartnersCard extends React.Component {
         })
 
         if(target_taggedaccount != null){
-            a_tags = document.getElementsByClassName("v1Nh3");
-            var urls = target_taggedaccount['Posts'].map(sc => "https://www.instagram.com/p/" + sc + "/");
-
-            for (let tag of a_tags) {
-                if (!urls.includes(tag.firstElementChild.href)){
-                    tag.style.display = "none";
-                }else{
-                    tag.style.display = "";
-                }
-            }            
-        }        
+            var posts_length = target_taggedaccount['Posts'].length
+            if (posts_length > 0){
+                title_div.innerHTML="<div class='title-container'><span class='title-bar'>" + posts_length + " posts mentioning " + keyword + ":" + "</span>";
+            }
+            this.createDisplay([...target_taggedaccount['Posts']]);
+            target_div.insertAdjacentElement("afterend", title_div);
+        }
   	event.preventDefault();
     }
-    
+
+    createDisplay(_posts){
+        console.log("Creating your display");
+        var parent_div = document.getElementsByClassName("fx7hk")[0]
+        //splitting array
+        var grouped_array = [], size = 3;
+        while (_posts.length > 0){
+            grouped_array.push(_posts.splice(0, size));
+        };
+        console.log("groups: ", grouped_array);
+        //get main IG area
+        grouped_array.forEach(subarray => {
+            var image_row = document.createElement("div");
+            image_row.setAttribute("class", "Nnq7C weEfm ir-row");
+            parent_div.insertAdjacentElement("afterend",image_row);
+            //create row code
+            subarray.forEach(item => {
+                console.log("Item being built: ", item);
+                var image = document.createElement("div");
+                image.setAttribute("class", "v1Nh3 kIKUG  _bz0w")
+                image.innerHTML = `<a href="/p/${item['shortcode']}/"><div class="eLAPa"><div class="KL4Bh"><img class="FFVAD" srcset=${item['display_url']} decoding="auto" sizes="293px" style="object-fit: cover;"></div><div class="_9AhH0"></div></div><div class="u7YqG"><span class="mediatypesSpriteCarousel__filled__32 u-__7" aria-label="カルーセル"></span></div></a>`
+                image_row.appendChild(image);
+            });
+        });
+    }
+
     mapTaggedAccounts(taggedaccounts) {
-        
+
         for (let taggedaccount of taggedaccounts) {
             //change frequency to percent
             taggedaccount['percent'] = Math.floor(taggedaccount['Frequency'] * 10000)/100
@@ -54,8 +92,8 @@ class PartnersCard extends React.Component {
             taggedaccount['barLength'] = barLength;
             taggedaccount['barStyle'] = barStyle;
         }
-        
-        const taggedaccountHTML = taggedaccounts.map((taggedaccount) =>                                         
+
+        const taggedaccountHTML = taggedaccounts.map((taggedaccount) =>
                                          <React.Fragment
                                            key={taggedaccount.name}
                                          >
@@ -79,7 +117,7 @@ class PartnersCard extends React.Component {
                                              </div><span>{taggedaccount.percent}%</span>
                                            </Col>
                                          </React.Fragment>
-                                        );        
+                                        );
         return taggedaccountHTML;
     }
 

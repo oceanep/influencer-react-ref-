@@ -10,32 +10,33 @@ const SubMenu = Menu.SubMenu;
 
 class ImageContentCard extends React.Component {
 
-    constructor(props){        
+    constructor(props){
         super(props);
         this.textImageContent = this.props.imagecontent;
     }
 
     handleClick(event){
+        window.scrollTo(0,0);
 
         var old_div = document.getElementById("title-div");
         if (old_div != null){
             old_div.remove();
         }
-        
-        var a_tags = document.getElementsByClassName("v1Nh3");
 
-        for (let tag of a_tags) {
-            tag.style.display = "";
+        var generated_divs = document.getElementsByClassName("ir-row");
+        if (generated_divs.length > 0){
+            for(let div of generated_divs){
+                div.remove();
+            }
         }
-        
+
         var _contents = this.props.imagecontent;
         var target_content = null;
         var keyword = event.target.innerText;
-
         var target_div = document.getElementsByClassName("fx7hk")[0]
         var title_div =  document.createElement("div");
         title_div.id = "title-div";
-        
+
         _contents.forEach(content =>{
             if (content['Keyword'] == keyword){
                 target_content = content;
@@ -43,29 +44,46 @@ class ImageContentCard extends React.Component {
         })
 
         if(target_content != null){
-            a_tags = document.getElementsByClassName("v1Nh3");
-            var urls = target_content['Posts'].map(sc => "https://www.instagram.com/p/" + sc + "/");
-            
-            target_div.insertAdjacentElement("afterend", title_div);
             var posts_length = target_content['Posts'].length
-            if (posts_length > 0){            
+            if (posts_length > 0){
                 title_div.innerHTML="<div class='title-container'><span class='title-bar'>" + posts_length + " posts with image content " + keyword + ":" + "</span>";
             }
-            for (let tag of a_tags) {
-                if (!urls.includes(tag.firstElementChild.href)){
-                    tag.style.display = "none";
-                }else{
-                    tag.style.display = "";
-                }
-            }            
-        }        
+            this.createDisplay([...target_content['Posts']]);
+            target_div.insertAdjacentElement("afterend", title_div);
+        }
   	event.preventDefault();
     }
 
-    
+    createDisplay(_posts){
+        console.log("Creating your display");
+        var parent_div = document.getElementsByClassName("fx7hk")[0]
+        //splitting array
+        var grouped_array = [], size = 3;
+        while (_posts.length > 0){
+            grouped_array.push(_posts.splice(0, size));
+        };
+        console.log("groups: ", grouped_array);
+        //get main IG area
+        grouped_array.forEach(subarray => {
+            var image_row = document.createElement("div");
+            image_row.setAttribute("class", "Nnq7C weEfm ir-row");
+            parent_div.insertAdjacentElement("afterend",image_row);
+            //create row code
+            subarray.forEach(item => {
+                console.log("Item being built: ", item);
+                var image = document.createElement("div");
+                image.setAttribute("class", "v1Nh3 kIKUG  _bz0w")
+                image.innerHTML = `<a href="/p/${item['shortcode']}/"><div class="eLAPa"><div class="KL4Bh"><img class="FFVAD" srcset=${item['display_url']} decoding="auto" sizes="293px" style="object-fit: cover;"></div><div class="_9AhH0"></div></div><div class="u7YqG"><span class="mediatypesSpriteCarousel__filled__32 u-__7" aria-label="カルーセル"></span></div></a>`
+                image_row.appendChild(image);
+            });
+        });
+    }
+
+
+
     //TODO-- hashtags, mentions, image content etc can reuses the same component -- no need for this
     mapImageContent(contents) {
-        
+
         for (let content of contents) {
             //change frequency to percent
             content['percent'] = Math.floor(content['Frequency'] * 10000)/100
@@ -76,8 +94,8 @@ class ImageContentCard extends React.Component {
             content['barLength'] = barLength;
             content['barStyle'] = barStyle;
         }
-        
-        const contentHTML = contents.map((content) =>                                         
+
+        const contentHTML = contents.map((content) =>
                                          <React.Fragment
                                            key={content.name}
                                          >
@@ -101,7 +119,7 @@ class ImageContentCard extends React.Component {
                                              </div><span>{content.percent}%</span>
                                            </Col>
                                          </React.Fragment>
-                                        );        
+                                        );
         return contentHTML;
     }
 

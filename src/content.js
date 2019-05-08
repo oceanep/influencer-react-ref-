@@ -34,7 +34,7 @@ class Main extends React.Component {
                 loginComplete: true,
                 user_id: user_id
             });
-        }               
+        }
     }
 
     refreshState(){
@@ -78,7 +78,7 @@ class Main extends React.Component {
         document.addEventListener('timeline_data', e => {
             const url = `https://${ window.location.hostname }` + e.detail.requestData.url;
             const request = requestsData.addRequest(url).toJSON();
-            
+
             if (!requestsData.headers) {
                 requestsData.headers = e.detail.requestData.headers
             }
@@ -90,7 +90,7 @@ class Main extends React.Component {
     onProfileLoaded() {
         //this is dirty and sloppy and you should be ashamed -- but it works
         window.location.reload();
-        
+
         var username = /^\/([\w.\-_]+)\/$/.exec(document.location.pathname);
         username = username ? username[1] : null;
         if (username) {
@@ -114,7 +114,7 @@ class Main extends React.Component {
             nextPageToken: params.after
         }, {merge: true});
     }
-    
+
     componentDidMount(){
     	profiles = new ProfilesCollection();
     	this.subscribeToEvents();
@@ -128,7 +128,7 @@ class Main extends React.Component {
                         profile : {
                             in_favorites: true,
                             attributes: this.state.profile.attributes
-                        }                        
+                        }
                     }, () => console.log("IS WE: ", this.state.profile.in_favorites));
                     console.log("Found favrotie: ", favorite);
                 }).catch (function (e) {
@@ -136,7 +136,7 @@ class Main extends React.Component {
                 });
     		console.log("Component Did mount: ", profile);
     		this.showProfile(profile.id)
-	    });    
+	    });
     }
 
     addProfile(data) {
@@ -169,7 +169,7 @@ class Main extends React.Component {
     updateFavorites(url, name) {
         //if favorite.name already exist, remove that favorite object from Array
         console.log('updateFavorites');
- 
+
         const favorite = {
             profileUrl:this.state.profile.attributes.profile_pic_url,
             username:this.state.profile.attributes.username
@@ -186,7 +186,7 @@ class Main extends React.Component {
                                                                username: this.state.profile.attributes.username}]
                                ]
                 });
-                
+
             });
     }
 
@@ -208,15 +208,15 @@ class Main extends React.Component {
       console.log('false');
     }
 
-    render() {       
+    render() {
 	const {profile} = this.props;
         let engagement_component;
         if(!this.state.data_loaded){
             engagement_component = ""
-        } else{            
+        } else{
             window.db.favorites.get(this.state.profile.attributes.username).then(favorite => {
                 if (favorite){
-                    removeFavoritesButton();                
+                    removeFavoritesButton();
                 }else{
                     renderFavoritesButton(this.updateFavorites.bind(this));
                 }
@@ -251,7 +251,7 @@ class Main extends React.Component {
 
 function renderFavoritesButton(favoriteCallback){
     var favorite_button = document.getElementById("favorites-button");
-    if (favorite_button == null){ 
+    if (favorite_button == null){
         var follow_unfollow_target = document.getElementsByClassName("BY3EC")[0];
         favorite_button = document.createElement("div");
         favorite_button.id = "favorites-button"
@@ -260,7 +260,7 @@ function renderFavoritesButton(favoriteCallback){
     }
 }
 
-function removeFavoritesButton(favoriteCallback){    
+function removeFavoritesButton(favoriteCallback){
     var favorite_button = document.getElementById("favorites-button");
     if (favorite_button != null){
         favorite_button.remove();
@@ -543,7 +543,7 @@ function getAssociatedPosts(type, keyword, posts){
     posts.forEach(post => {
         if (post[type.toCamelCase()])
             if (post[type.toCamelCase()].includes(keyword)){
-                associatedPosts = associatedPosts.concat(post['shortcode']);
+                associatedPosts = associatedPosts.concat(post);
             }
     })
     return associatedPosts;

@@ -22,10 +22,10 @@ import { Card, Row, Col, Layout, Menu, Icon } from 'antd';
 const { Header, Footer, Sider, Content } = Layout;
 
 class EngagementComponent extends React.Component {
-    
+
     componentWillReceiveProps(nextProps) {
 	this.setState({ profile: nextProps.profile,
-                        favorites: nextProps.favorites});  
+                        favorites: nextProps.favorites});
     }
 
     constructor(props){
@@ -35,7 +35,7 @@ class EngagementComponent extends React.Component {
             favorites: props.favorites
         };
     }
-    
+
     componentWillMount(){
         this.props.window.refreshState();
 
@@ -103,7 +103,6 @@ class EngagementComponent extends React.Component {
     }
 
     render(){
-        console.log("Got yo window: ", this.props.window);
   	return (
   	    <div style={{ height: '100%'}}>
               { this.state.menuComponent.name == 'Favorites' ?
@@ -139,17 +138,16 @@ class EngagementComponent extends React.Component {
                     style={{ backgroundColor: 'transparent', color: 'rgba(180, 180, 180, 1)'}}
                   >
                     <Menu.Item key="overall">
-                      OVERALL
+                      ALL
                     </Menu.Item>
-                    <span>LAST:</span>
                     <Menu.Item key="7days">
-                      7 DAYS
+                      7 DAY
                     </Menu.Item>
                     <Menu.Item key="30days">
-                      30 DAYS
+                      30 DAY
                     </Menu.Item>
                     <Menu.Item key="90days">
-                      90 DAYS
+                      90 DAY
                     </Menu.Item>
                   </Menu>
 

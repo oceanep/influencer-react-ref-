@@ -47,7 +47,7 @@ class PaginateHolder extends React.Component{
           })
       });
   }
-   
+
   onPageChanged = data => {
     const { allItems, } = this.state;
     const { currentPage, totalPages, pageLimit } = { ...data };
@@ -60,12 +60,12 @@ class PaginateHolder extends React.Component{
 
   render() {
       console.log("Fav in paginate: ", this.state.favorites);
-      
+
       const { allItems, currentItems, currentPage, totalPages } = this.state;
       const totalItems = allItems.length;
 
       if (totalItems === 0) return null;
-      
+
     const headerClass = ['text-dark py-2 pr-4 m-0', currentPage ? 'border-gray border-right' : ''].join(' ').trim();
 
     if(this.state.favorites.length > 0) {
@@ -78,11 +78,6 @@ class PaginateHolder extends React.Component{
                <Row className="favorite-item-row">
                  <Col span={6}><a href={"https://instagram.com/" + item.username}><Avatar shape="square" size={48} src={item.profileUrl}/></a></Col>
                  <Col span={14}><div className="favorite-item-name"><a href={"https://instagram.com/" + item.username}>{item.username}</a></div></Col>
-                 <Col span={2}>
-                   <Popconfirm title={`Remove '${item}' from favorites?`} onConfirm={confirm} onCancel={cancel} okText="Yes" cancelText="No">
-                     <a className="cancel-button" href="#">X</a>
-                   </Popconfirm>
-                 </Col>
                </Row>
 
              ) }

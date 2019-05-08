@@ -1,7 +1,7 @@
 /*global chrome*/
 /* src/content.js */
 import React from 'react';
-import "./locationsCard.css";
+import "./partnersCard.css";
 import "antd/dist/antd.css";
 import { Card, Row, Col, Layout, Menu, Icon } from 'antd';
 

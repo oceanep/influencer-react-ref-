@@ -142,7 +142,7 @@ class Main extends React.Component {
     addProfile(data) {
 	//TODO: Add proper private  profile
 	//if (!helpers.isEmpty(data) && !data['graphql']['user']['is_private'] {
-	if (data){
+	if (data) {
             return profiles.addProfile(data);
         } else {
             return Promise.resolve({})
@@ -164,6 +164,12 @@ class Main extends React.Component {
             console.log("Our state: ", this.state.profile);
             //update our view;
         });
+    }
+
+    removeFromFavorite(name){
+        db.table('favorites').delete(this.state.profile.attributes.username).then(() => {
+            this.refreshState();
+        })
     }
 
     updateFavorites(url, name) {
@@ -216,7 +222,7 @@ class Main extends React.Component {
         } else{
             window.db.favorites.get(this.state.profile.attributes.username).then(favorite => {
                 if (favorite){
-                    removeFavoritesButton();
+                    renderRemoveButton(this.removeFromFavorite.bind(this));
                 }else{
                     renderFavoritesButton(this.updateFavorites.bind(this));
                 }
@@ -250,20 +256,54 @@ class Main extends React.Component {
 }
 
 function renderFavoritesButton(favoriteCallback){
-    var favorite_button = document.getElementById("favorites-button");
-    if (favorite_button == null){
-        var follow_unfollow_target = document.getElementsByClassName("BY3EC")[0];
-        favorite_button = document.createElement("div");
-        favorite_button.id = "favorites-button"
-        follow_unfollow_target.insertAdjacentElement("afterend", favorite_button);
-        ReactDOM.render(<FavoriteButton callback={favoriteCallback} />, favorite_button);
+
+    var remove_button = document.getElementById("remove-button");
+    if (remove_button != null){
+        remove_button.remove();
     }
+
+    window.db.favorites.get(window.mainComponent.state.profile.attributes.username).then(favorite => {
+        if(favorite){
+            console.log("Remove this user: ", favorite);
+            //render remove
+        }else{
+            var follow_unfollow_target = document.getElementsByClassName("BY3EC")[0];
+            var favorite_button = document.getElementById("favorites-button");
+            if (favorite_button){
+                return;
+            }
+            if(follow_unfollow_target != undefined){
+                var favorite_button = document.createElement("div");
+                favorite_button.id = "favorites-button"
+                follow_unfollow_target.insertAdjacentElement("afterend", favorite_button);
+                ReactDOM.render(<FavoriteButton callback={favoriteCallback} />, favorite_button);
+            }
+        }
+
+    })
+
 }
 
-function removeFavoritesButton(favoriteCallback){
+
+function renderRemoveButton(removeCallback){
+
+
     var favorite_button = document.getElementById("favorites-button");
     if (favorite_button != null){
         favorite_button.remove();
+    }
+
+    var existing_remove = document.getElementById("remove-button");
+    if (existing_remove){
+        return;
+    }else{
+        var follow_unfollow_target = document.getElementsByClassName("BY3EC")[0];
+        if(follow_unfollow_target != undefined){
+            var remove_button = document.createElement("div");
+            remove_button.id = "remove-button"
+            follow_unfollow_target.insertAdjacentElement("afterend", remove_button);
+            ReactDOM.render(<RemoveButton callback={removeCallback} />, remove_button);
+        }
     }
 }
 
@@ -309,6 +349,51 @@ class FavoriteButton extends React.Component {
         )
     }
 }
+
+
+class RemoveButton extends React.Component {
+    constructor(props){
+        super(props);
+    }
+
+    componentDidMount() {
+        //Hack to force re-render so FontAwesome is loaded correctly
+        setTimeout(() => this.forceUpdate(), 10)
+    }
+
+    componentWillReceiveProps() {
+        //Hack to force re-render so FontAwesome is loaded correctlyq
+        setTimeout(() => this.forceUpdate(), 10)
+    }
+
+    removeFavoritesClick(){
+        console.log("clicked");
+        //grab data here and pass to url and name
+        this.props.callback('url', 'name');
+    }
+
+    render() {
+        return (
+            <div style={{paddingLeft:"5%"}}>
+              <Button
+                style={{backgroundColor: "rgb(120,200,199)",
+                        fontWeight: "bold",
+                        border: "none",
+                        outline:"none",
+                        height: "22pt"
+                       }}
+                type="primary"
+                className="add-to-favorites-button"
+                icon="star"
+                theme="filled"
+                onClick={this.removeFavoritesClick.bind(this)}>
+              </Button>
+            </div>
+        )
+    }
+}
+
+
 
 var ProfileModel = Backbone.Model.extend({
     idAttribute: 'username',

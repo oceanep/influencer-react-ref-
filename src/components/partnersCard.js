@@ -31,6 +31,11 @@ class PartnersCard extends React.Component {
             }
         }
 
+        var a_tags = document.getElementsByClassName("v1Nh3");
+
+        for (let tag of a_tags) {
+            tag.style.display = "";
+        }
 
         var _partners = this.textPartners;
         var target_partner = null;
@@ -57,6 +62,13 @@ class PartnersCard extends React.Component {
     }
 
     createDisplay(_posts){
+
+        var a_tags = document.getElementsByClassName("v1Nh3");
+
+        for (let tag of a_tags) {
+            tag.style.display = "none";
+        }
+
         console.log("Creating your display");
         var parent_div = document.getElementsByClassName("fx7hk")[0]
         //splitting array
@@ -78,6 +90,14 @@ class PartnersCard extends React.Component {
                 image.innerHTML = `<a href="/p/${item['shortcode']}/"><div class="eLAPa"><div class="KL4Bh"><img class="FFVAD" srcset=${item['display_url']} decoding="auto" sizes="293px" style="object-fit: cover;"></div><div class="_9AhH0"></div></div><div class="u7YqG"><span class="mediatypesSpriteCarousel__filled__32 u-__7" aria-label="カルーセル"></span></div></a>`
                 image_row.appendChild(image);
             });
+
+            var ir_rows = document.getElementsByClassName("ir-row")
+            var last_row = ir_rows[ir_rows.length-1];
+            for (var i = 0; i < 6; i++) {
+                var br = document.createElement("br")
+                last_row.insertAdjacentElement("afterend", br);
+            }
+
         });
     }
 

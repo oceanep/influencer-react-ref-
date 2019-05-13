@@ -12,13 +12,11 @@ class MentionsCard extends React.Component {
 
     constructor(props){
         super(props);
-        //console.log("Mentions: ", this.props.mentions);
-        this.textMentions = this.props.profile.attributes['Mentions'];
+        console.log("Mentions: ", this.props.mentions);
+        this.textMentions = this.props.mentions;
     }
 
-
     handleClick(event){
-        //change the scroll height
         window.scrollTo(0,0);
         var old_div = document.getElementById("title-div");
         if (old_div != null){

@@ -38,8 +38,6 @@ class EngagementComponent extends React.Component {
 
     componentWillMount(){
         this.props.window.refreshState();
-
-
         this.menuComponents = [
             {
                 name:'Media',
@@ -49,7 +47,7 @@ class EngagementComponent extends React.Component {
             {
                 name:'Mentions',
                 icon:['fas', 'at'],
-                component: <MentionsCard profile={this.props.profile}></MentionsCard>
+                component: <MentionsCard mentions={this.props.profile.attributes['Mentions']}></MentionsCard>
             },
             {
                 name:'Hashtags',
@@ -103,6 +101,7 @@ class EngagementComponent extends React.Component {
     }
 
     render(){
+        console.log("Profile in engagement: ", this.state.profile);
   	return (
   	    <div style={{ height: '100%'}}>
               { this.state.menuComponent.name == 'Favorites' ?

@@ -39,6 +39,7 @@ class Main extends React.Component {
 
     refreshState(){
         console.log("Refreshing state");
+        console.log("New profile: ", this.state.profile);
         setTimeout(() => this.forceUpdate(), 10);
     }
 
@@ -433,6 +434,7 @@ var ProfileModel = Backbone.Model.extend({
         }
 
         this.listenTo(vent, `timeline_data:${ data.user_id }`, data => {
+            console.log("New data : ", data);
             this.onNewPostsData(data.timeline);
             this.loadFirstPosts();
             window.mainComponent.refreshState();

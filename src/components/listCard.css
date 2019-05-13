@@ -1,0 +1,36 @@
+.items-container {
+    width: 100%;
+}
+
+.item-bar-container {
+  width: 75%;
+  margin-right: 0;
+  display: inline-block;
+}
+
+.item-bar {
+  background-color: #4ec2ce;
+  display: inline-block;
+  border-radius: 3px;
+  padding-left: .25em;
+}
+
+.items-row {
+  margin-bottom: .5em;
+}
+
+.items-item-name a:link {
+  color: white;
+}
+
+.items-item-name a:visited {
+  color: white;
+}
+
+.title-bar {
+    font-size: 16.5pt;
+    color: #505050;
+    font-family: "Work Sans";
+    letter-spacing: 0.13px;
+    line-height: 25px;
+}

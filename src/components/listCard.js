@@ -1,22 +1,26 @@
 /*global chrome*/
 /* src/content.js */
 import React from 'react';
-import "./hashtagsCard.css";
+import "./listCard.css";
 import "antd/dist/antd.css";
 import { Card, Row, Col, Layout, Menu, Icon } from 'antd';
 
 const { Meta } = Card;
 const SubMenu = Menu.SubMenu;
 
-class HashtagsCard extends React.Component {
+class ListCard extends React.Component {
 
     constructor(props){
         super(props);
-        console.log("Hashtags: ", this.props.hashtags);
-        this.textHashtags = this.props.hashtags;
+        this.props.window.refreshState();
+        //console.log("Mentions: ", this.props.mentions);
+        //this.textItems = this.props.profile.attributes['Mentions'];
+        this.textItems = this.props.items;
     }
 
+
     handleClick(event){
+        //change the scroll height
         window.scrollTo(0,0);
         var old_div = document.getElementById("title-div");
         if (old_div != null){
@@ -36,25 +40,25 @@ class HashtagsCard extends React.Component {
             tag.style.display = "";
         }
 
-        var _hashtags = this.props.hashtags;
-        var target_hashtag = null;
+        var _items = this.textItems;
+        var target_item = null;
         var keyword = event.target.innerText;
         var target_div = document.getElementsByClassName("fx7hk")[0]
         var title_div =  document.createElement("div");
         title_div.id = "title-div";
 
-        _hashtags.forEach(hashtag =>{
-            if (hashtag['Keyword'] == keyword){
-                target_hashtag = hashtag;
+        _items.forEach(item =>{
+            if (item['Keyword'] == keyword){
+                target_item = item;
             }
         })
 
-        if(target_hashtag != null){
-            var posts_length = target_hashtag['Posts'].length
+        if(target_item != null){
+            var posts_length = target_item['Posts'].length
             if (posts_length > 0){
-                title_div.innerHTML="<div class='title-container'><span class='title-bar'>" + posts_length + " posts with hashtag " + keyword + ":" + "</span>";
+                title_div.innerHTML="<div class='title-container'><span class='title-bar'>" + posts_length + " posts mentioning " + keyword + ":" + "</span>";
             }
-            this.createDisplay([...target_hashtag['Posts']]);
+            this.createDisplay([...target_item['Posts']]);
             target_div.insertAdjacentElement("afterend", title_div);
         }
   	event.preventDefault();
@@ -83,7 +87,6 @@ class HashtagsCard extends React.Component {
             parent_div.insertAdjacentElement("afterend",image_row);
             //create row code
             subarray.forEach(item => {
-                console.log("Item being built: ", item);
                 var image = document.createElement("div");
                 image.setAttribute("class", "v1Nh3 kIKUG  _bz0w")
                 image.innerHTML = `<a href="/p/${item['shortcode']}/"><div class="eLAPa"><div class="KL4Bh"><img class="FFVAD" srcset=${item['display_url']} decoding="auto" sizes="293px" style="object-fit: cover;"></div><div class="_9AhH0"></div></div><div class="u7YqG"><span class="mediatypesSpriteCarousel__filled__32 u-__7" aria-label="カルーセル"></span></div></a>`
@@ -100,56 +103,54 @@ class HashtagsCard extends React.Component {
         });
     }
 
+    mapItems(items) {
 
-    //TODO-- hashtags, mentions, image content etc can reuse the same component -- no need for this
-    mapHashtags(hashtags) {
-
-        for (let hashtag of hashtags) {
+        for (let item of items) {
             //change frequency to percent
-            hashtag['percent'] = Math.floor(hashtag['Frequency'] * 10000)/100
-            let barLength = Math.round(parseFloat(hashtag.percent));
+            item['percent'] = Math.floor(item['Frequency'] * 10000)/100
+            let barLength = Math.round(parseFloat(item.percent));
             let barStyle = {
                 width: barLength <= 10 ? `${barLength}0%` : '100%'
           };
-            hashtag['barLength'] = barLength;
-            hashtag['barStyle'] = barStyle;
+            item['barLength'] = barLength;
+            item['barStyle'] = barStyle;
         }
 
-        const hashtagHTML = hashtags.map((hashtag) =>
+        const itemHTML = items.map((item) =>
                                          <React.Fragment
-                                           key={hashtag.name}
+                                           key={item.name}
                                          >
                                            <Col
                                              span={10}
-                                             className="hashtags-row"
+                                             className="items-row"
                                            >
-                                             <u className="hashtags-item-name" onClick={this.handleClick.bind(this)}><a href={hashtag['Link']}>{hashtag['Keyword']}</a></u>
+                                             <u className="items-item-name" onClick={this.handleClick.bind(this)}><a href={item['Link']}>{item['Keyword']}</a></u>
                                            </Col>
                                            <Col
                                              span={14}
-                                             className="hashtags-row"
+                                             className="items-row"
                                            >
-                                             <div className="hashtag-bar-container">
+                                             <div className="item-bar-container">
                                                <span
-                                                 className="hashtag-bar"
-                                                 style={hashtag.barStyle}
+                                                 className="item-bar"
+                                                 style={item.barStyle}
                                                >
-                                                 {hashtag['Num']}
+                                                 {item['Num']}
                                                </span>
-                                             </div><span>{hashtag.percent}%</span>
+                                             </div><span>{item.percent}%</span>
                                            </Col>
                                          </React.Fragment>
                                         );
-        return hashtagHTML;
+        return itemHTML;
     }
 
     render(){
   	return (
-            <Row type="flex" className="hashtags-container" justify="space-between" gutter={16}>
-              {this.mapHashtags(this.textHashtags)}
+            <Row type="flex" className="items-container" justify="space-between" gutter={16}>
+              {this.mapItems(this.textItems)}
             </Row>
   	);
     }
 }
 
-export default HashtagsCard;
+export default ListCard;
